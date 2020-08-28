@@ -5,8 +5,8 @@
     <version>0.1.0</version>
     <authors>Nils Andresen</authors>
     <owners>nils-a, cake-contrib</owners>
-    <summary>Adds the current cake-contrib icon to the project.</summary>
-    <description>Adds the current cake-contrib icon to the project.</description>
+    <summary>Adds cake-contrib guidelines to the project.</summary>
+    <description>Adds cake-contrib guidelines to the project.</description>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/nils-a/CakeContrib.Guidelines/</projectUrl>
     <repository type="git" url="https://github.com/nils-a/CakeContrib.Guidelines.git"/>
@@ -14,6 +14,6 @@
     <iconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
     <icon>images/icon.png</icon>
     <copyright>Copyright (c) Nils Andresen 2020</copyright>
-    <tags>Cake, Build, Automation, icon, Addin</tags>
+    <tags>cake, build, automation, guideline, addin</tags>
   </metadata>
 </package>
