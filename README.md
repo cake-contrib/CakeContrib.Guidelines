@@ -110,8 +110,8 @@ Thanks goes to these wonderful people ([emoji key][emoji-key]):
 [MIT License © Nils Andresen][license]
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[appveyor]: https://ci.appveyor.com/project/nilsa/cake-cake-contrib-icon
-[appveyorimage]: https://img.shields.io/appveyor/ci/nilsa/cake-cake-contrib-icon.svg?logo=appveyor&style=flat-square
+[appveyor]: https://ci.appveyor.com/project/nilsa/cakecontrib-guidelines
+[appveyorimage]: https://img.shields.io/appveyor/ci/nilsa/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
 [contrib-covenant]: https://www.contributor-covenant.org/version/1/4/code-of-conduct
 [contributing]: CONTRIBUTING.md
 [emoji-key]: https://allcontributors.org/docs/en/emoji-key
