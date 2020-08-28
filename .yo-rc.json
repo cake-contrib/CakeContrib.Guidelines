@@ -1,0 +1,20 @@
+{
+  "generator-cake-addin": {
+    "promptValues": {
+      "projectName": "CakeContrib.Guidelines",
+      "repositoryOwner": "nils-a",
+      "projectMaintainer": "nils-a",
+      "author": "Nils Andresen",
+      "description": "Adds cake-contrib guidelines to the project",
+      "licenseType": "MIT",
+      "sourceDir": "./src",
+      "scriptName": "recipe.cake",
+      "enableAllContributors": true,
+      "enableWyam": false,
+      "enableTravis": false,
+      "useTabs": false,
+      "indentSize": 4,
+      "indentYamlSize": 2
+    }
+  }
+}
