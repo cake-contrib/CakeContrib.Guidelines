@@ -3,9 +3,7 @@ create:
   footer-heading: Where to get it
   footer-content: >
     You can download this release from
-    [nuget](https://nuget.org/packages/CakeContrib.Guidelines/{milestone}),
-    or you can just reference it in a cake build script
-    with `#addin nuget:?package=CakeContrib.Guidelines&version={milestone}`.
+    [nuget](https://nuget.org/packages/CakeContrib.Guidelines/{milestone}).
   footer-includes-milestone: true
   milestone-replace-text: "{milestone}"
 export:
