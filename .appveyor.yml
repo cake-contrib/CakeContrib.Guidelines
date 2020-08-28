@@ -24,7 +24,7 @@ environment:
     secure: ewebzc7OtVghl3CNnZtfhvCQKxuUqvN88wDEx8VPpws=
   NUGET_API_KEY:
     secure: heCW3JN+PUrppwRyWP5bPmS4lnLk2iQBIJBwdWX0bQixPmVSHNr5w7ZDsVgO8V+I
-  NUGET_SOURCE: https://api.nuget.org/v2/package
+  NUGET_SOURCE: https://api.nuget.org/v3/index.json
   GITHUB_USERNAME: nils-a
   GITHUB_PASSWORD:
     secure: lp/5IRTs/lpD4z8nJYl5044IO0z/QsAnkzeXwQbdCam6TLzUdvJfy8OM4Oj392IB
