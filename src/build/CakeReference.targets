@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- 
+        Check Cake.Core and Cake.Common for the private-attribute
+        There is no true opt-out of this feature, as the opt-out is removing the reference to CakeContrib.Guidelines
+    -->
+    <Target Name="_CheckCakeReferenceIsPrivate" AfterTargets="BeforeBuild" BeforeTargets="CoreBuild">
+        <!-- use Batching to access all References -->
+        <Message 
+            Condition="'%(PackageReference.Identity)' == 'Cake.Core' Or '%(PackageReference.Identity)' == 'Cake.Common'" 
+            Importance="low" 
+            Text="%(PackageReference.Identity) has PrivateAssets:%(PackageReference.PrivateAssets)" />
+        <Error 
+            Condition="('%(PackageReference.Identity)' == 'Cake.Core' Or '%(PackageReference.Identity)' == 'Cake.Common') and %(PackageReference.PrivateAssets) != 'all'" 
+            Code="CCG0004" 
+            File="$(MSBuildProjectFullPath)" 
+            Text="%(PackageReference.Identity) should have PrivateAssets=&quot;All&quot;" />
+    </Target>
+</Project>
