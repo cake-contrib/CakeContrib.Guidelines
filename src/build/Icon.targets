@@ -5,23 +5,40 @@
         There is no opt-out of this feature, as the opt-out is removing the reference to CakeContrib.Guidelines
     -->
     <Target Name="_CopyCakeContribGuidelinesIcon" AfterTargets="BeforeBuild" BeforeTargets="CoreBuild">
-        <Copy SourceFiles="$(MSBuildThisFileDirectory)/../images/icon.png" DestinationFiles="$(MSBuildProjectDirectory)/$(CakeContribGuidelinesIconDestinationLocation)" />
-        <Message Text="Copied cake-contrib icon to $(MSBuildProjectDirectory)/$(CakeContribGuidelinesIconDestinationLocation)" Importance="high" />
-        <Message Condition="$(CakeContribGuidelinesIconOmitImport) != ''" Text="CakeContribGuidelinesIconOmitImport is set, so icon-include will be omitted" Importance="high" />
+        <Copy 
+            SourceFiles="$(MSBuildThisFileDirectory)/../images/icon.png" 
+            DestinationFiles="$(MSBuildProjectDirectory)/$(CakeContribGuidelinesIconDestinationLocation)" />
+        <Message 
+            Importance="normal"
+            Text="Copied cake-contrib icon to $(MSBuildProjectDirectory)/$(CakeContribGuidelinesIconDestinationLocation)" />
+        <Message 
+            Condition="$(CakeContribGuidelinesIconOmitImport) != ''" 
+            Importance="normal"
+            Text="CakeContribGuidelinesIconOmitImport is set, so icon-include will be omitted" />
         
         <!-- check PackageIcon -->
-        <Message Text="PackageIcon is set to $(PackageIcon)" Importance="low" />
+        <Message 
+            Importance="low"
+            Text="PackageIcon is set to $(PackageIcon)" />
         <Error 
             Condition="$(PackageIcon) == ''"
-            Code="CCG0001" File="$(MSBuildProjectFullPath)" Text="PackageIcon is empty. Since you're using CakeContrib.Guidelines the PackageIcon should be set." />
+            Code="CCG0001" 
+            File="$(MSBuildProjectFullPath)" 
+            Text="PackageIcon is empty. Since you're using CakeContrib.Guidelines the PackageIcon should be set." />
         <Warning
             Condition="$(PackageIcon) != '$(CakeContribGuidelinesIconDestinationLocation)'"
-            Code="CCG0003" File="$(MSBuildProjectFullPath)" Text="PackageIcon should point to $(CakeContribGuidelinesIconDestinationLocation)." />
+            Code="CCG0003" 
+            File="$(MSBuildProjectFullPath)" 
+            Text="PackageIcon should point to $(CakeContribGuidelinesIconDestinationLocation)." />
         
         <!-- check PackageIconUrl -->
-        <Message Text="PackageIconUrl is set to $(PackageIconUrl)" Importance="low" />
+        <Message 
+            Importance="low"
+            Text="PackageIconUrl is set to $(PackageIconUrl)" />
         <Warning 
             Condition="$(PackageIconUrl) == ''"
-            Code="CCG0002" File="$(MSBuildProjectFullPath)" Text="PackageIconUrl is empty. For compatibility it should be set." />
+            Code="CCG0002" 
+            File="$(MSBuildProjectFullPath)" 
+            Text="PackageIconUrl is empty. For compatibility it should be set." />
     </Target>
 </Project>

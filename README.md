@@ -12,6 +12,8 @@
 - [Install](#install)
 - [Guidelines](#guidelines)
   - [Icon](#icon)
+  - [PrivateAssets](#privateAssets)
+  - [List of Errors](#list-of-errors)
 - [Maintainer](#maintainer)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
@@ -62,7 +64,7 @@ The icon will be automatically included in the project, unless `CakeContribGuide
 
 To to use a "custom" import the following could be used:
 
-```
+```xml
 <PropertyGroup>
     <CakeContribGuidelinesIconOmitImport>1</CakeContribGuidelinesIconOmitImport>
 </PropertyGroup>
@@ -81,6 +83,19 @@ To to use a "custom" import the following could be used:
 * add a reference to CakeContrib.Guidelines
 * build the project
 * set `PackageIcon` to `icon.png`
+
+### PrivateAssets
+
+As the recommendation from upstream is always to have `Cake.Core` and `Cake.Common` set as private assets, this is checked on build.
+
+### List of Errors
+
+The following warnings/errors are defined:
+
+* `CCG0001` PackageIcon is empty: This error is raised, when `PackageIcon` is not set in project.
+* `CCG0002` PackageIconUrl is empty: This warning is raised, when `PackageIconUrl` is not set in project.
+* `CCG0003` PackageIcon should points to wrong place: This warning is raised, when `PackageIcon` does not point to the copied icon. (I.e. `PackageIcon` is not equal to `$(CakeContribGuidelinesIconDestinationLocation)`)
+* `CCG0004` Cake-reference has not set `PrivateAssets="all"`: This error is raised, when either `Cake.Core` or `Cake.Common` are referenced without having `PrivateAssets="all"` set.
 
 ## Maintainer
 
