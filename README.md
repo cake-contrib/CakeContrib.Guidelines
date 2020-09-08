@@ -1,17 +1,20 @@
 # CakeContrib.Guidelines
 
 [![standard-readme compliant][]][standard-readme]
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors)
+[![All Contributors][all-contributors-badge]](#contributors)
+[![Contributor Covenant][contrib-covenantimg]][contrib-covenant]
 [![Appveyor build][appveyorimage]][appveyor]
 [![NuGet package][nugetimage]][nuget]
 
-> Adds the cake-contrib default logo to the project
+Adds the cake-contrib default logo to the project
 
 ## Table of Contents
 
 - [Install](#install)
 - [Guidelines](#guidelines)
   - [Icon](#icon)
+  - [PrivateAssets](#privateAssets)
+  - [List of Errors](#list-of-errors)
 - [Maintainer](#maintainer)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
@@ -62,7 +65,7 @@ The icon will be automatically included in the project, unless `CakeContribGuide
 
 To to use a "custom" import the following could be used:
 
-```
+```xml
 <PropertyGroup>
     <CakeContribGuidelinesIconOmitImport>1</CakeContribGuidelinesIconOmitImport>
 </PropertyGroup>
@@ -81,6 +84,29 @@ To to use a "custom" import the following could be used:
 * add a reference to CakeContrib.Guidelines
 * build the project
 * set `PackageIcon` to `icon.png`
+
+### PrivateAssets
+
+As the recommendation from upstream is always to have `Cake.Core` and `Cake.Common` set as private assets, this is checked on build.
+
+#### Customizings
+
+It it possible to opt-out of the check for `PrivateAssets` using the following setting:
+
+```xml
+<PropertyGroup>
+    <CakeContribGuidelinesCakeReferenceOmitPrivateCheck>1</CakeContribGuidelinesCakeReferenceOmitPrivateCheck>
+</PropertyGroup>
+```
+
+### List of Errors
+
+The following warnings/errors are defined:
+
+* `CCG0001` PackageIcon is empty: This error is raised, when `PackageIcon` is not set in project.
+* `CCG0002` PackageIconUrl is empty: This warning is raised, when `PackageIconUrl` is not set in project.
+* `CCG0003` PackageIcon should points to wrong place: This warning is raised, when `PackageIcon` does not point to the copied icon. (I.e. `PackageIcon` is not equal to `$(CakeContribGuidelinesIconDestinationLocation)`)
+* `CCG0004` Cake-reference has not set `PrivateAssets="all"`: This error is raised, when either `Cake.Core` or `Cake.Common` are referenced without having `PrivateAssets="all"` set.
 
 ## Maintainer
 
@@ -110,9 +136,11 @@ Thanks goes to these wonderful people ([emoji key][emoji-key]):
 [MIT License © Nils Andresen][license]
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[appveyor]: https://ci.appveyor.com/project/nils-a/cakecontrib-guidelines
-[appveyorimage]: https://img.shields.io/appveyor/ci/nils-a/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
-[contrib-covenant]: https://www.contributor-covenant.org/version/1/4/code-of-conduct
+[all-contributors-badge]: https://img.shields.io/github/all-contributors/cake-contrib/CakeContrib.Guidelines/develop?&style=flat-square
+[appveyor]: https://ci.appveyor.com/project/cake-contrib/cakecontrib-guidelines
+[appveyorimage]: https://img.shields.io/appveyor/ci/cake-contrib/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
+[contrib-covenant]: https://www.contributor-covenant.org/version/2/0/code_of_conduct/
+[contrib-covenantimg]: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
 [contributing]: CONTRIBUTING.md
 [emoji-key]: https://allcontributors.org/docs/en/emoji-key
 [maintainer]: https://github.com/nils-a

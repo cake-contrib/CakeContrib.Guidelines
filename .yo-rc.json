@@ -2,7 +2,7 @@
   "generator-cake-addin": {
     "promptValues": {
       "projectName": "CakeContrib.Guidelines",
-      "repositoryOwner": "nils-a",
+      "repositoryOwner": "cake-contrib",
       "projectMaintainer": "nils-a",
       "author": "Nils Andresen",
       "description": "Adds cake-contrib guidelines to the project",

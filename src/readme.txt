@@ -9,4 +9,4 @@ Once you have built the project the "icon.png" will exist. After that open
 project-properties -> Package -> IconFile and input "icon.png"
 
 Is there more?
-Yes. Read the docs at https://github.com/nils-a/CakeContrib.Guidelines/
+Yes. Read the docs at https://github.com/cake-contrib/CakeContrib.Guidelines/
