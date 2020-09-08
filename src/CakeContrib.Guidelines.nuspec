@@ -4,12 +4,12 @@
     <id>CakeContrib.Guidelines</id>
     <version>0.1.0</version>
     <authors>Nils Andresen</authors>
-    <owners>nils-a, cake-contrib</owners>
+    <owners>nils-andresen, cake-contrib</owners>
     <summary>Adds cake-contrib guidelines to the project.</summary>
     <description>Adds cake-contrib guidelines to the project.</description>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/nils-a/CakeContrib.Guidelines/</projectUrl>
-    <repository type="git" url="https://github.com/nils-a/CakeContrib.Guidelines.git"/>
+    <projectUrl>https://github.com/cake-contrib/CakeContrib.Guidelines/</projectUrl>
+    <repository type="git" url="https://github.com/cake-contrib/CakeContrib.Guidelines.git"/>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
     <icon>images/icon.png</icon>

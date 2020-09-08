@@ -9,7 +9,7 @@ BuildParameters.SetParameters(
     nuspecFilePath: "./src/CakeContrib.Guidelines.nuspec",
     masterBranchName: "main",
     title: "CakeContrib.Guidelines",
-    repositoryOwner: "nils-a",
+    repositoryOwner: "cake-contrib",
     repositoryName: "CakeContrib.Guidelines",
     shouldRunGitVersion: true);
 
