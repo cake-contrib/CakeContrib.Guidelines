@@ -16,19 +16,6 @@ branches:
 test: off
 build: off
 
-environment:
-  MYGET_API_KEY:
-    secure: dW72zhkOiMdyLNCBVv43k41G154HEwwJ1zGQkbSFDgtb93lSDRyC+UMphCldMIo8
-  MYGET_SOURCE: https://www.myget.org/F/nils-a/api/v2/package
-  APPVEYOR_API_TOKEN:
-    secure: ewebzc7OtVghl3CNnZtfhvCQKxuUqvN88wDEx8VPpws=
-  NUGET_API_KEY:
-    secure: heCW3JN+PUrppwRyWP5bPmS4lnLk2iQBIJBwdWX0bQixPmVSHNr5w7ZDsVgO8V+I
-  NUGET_SOURCE: https://api.nuget.org/v3/index.json
-  GITHUB_USERNAME: nils-a
-  GITHUB_PASSWORD:
-    secure: lp/5IRTs/lpD4z8nJYl5044IO0z/QsAnkzeXwQbdCam6TLzUdvJfy8OM4Oj392IB
-
 build_script:
   - ps: .\build.ps1 -Target AppVeyor
 
