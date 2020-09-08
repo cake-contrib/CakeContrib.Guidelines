@@ -88,6 +88,16 @@ To to use a "custom" import the following could be used:
 
 As the recommendation from upstream is always to have `Cake.Core` and `Cake.Common` set as private assets, this is checked on build.
 
+#### Customizings
+
+It it possible to opt-out of the check for `PrivateAssets` using the following setting:
+
+```xml
+<PropertyGroup>
+    <CakeContribGuidelinesCakeReferenceOmitPrivateCheck>1</CakeContribGuidelinesCakeReferenceOmitPrivateCheck>
+</PropertyGroup>
+```
+
 ### List of Errors
 
 The following warnings/errors are defined:

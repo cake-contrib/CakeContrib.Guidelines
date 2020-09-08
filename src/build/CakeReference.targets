@@ -11,7 +11,7 @@
             Importance="low" 
             Text="%(PackageReference.Identity) has PrivateAssets:%(PackageReference.PrivateAssets)" />
         <Error 
-            Condition="('%(PackageReference.Identity)' == 'Cake.Core' Or '%(PackageReference.Identity)' == 'Cake.Common') and %(PackageReference.PrivateAssets) != 'all'" 
+            Condition="($(CakeContribGuidelinesCakeReferenceOmitPrivateCheck) == '') and ('%(PackageReference.Identity)' == 'Cake.Core' Or '%(PackageReference.Identity)' == 'Cake.Common') and (%(PackageReference.PrivateAssets) != 'all')" 
             Code="CCG0004" 
             File="$(MSBuildProjectFullPath)" 
             Text="%(PackageReference.Identity) should have PrivateAssets=&quot;All&quot;" />
