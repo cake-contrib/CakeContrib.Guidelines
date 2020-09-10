@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<id>https://cake-contrib.github.io/CakeContrib.Guidelines</id>
+	<title>CakeContrib.Guidelines</title>
+	<link rel="self" href="https://cake-contrib.github.io/CakeContrib.Guidelines" />
+	<rights>2020</rights>
+	<updated>2020-09-10T20:18:15Z</updated>
+</feed>

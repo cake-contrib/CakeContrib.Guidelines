@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - CakeContrib.Guidelines</title>
+        <title>CakeContrib.Guidelines - CakeContrib-Icon</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
 
         
     </head>
-    <body class="hold-transition wyam layout-boxed layout-top-nav ">    
+    <body class="hold-transition wyam layout-boxed  ">    
         <div class="top-banner"></div>
         <div class="wrapper with-container">
             <!-- Header -->
@@ -43,6 +43,10 @@
                          
                 <nav class="navbar navbar-static-top" role="navigation">
                     <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
                                         
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -54,7 +58,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">                            
-                                    <li><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
+                                    <li class="active"><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
         <li><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
  
                         </ul>       
@@ -66,10 +70,10 @@
             </header>
             
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="main-sidebar hidden">
+            <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/index.cshtml"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/guidelines/CakeContribIcon.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -79,6 +83,9 @@
 
                     <ul class="sidebar-menu">
                         
+
+                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/CakeContribIcon">CakeContrib-Icon</a></li>
+                <li><a href="/CakeContrib.Guidelines/guidelines/PrivateAssets">PrivateAssets in references</a></li>
 
                     </ul>
                             
@@ -92,37 +99,70 @@
 
 
 		<section class="content-header">
-			<h1>CakeContrib.Guidelines</h1>
+			<h1>CakeContrib-Icon</h1>
 		</section>
 	<section class="content">
-		<script>
-if(!document.location.href.endsWith("/")){
-  document.location.href = document.location.href + "/"; // or else the relative hyperlinks won't work...
-}
-</script>
+		<ul>
+<li><a href="#Goals">Goals</a></li>
+<li><a href="#Related-rules">Related rules</a></li>
+<li><a href="#Settings">Settings</a>
+<ul>
+<li><a href="#Icon-Location">Icon-Location</a></li>
+<li><a href="#Icon-include-in-project">Icon include in project</a></li>
+<li><a href="#migrating-from-an-existing-project">migrating from an existing project</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="goals">Goals</h2>
+<ul>
+<li>The current cake-contrib icon should be used as icon for the nupkg.</li>
+<li>The icon should be embedded in the nupkg. (See <a href="https://docs.microsoft.com/en-us/nuget/reference/nuspec#icon">Reference</a>)</li>
+<li>iconUrl should - for compatibility reasons - still be added.</li>
+</ul>
+<h2 id="related-rules">Related rules</h2>
+<ul>
+<li><a href="../rules/ccg0001">CCG0001</a></li>
+<li><a href="../rules/ccg0002">CCG0002</a></li>
+<li><a href="../rules/ccg0003">CCG0003</a></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>Using this package automatically enables this guideline.</p>
+<p>With no special settings at all (i.e. &quot;The Standard&quot;):</p>
+<ul>
+<li>the current cake-contrib icon will be copied as &quot;icon.png&quot; in the project-directory</li>
+<li>the icon will be included in the project</li>
+</ul>
+<h2 id="settings">Settings</h2>
+<h3 id="icon-location">Icon-Location</h3>
+<p>The default location of the icon is <code>icon.png</code>, next to the csproj (i.e. <code>$(MSBuildProjectDirectory)/icon.png</code>).</p>
+<p>Setting <code>CakeContribGuidelinesIconDestinationLocation</code> makes it possible to override the default location of the Icon. For example setting</p>
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;IconDestinationLocation&gt;../logo.png&lt;/IconDestinationLocation&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+<p>in the csproj will place the icon as <code>logo.png</code> one folder up (relative to the current project).</p>
+<h3 id="icon-include-in-project">Icon include in project</h3>
+<p>The icon will be automatically included in the project, unless <code>CakeContribGuidelinesIconOmitImport</code> was defined.</p>
+<p>To to use a &quot;custom&quot; import the following could be used:</p>
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;CakeContribGuidelinesIconOmitImport&gt;1&lt;/CakeContribGuidelinesIconOmitImport&gt;
+&lt;/PropertyGroup&gt;
+&lt;ItemGroup&gt;
+    &lt;None Include=&quot;$(CakeContribGuidelinesIconDestinationLocation)&quot;&gt;
+        &lt;Pack&gt;True&lt;/Pack&gt;
+        &lt;PackagePath&gt;&lt;/PackagePath&gt;
+    &lt;/None&gt;
+&lt;/ItemGroup&gt; 
+</code></pre>
+<h3 id="migrating-from-an-existing-project">migrating from an existing project</h3>
+<ul>
+<li>remove the existing icon</li>
+<li>remove the <code>Include</code> of the icon from the project-file</li>
+<li>add a reference to CakeContrib.Guidelines</li>
+<li>build the project</li>
+<li>set <code>PackageIcon</code> to <code>icon.png</code></li>
+</ul>
 
-<div class="container-fluid">
-  <h1>What is it?</h1>
-  <p>Guidelines for projects in cake-contrib.</p>
-
-  <h2>Where to get it</h2>
-  <p>
-    Officially published versions are available on
-    <a href="https://www.nuget.org/packages/CakeContrib.Guidelines/" target="_blank">NuGet</a>.
-  </p>
-
-  <h2>What does it do</h2>
-  <ul>
-      <li>
-          all guidelines (features) are documented in <a href="./guidelines">guidelines</a>.
-      </li>
-      <li>
-          additionally all checks (i.e. build-errors and -warnings) are documented in <a href="./rules">guidelines</a>.
-      </li>
-  </ul>
-  
-
-</div>
 	</section>
                 
             </div>           
