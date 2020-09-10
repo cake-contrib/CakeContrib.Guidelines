@@ -137,8 +137,8 @@ Thanks goes to these wonderful people ([emoji key][emoji-key]):
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [all-contributors-badge]: https://img.shields.io/github/all-contributors/cake-contrib/CakeContrib.Guidelines/develop?&style=flat-square
-[appveyor]: https://ci.appveyor.com/project/cake-contrib/cakecontrib-guidelines
-[appveyorimage]: https://img.shields.io/appveyor/ci/cake-contrib/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
+[appveyor]: https://ci.appveyor.com/project/cakecontrib/cakecontrib-guidelines
+[appveyorimage]: https://img.shields.io/appveyor/ci/cakecontrib/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
 [contrib-covenant]: https://www.contributor-covenant.org/version/2/0/code_of_conduct/
 [contrib-covenantimg]: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
 [contributing]: CONTRIBUTING.md
