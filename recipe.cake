@@ -9,6 +9,7 @@ BuildParameters.SetParameters(
     nuspecFilePath: "./src/CakeContrib.Guidelines.nuspec",
     masterBranchName: "main",
     title: "CakeContrib.Guidelines",
+    shouldPublishMyGet: false, // currently broken
     repositoryOwner: "cake-contrib",
     repositoryName: "CakeContrib.Guidelines",
     shouldDeployGraphDocumentation: false,
