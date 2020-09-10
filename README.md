@@ -6,7 +6,7 @@
 [![Appveyor build][appveyorimage]][appveyor]
 [![NuGet package][nugetimage]][nuget]
 
-Adds the cake-contrib default logo to the project
+Adds common guildelines to cake-contrib projects
 
 ## Table of Contents
 
