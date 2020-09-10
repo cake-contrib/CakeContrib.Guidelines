@@ -11,6 +11,7 @@ BuildParameters.SetParameters(
     title: "CakeContrib.Guidelines",
     repositoryOwner: "cake-contrib",
     repositoryName: "CakeContrib.Guidelines",
+    shouldDeployGraphDocumentation: false,
     shouldRunGitVersion: true);
 
 BuildParameters.PrintParameters(Context);

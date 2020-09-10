@@ -12,9 +12,6 @@ Adds common guildelines to cake-contrib projects
 
 - [Install](#install)
 - [Guidelines](#guidelines)
-  - [Icon](#icon)
-  - [PrivateAssets](#privateAssets)
-  - [List of Errors](#list-of-errors)
 - [Maintainer](#maintainer)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
@@ -39,74 +36,7 @@ See [NuGet](https://www.nuget.org/packages/CakeContrib.Guidelines/) for the curr
 
 ## Guidelines
 
-### Icon
-
-Using this package with no special settings at all (i.e. "The Standard"):
-* the current icon will be copied as "icon.png" in the project-directory
-* the icon will be included in the project
-
-#### Customizings
-
-##### Icon-Location
-The default location of the icon is `icon.png`, next to the csproj (i.e. `$(MSBuildProjectDirectory)/icon.png`).
-
-Setting `CakeContribGuidelinesIconDestinationLocation` makes it possible to override the default location of the Icon. For example setting 
-
-```xml
-<PropertyGroup>
-    <IconDestinationLocation>../logo.png</IconDestinationLocation>
-</PropertyGroup>
-```
-
-in the csproj will place the icon as `logo.png` one folder up (relative to the current project).
-
-##### Icon include in project
-The icon will be automatically included in the project, unless `CakeContribGuidelinesIconOmitImport` was defined.
-
-To to use a "custom" import the following could be used:
-
-```xml
-<PropertyGroup>
-    <CakeContribGuidelinesIconOmitImport>1</CakeContribGuidelinesIconOmitImport>
-</PropertyGroup>
-<ItemGroup>
-    <None Include="$(CakeContribGuidelinesIconDestinationLocation)">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-    </None>
-</ItemGroup> 
-```
-
-#### migrating from an existing project
-
-* remove the existing icon
-* remove the `Include` of the icon from the project-file
-* add a reference to CakeContrib.Guidelines
-* build the project
-* set `PackageIcon` to `icon.png`
-
-### PrivateAssets
-
-As the recommendation from upstream is always to have `Cake.Core` and `Cake.Common` set as private assets, this is checked on build.
-
-#### Customizings
-
-It it possible to opt-out of the check for `PrivateAssets` using the following setting:
-
-```xml
-<PropertyGroup>
-    <CakeContribGuidelinesCakeReferenceOmitPrivateCheck>1</CakeContribGuidelinesCakeReferenceOmitPrivateCheck>
-</PropertyGroup>
-```
-
-### List of Errors
-
-The following warnings/errors are defined:
-
-* `CCG0001` PackageIcon is empty: This error is raised, when `PackageIcon` is not set in project.
-* `CCG0002` PackageIconUrl is empty: This warning is raised, when `PackageIconUrl` is not set in project.
-* `CCG0003` PackageIcon should points to wrong place: This warning is raised, when `PackageIcon` does not point to the copied icon. (I.e. `PackageIcon` is not equal to `$(CakeContribGuidelinesIconDestinationLocation)`)
-* `CCG0004` Cake-reference has not set `PrivateAssets="all"`: This error is raised, when either `Cake.Core` or `Cake.Common` are referenced without having `PrivateAssets="all"` set.
+All [guidelines](https://cake-contrib.github.io/CakeContrib.Guidelines/) and [rules](https://cake-contrib.github.io/CakeContrib.Guidelines/rules) are documented at <https://cake-contrib.github.io/CakeContrib.Guidelines/>
 
 ## Maintainer
 
