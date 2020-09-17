@@ -36,7 +36,7 @@ See [NuGet](https://www.nuget.org/packages/CakeContrib.Guidelines/) for the curr
 
 ## Guidelines
 
-All [guidelines](https://cake-contrib.github.io/CakeContrib.Guidelines/) and [rules](https://cake-contrib.github.io/CakeContrib.Guidelines/rules) are documented at <https://cake-contrib.github.io/CakeContrib.Guidelines/>
+All [guidelines](https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines) and [rules](https://cake-contrib.github.io/CakeContrib.Guidelines/rules) are documented at <https://cake-contrib.github.io/CakeContrib.Guidelines/>
 
 ## Maintainer
 
