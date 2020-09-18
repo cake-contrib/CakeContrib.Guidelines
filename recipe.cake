@@ -1,4 +1,4 @@
-#load nuget:?package=Cake.Recipe&version=1.1.2
+#load nuget:https://pkgs.dev.azure.com/cake-contrib/Home/_packaging/addins%40Local/nuget/v3/index.json?package=Cake.Recipe&version=2.0.0-alpha0471&prerelease
 
 Environment.SetVariableNames();
 
@@ -9,14 +9,17 @@ BuildParameters.SetParameters(
     nuspecFilePath: "./src/CakeContrib.Guidelines.nuspec",
     masterBranchName: "main",
     title: "CakeContrib.Guidelines",
-    shouldPublishMyGet: false, // currently broken
-    repositoryOwner: "cake-contrib",
-    repositoryName: "CakeContrib.Guidelines",
-    shouldDeployGraphDocumentation: false,
-    shouldRunGitVersion: true);
+    shouldRunInspectCode: false, // not sure how to resolve all the false-positives
+    shouldRunDotNetCorePack: true,
+    repositoryOwner: "cake-contrib");
 
 BuildParameters.PrintParameters(Context);
 
-ToolSettings.SetToolSettings(context: Context);
+ToolSettings.SetToolSettings(
+    context: Context,
+    dupFinderExcludePattern: new string[] 
+    {
+        $"{BuildParameters.RootDirectoryPath}/{BuildParameters.SourceDirectoryPath}/**/*.AssemblyInfo.cs"
+    });
 
-Build.RunNuGet();
+Build.RunDotNetCore();

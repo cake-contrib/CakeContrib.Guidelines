@@ -11,6 +11,7 @@ Title: PrivateAssets in references
 ## Goals
 
 As the recommendation from upstream is always to have `Cake.Core` and `Cake.Common` set as private assets, this is checked on build.
+Additionally, references to `CakeContrib.Guidelines` and `Cake.Addin.Analyzer` are also checked.
 
 ## Related rules
 
