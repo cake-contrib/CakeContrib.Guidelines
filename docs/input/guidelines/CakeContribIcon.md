@@ -3,12 +3,19 @@ Order: 1
 Title: CakeContrib-Icon
 ---
 
-- [Goals](#Goals)
-- [Related rules](#Related-rules)
-- [Settings](#Settings)
-  - [Icon-Location](#Icon-Location)
-  - [Icon include in project](#Icon-include-in-project)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Goals](#goals)
+- [Related rules](#related-rules)
+- [Usage](#usage)
+- [Settings](#settings)
+  - [Icon-Location](#icon-location)
+  - [Icon include in project](#icon-include-in-project)
   - [migrating from an existing project](#migrating-from-an-existing-project)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Goals
 

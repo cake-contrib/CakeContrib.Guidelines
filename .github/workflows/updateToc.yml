@@ -1,0 +1,25 @@
+name: Update TOCs
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+
+jobs:
+  generateTOCs:
+    name: Generate all TOCs
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.3.2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.ref }}
+
+      - uses: technote-space/toc-generator@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
+          TARGET_PATHS: "."
+          TOC_TITLE: "## Table of Contents"
