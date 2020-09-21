@@ -3,6 +3,8 @@
 First and foremost, thank you! We appreciate that you want to contribute to CakeContrib.Guidelines,
 your time is valuable, and your contributions mean a lot to us.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
 - [Important](#important)
@@ -12,6 +14,8 @@ your time is valuable, and your contributions mean a lot to us.
   - [Creating an issue](#creating-an-issue)
   - [Closing issues](#closing-issues)
 - [Next steps](#next-steps)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Important
 

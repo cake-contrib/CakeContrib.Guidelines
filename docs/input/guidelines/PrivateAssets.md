@@ -3,10 +3,17 @@ Order: 2
 Title: PrivateAssets in references
 ---
 
-- [Goals](#Goals)
-- [Related rules](#Related-rules)
-- [Settings](#Settings)
-  - [Opt-Out](#Opt-Out)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Goals](#goals)
+- [Related rules](#related-rules)
+- [Usage](#usage)
+- [Settings](#settings)
+  - [Opt-Out](#opt-out)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Goals
 
