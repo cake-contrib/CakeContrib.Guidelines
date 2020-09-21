@@ -20,6 +20,6 @@ jobs:
 
       - uses: technote-space/toc-generator@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           TARGET_PATHS: "."
           TOC_TITLE: "## Table of Contents"
