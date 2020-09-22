@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
     <Target Name="RemoveMicrosoftBuildDllsFromOutput" AfterTargets="ResolveReferences">
         <PropertyGroup>
