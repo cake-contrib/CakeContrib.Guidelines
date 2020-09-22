@@ -60,6 +60,7 @@
                         <ul class="nav navbar-nav">                            
                                     <li><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
         <li class="active"><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
+        <li><a href="/CakeContrib.Guidelines/api">API</a></li>
  
                         </ul>       
                     </div>
@@ -107,11 +108,29 @@
 		<blockquote class="blockquote">
 <p>Cake-reference has not set <code>PrivateAssets=&quot;all&quot;</code></p>
 </blockquote>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#cause">Cause</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#how-to-fix-violations">How to fix violations</a></li>
+<li><a href="#related-guidelines">Related guidelines</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="cause">Cause</h2>
-<p>This error is raised, when either <code>Cake.Core</code> or <code>Cake.Common</code> are referenced without having <code>PrivateAssets=&quot;all&quot;</code> set.</p>
+<p>This error is raised, when one of the following packages is referenced without having <code>PrivateAssets=&quot;all&quot;</code> set.</p>
+<ul>
+<li>Cake.Addin.Analyzer</li>
+<li>Cake.Common</li>
+<li>Cake.Core</li>
+<li>CakeContrib.Guidelines</li>
+</ul>
 <h2 id="description">Description</h2>
 <p>References to <code>Cake.Core</code> or <code>Cake.Common</code> are usually only used for local compilation and should not
 be exposed to consuming packages.</p>
+<p>References to <code>Cake.Addin.Analyzer</code> and <code>CakeContrib.Guidelines</code> are only used to analyze the current project and
+should never be exposed to consuming packages.</p>
 <h2 id="how-to-fix-violations">How to fix violations</h2>
 <p>Add the attribute <code>PrivateAssets=&quot;all&quot;</code> to all required references.
 (Or opt-out of this rule, by setting <code>CakeContribGuidelinesCakeReferenceOmitPrivateCheck</code>)</p>
