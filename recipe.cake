@@ -9,6 +9,7 @@ BuildParameters.SetParameters(
     nuspecFilePath: "./src/CakeContrib.Guidelines.nuspec",
     masterBranchName: "main",
     title: "CakeContrib.Guidelines",
+    repositoryName: "CakeContrib.Guidelines", // workaround for https://github.com/cake-contrib/Cake.Recipe/issues/687
     shouldRunInspectCode: false, // not sure how to resolve all the false-positives
     shouldRunDotNetCorePack: true,
     repositoryOwner: "cake-contrib");
