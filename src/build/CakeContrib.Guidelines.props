@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
-  This file is automatically imported by NuGet into a user's project
-  when it targets a single framework, or in classic (pre 2017) csproj projects.
-  See https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#include-msbuild-props-and-targets-in-a-package
--->
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">    
-    <Import Project="$(MSBuildThisFileDirectory)Icon.props" />
-</Project>

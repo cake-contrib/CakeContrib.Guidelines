@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <IsPackageble>true</IsPackageble>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <StartYear>2020</StartYear>
+        <EndYear>$([System.DateTime]::Today.Year)</EndYear>
+        <FullYear Condition="'$(StartYear)'=='$(EndYear)'">$(StartYear)</FullYear>
+        <FullYear Condition="'$(StartYear)'!='$(EndYear)'">$(StartYear)-$(EndYear)</FullYear>
+
+        <!-- Properties related to packaging -->
+        <PackageId>CakeContrib.Guidelines</PackageId>
+        <Version>0.1.0</Version>
+        <Authors>Nils Andresen</Authors>
+        <Copyright>Copyright © $(FullYear) — Nils Andresen</Copyright>
+        <Description>Adds common guildelines to cake-contrib projects.</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/cake-contrib/CakeContrib.Guidelines/</PackageProjectUrl>
+        <PackageTags>cake, build, automation, guideline, addin</PackageTags>
+        <RepositoryUrl>https://github.com/cake-contrib/CakeContrib.Guidelines.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageIcon>images/icon.png</PackageIcon>
+        <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
+        <MinClientVersion>2.8</MinClientVersion>
+        <DevelopmentDependency>true</DevelopmentDependency>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="build/*" PackagePath="build/" Pack="true" />
+        <None Include="buildMultiTargeting/*" PackagePath="buildMultiTargeting/" Pack="true" />
+        <None Include="content/*" PackagePath="/" Pack="true" />
+        <None Include="images/*" PackagePath="images/" Pack="true" />
+        <None Include="tasks/**/*.*" PackagePath="tasks/" Pack="true" Exclude=".gitignore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\.editorconfig" Link=".editorconfig" />
+    </ItemGroup>
+</Project>
