@@ -12,6 +12,7 @@ BuildParameters.SetParameters(
     repositoryName: "CakeContrib.Guidelines", // workaround for https://github.com/cake-contrib/Cake.Recipe/issues/687
     shouldRunInspectCode: false, // not sure how to resolve all the false-positives
     shouldRunDotNetCorePack: true,
+    shouldDocumentSourceFiles: false,
     repositoryOwner: "cake-contrib");
 
 BuildParameters.PrintParameters(Context);
