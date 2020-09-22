@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <CakeContribGuidelinesIconDestinationLocation>../some.other.logo.png</CakeContribGuidelinesIconDestinationLocation>
+        <PackageIcon>../some.other.logo.png</PackageIcon>
+        <PackageIconUrl>https://project/path/to/icon</PackageIconUrl>
+    </PropertyGroup>
+
+</Project>
