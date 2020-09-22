@@ -34,7 +34,7 @@ Title: CakeContrib-Icon
 Using this package automatically enables this guideline.
 
 With no special settings at all (i.e. "The Standard"):
-* the current cake-contrib icon will be copied as "icon.png" in the project-directory
+* the current cake-contrib icon will be copied as "icon.png" in the project-directory 
 * the icon will be included in the project
 
 ## Settings
