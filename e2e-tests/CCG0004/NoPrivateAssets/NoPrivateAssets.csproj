@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageIcon>$(CakeContribGuidelinesIconDestinationLocation)</PackageIcon>
+        <PackageIconUrl>https://project/path/to/icon</PackageIconUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Cake.Core" Version="0.38.5" />
+    </ItemGroup>
+
+</Project>

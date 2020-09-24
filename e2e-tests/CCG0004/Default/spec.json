@@ -1,0 +1,6 @@
+{
+    "description": "Referencing Cake.Core with PrivateAssets yields no error",
+    "exitCode": 0,
+    "errors": [],
+    "warnings": [ ]
+}
