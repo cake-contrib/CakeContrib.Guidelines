@@ -33,10 +33,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <!-- not sure why the tests need version 15.1.0 while the "real" task references 16.x.x -->
-        <PackageReference Include="Microsoft.Build" Version="15.1.548" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.Build.Framework" Version="15.1.548" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.1.548" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Build" Version="16.6.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Build.Framework" Version="16.6.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.6.0" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
