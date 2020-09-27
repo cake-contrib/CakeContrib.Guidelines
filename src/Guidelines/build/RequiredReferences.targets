@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).RequiredReferences"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+
+    <Target
+        Name="_CheckRequiredReferences"
+        AfterTargets="BeforeBuild"
+        BeforeTargets="CoreBuild">
+        <ItemGroup>
+            <CakeContribGuidelinesRequiredReference Include="StyleCop.Analyzers" />
+        </ItemGroup>
+
+        <RequiredReferences
+            Required="@(CakeContribGuidelinesRequiredReference)"
+            Omitted="@(CakeContribGuidelinesOmitRecommendedReference)"
+            References="@(PackageReference)"
+            ProjectFile="$(MSBuildProjectFullPath)" />
+    </Target>
+</Project>
