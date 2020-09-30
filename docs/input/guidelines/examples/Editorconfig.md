@@ -1,3 +1,19 @@
+---
+Order: 1
+Title: Example for .editorconfig
+---
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Example](#example)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Example
+
+```sh
 # C# files
 [*.cs]
 
@@ -234,16 +250,8 @@ dotnet_naming_style.camelcase.required_suffix =
 dotnet_naming_style.camelcase.word_separator = 
 dotnet_naming_style.camelcase.capitalization = camel_case
 
-# other Rules:
+# Rules:
 
-# all dll should have documentaion - there's no need here. This dll is only consumed here..
-dotnet_diagnostic.SA0001.severity = none
-
-# files should have a header - maybe they should - need to think about this.
-dotnet_diagnostic.SA1633.severity = none
-
-# use this.
+# SA1101: Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = none
-
-# CA1819: Properties should not return arrays - for MSBuild, they have to.
-dotnet_diagnostic.CA1819.severity = none
+```

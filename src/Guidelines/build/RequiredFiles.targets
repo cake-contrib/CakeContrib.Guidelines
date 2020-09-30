@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).RequiredFileEditorconfig"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).RequiredFileStylecopJson"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+
+    <Target
+        Name="_CheckRequiredFiles"
+        AfterTargets="BeforeBuild"
+        BeforeTargets="CoreBuild">
+
+        <RequiredFileEditorconfig
+            OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"
+            ProjectFile="$(MSBuildProjectFullPath)" />
+
+        <RequiredFileStylecopJson
+            OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"
+            AdditionalFiles="@(AdditionalFiles)"
+            ProjectFile="$(MSBuildProjectFullPath)" />
+    </Target>
+</Project>

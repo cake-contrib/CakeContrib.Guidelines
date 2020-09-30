@@ -1,0 +1,6 @@
+{
+    "description": "not referencing stylecop.json yields a warning",
+    "exitCode": 0,
+    "errors": [],
+    "warnings": [ "CCG0006" ]
+}

@@ -1,4 +1,7 @@
+using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+
+using Moq;
 
 namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 {
@@ -8,6 +11,14 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public MockBuildEngine BuildEngine { get; }
 
         protected T Task { get; }
+
+        protected Mock<ITaskItem> GetMockTaskItem(string identity)
+        {
+            var item = new Mock<ITaskItem>();
+            item.Setup(x => x.ToString()).Returns(identity);
+            item.Setup(x => x.GetMetadata("Identity")).Returns(identity);
+            return item;
+        }
 
         public BaseBuildFixture()
         {

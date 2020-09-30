@@ -21,7 +21,8 @@ ToolSettings.SetToolSettings(
     context: Context,
     dupFinderExcludePattern: new string[] 
     {
-        $"{BuildParameters.RootDirectoryPath}/{BuildParameters.SourceDirectoryPath}/**/*.AssemblyInfo.cs"
+        $"{BuildParameters.RootDirectoryPath}/{BuildParameters.SourceDirectoryPath}/**/*.AssemblyInfo.cs",
+        $"{BuildParameters.RootDirectoryPath}/{BuildParameters.SourceDirectoryPath}/Tasks.Tests/**/*.cs"
     });
 
 Build.RunDotNetCore();

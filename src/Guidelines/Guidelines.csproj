@@ -36,8 +36,4 @@
         <None Include="images/*" PackagePath="images/" Pack="true" />
         <None Include="tasks/**/*.*" PackagePath="tasks/" Pack="true" Exclude=".gitignore" />
     </ItemGroup>
-
-    <ItemGroup>
-        <None Include="..\.editorconfig" Link=".editorconfig" />
-    </ItemGroup>
 </Project>

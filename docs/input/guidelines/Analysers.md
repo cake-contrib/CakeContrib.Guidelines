@@ -17,11 +17,17 @@ Title: Recommended References
 
 ## Goals
 
-To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers).
+To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers). Additionally code-style anlysis using StyleCopy (and code generation in the IDE) should be properly configured using a `stylecop.json`-file as well as `.editorconfig`-file, respectively.
+
+Example-Files can be found at:
+
+* [`stylecop.json`](./examples/StyleCopJson.md)
+* [`.editorconfig`](./examples/Editorconfig.md)
 
 ## Related rules
 
  * [CCG0005](../rules/ccg0005)
+ * [CCG0006](../rules/ccg0006)
 
 ## Usage
 
@@ -38,5 +44,14 @@ It it possible to opt-out of the check for StyleCop using the following setting:
 ```xml
 <ItemGroup>
     <CakeContribGuidelinesOmitRecommendedReference Include="StyleCop.Analyzers" />
+</ItemGroup>
+```
+
+It is also possible to opt-out of the check for configuration-files (`stylecop.json` as well as `.editorconfig`)
+using the following settings:
+```xml
+<ItemGroup>
+    <CakeContribGuidelinesOmitRecommendedConfigFile Include="stylecop.json" />
+    <CakeContribGuidelinesOmitRecommendedConfigFile Include=".editorconfig" />
 </ItemGroup>
 ```

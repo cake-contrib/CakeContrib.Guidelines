@@ -7,7 +7,7 @@ using Microsoft.Build.Utilities;
 namespace CakeContrib.Guidelines.Tasks
 {
     /// <summary>
-    /// The Task for the guideline <see href="https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines/Analysers"/>.
+    /// The Task to check for References for the guideline <see href="https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines/Analysers"/>.
     /// </summary>
     public class RequiredReferences : Task
     {
@@ -53,15 +53,15 @@ namespace CakeContrib.Guidelines.Tasks
                 }
 
                 Log.LogWarning(
-                             null,
-                             "CCG0005",
-                             string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                             ProjectFile ?? string.Empty,
-                             0,
-                             0,
-                             0,
-                             0,
-                             $"No reference to '{r}' found. Usage of '{r}' is strongly recommended");
+                    null,
+                    "CCG0005",
+                    string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
+                    ProjectFile ?? string.Empty,
+                    0,
+                    0,
+                    0,
+                    0,
+                    $"No reference to '{r}' found. Usage of '{r}' is strongly recommended");
             }
 
             return true;

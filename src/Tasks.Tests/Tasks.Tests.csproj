@@ -8,6 +8,13 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+        <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
+        <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="coverlet.msbuild" Version="2.9.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

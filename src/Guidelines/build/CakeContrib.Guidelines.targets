@@ -8,4 +8,5 @@
     <Import Project="$(MSBuildThisFileDirectory)Icon.targets" />
     <Import Project="$(MSBuildThisFileDirectory)PrivateAssets.targets" />
     <Import Project="$(MSBuildThisFileDirectory)RequiredReferences.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)RequiredFiles.targets" />
 </Project>
