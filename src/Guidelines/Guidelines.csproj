@@ -17,7 +17,7 @@
         <Version>0.1.0</Version>
         <Authors>Nils Andresen</Authors>
         <Copyright>Copyright © $(FullYear) — Nils Andresen</Copyright>
-        <Description>Adds common guildelines to cake-contrib projects.</Description>
+        <Description>Adds common guidelines to cake-contrib projects.</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/cake-contrib/CakeContrib.Guidelines/</PackageProjectUrl>
         <PackageTags>cake, build, automation, guideline, addin</PackageTags>
