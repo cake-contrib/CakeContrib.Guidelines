@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - Rules</title>
+        <title>CakeContrib.Guidelines - CCG0006</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -73,7 +73,7 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/rules/index.cshtml"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/rules/ccg0006.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -89,7 +89,7 @@
                 <li><a href="/CakeContrib.Guidelines/rules/ccg0003">CCG0003</a></li>
                 <li><a href="/CakeContrib.Guidelines/rules/ccg0004">CCG0004</a></li>
                 <li><a href="/CakeContrib.Guidelines/rules/ccg0005">CCG0005</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0006">CCG0006</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/rules/ccg0006">CCG0006</a></li>
 
                     </ul>
                             
@@ -103,49 +103,39 @@
 
 
 		<section class="content-header">
-			<h1>Rules</h1>
+			<h1>CCG0006</h1>
 		</section>
 	<section class="content">
-		
-			<div class="box">
-				<div class="box-body no-padding">
-					<table class="table table-striped table-hover two-cols-alt table-responsive">
-						
-						<tbody>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0001">CCG0001</a></strong></td>
-									<td>
-PackageIcon is empty									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0002">CCG0002</a></strong></td>
-									<td>
-PackageIconUrl is empty									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0003">CCG0003</a></strong></td>
-									<td>
-PackageIcon points to wrong place									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0004">CCG0004</a></strong></td>
-									<td>
-Cake-reference has not set `PrivateAssets=&quot;all&quot;`									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0005">CCG0005</a></strong></td>
-									<td>
-Usage of analysers is recommended									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0006">CCG0006</a></strong></td>
-									<td>
-Missing recommended configuraion-file									</td>
-								</tr>
-						</tbody>				
-					</table>
-				</div>
-			</div> 
+		<blockquote class="blockquote">
+<p>No reference to <code>.editorconfig</code> found. Usage of <code>.editorconfig</code> is strongly recommended.</p>
+</blockquote>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#cause">Cause</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#how-to-fix-violations">How to fix violations</a></li>
+<li><a href="#related-guidelines">Related guidelines</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h2 id="cause">Cause</h2>
+<p>This warning is raised, when a recommended configuration-file (i.e. <code>stylecop.json</code> or <code>.editorconfig</code>) can not be found.</p>
+<h2 id="description">Description</h2>
+<p>Code-Formatting and layout should be properly configured. This is done using
+blah and blah.</p>
+<h2 id="how-to-fix-violations">How to fix violations</h2>
+<p>Add a balh and blah to the project.</p>
+<p>Example-Files can be found at:</p>
+<ul>
+<li><a href="../guidelines/examples/StyleCopJson.md"><code>stylecop.json</code></a></li>
+<li><a href="../guidelines/examples/Editorconfig.md"><code>.editorconfig</code></a></li>
+</ul>
+<p>(Or opt-out of this rule, by setting <code>CakeContribGuidelinesOmitRecommendedConfigFile</code>)</p>
+<h2 id="related-guidelines">Related guidelines</h2>
+<ul>
+<li><a href="../guidelines/Analysers">Usage of Analysers</a></li>
+</ul>
 
 	</section>
                 

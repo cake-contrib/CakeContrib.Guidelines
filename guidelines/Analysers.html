@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - Rules</title>
+        <title>CakeContrib.Guidelines - Recommended References</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -58,8 +58,8 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">                            
-                                    <li><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
-        <li class="active"><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
+                                    <li class="active"><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
+        <li><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
  
                         </ul>       
                     </div>
@@ -73,7 +73,7 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/rules/index.cshtml"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/guidelines/Analysers.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -84,12 +84,18 @@
                     <ul class="sidebar-menu">
                         
 
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0001">CCG0001</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0002">CCG0002</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0003">CCG0003</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0004">CCG0004</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0005">CCG0005</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0006">CCG0006</a></li>
+                <li><a href="/CakeContrib.Guidelines/guidelines/CakeContribIcon">CakeContrib-Icon</a></li>
+                <li><a href="/CakeContrib.Guidelines/guidelines/PrivateAssets">PrivateAssets in references</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/Analysers">Recommended References</a></li>
+                <li class="treeview">
+                    <a href="/CakeContrib.Guidelines/guidelines/examples">Examples</a> <a href="#" class="expand"></a>
+                    <ul class="treeview-menu">
+                        
+                <li><a href="/CakeContrib.Guidelines/guidelines/examples/Editorconfig">Example for .editorconfig</a></li>
+                <li><a href="/CakeContrib.Guidelines/guidelines/examples/StyleCopJson">Example for stylecop.json</a></li>
+
+                    </ul>
+                </li>
 
                     </ul>
                             
@@ -103,49 +109,52 @@
 
 
 		<section class="content-header">
-			<h1>Rules</h1>
+			<h1>Recommended References</h1>
 		</section>
 	<section class="content">
-		
-			<div class="box">
-				<div class="box-body no-padding">
-					<table class="table table-striped table-hover two-cols-alt table-responsive">
-						
-						<tbody>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0001">CCG0001</a></strong></td>
-									<td>
-PackageIcon is empty									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0002">CCG0002</a></strong></td>
-									<td>
-PackageIconUrl is empty									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0003">CCG0003</a></strong></td>
-									<td>
-PackageIcon points to wrong place									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0004">CCG0004</a></strong></td>
-									<td>
-Cake-reference has not set `PrivateAssets=&quot;all&quot;`									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0005">CCG0005</a></strong></td>
-									<td>
-Usage of analysers is recommended									</td>
-								</tr>
-								<tr>
-									<td><strong><a href="/CakeContrib.Guidelines/rules/ccg0006">CCG0006</a></strong></td>
-									<td>
-Missing recommended configuraion-file									</td>
-								</tr>
-						</tbody>				
-					</table>
-				</div>
-			</div> 
+		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#goals">Goals</a></li>
+<li><a href="#related-rules">Related rules</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#settings">Settings</a>
+<ul>
+<li><a href="#opt-out">Opt-Out</a></li>
+</ul>
+</li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<h2 id="goals">Goals</h2>
+<p>To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of <a href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers">StyleCop</a>. Additionally code-style anlysis using StyleCopy (and code generation in the IDE) should be properly configured using a <code>stylecop.json</code>-file as well as <code>.editorconfig</code>-file, respectively.</p>
+<p>Example-Files can be found at:</p>
+<ul>
+<li><a href="./examples/StyleCopJson.md"><code>stylecop.json</code></a></li>
+<li><a href="./examples/Editorconfig.md"><code>.editorconfig</code></a></li>
+</ul>
+<h2 id="related-rules">Related rules</h2>
+<ul>
+<li><a href="../rules/ccg0005">CCG0005</a></li>
+<li><a href="../rules/ccg0006">CCG0006</a></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>Using this package automatically enables this guideline.</p>
+<h2 id="settings">Settings</h2>
+<h3 id="opt-out">Opt-Out</h3>
+<p>It it possible to opt-out of the check for StyleCop using the following setting:</p>
+<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedReference Include=&quot;StyleCop.Analyzers&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<p>It is also possible to opt-out of the check for configuration-files (<code>stylecop.json</code> as well as <code>.editorconfig</code>)
+using the following settings:</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedConfigFile Include=&quot;stylecop.json&quot; /&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedConfigFile Include=&quot;.editorconfig&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
 
 	</section>
                 
