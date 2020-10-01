@@ -8,6 +8,13 @@
 
     <ItemGroup>
       <PackageReference Include="Cake.Core" Version="0.38.5" />
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="$(ProjectDir)/../../../src/stylecop.json" Link="stylecop.json" />
     </ItemGroup>
 
 </Project>

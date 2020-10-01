@@ -6,35 +6,22 @@ using Moq;
 
 namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 {
-    public class CheckPrivateAssetsOnReferencesFixture
+    public class CheckPrivateAssetsOnReferencesFixture : BaseBuildFixture<CheckPrivateAssetsOnReferences>
     {
-        public MockBuildEngine BuildEngine { get; }
-
-        private readonly CheckPrivateAssetsOnReferences task;
-        private readonly List<ITaskItem> references;
         private readonly List<ITaskItem> packagesToCheck;
+        private readonly List<ITaskItem> references;
 
         public CheckPrivateAssetsOnReferencesFixture()
         {
-            BuildEngine = new MockBuildEngine();
-            task = new CheckPrivateAssetsOnReferences
-            {
-                BuildEngine = BuildEngine
-            };
-            packagesToCheck = new List<ITaskItem>();
             references = new List<ITaskItem>();
+            packagesToCheck = new List<ITaskItem>();
         }
 
-        public bool Execute()
+        public override bool Execute()
         {
-            task.References = references.ToArray();
-            task.PackagesToCheck = packagesToCheck.ToArray();
-            return task.Execute();
-        }
-
-        public void WithProjectFile(string fileName)
-        {
-            task.ProjectFile = fileName;
+            Task.References = references.ToArray();
+            Task.PackagesToCheck = packagesToCheck.ToArray();
+            return base.Execute();
         }
 
         public void WithPackageToCheck(string packageName)
@@ -42,6 +29,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             var packageToCheck = new Mock<ITaskItem>();
             packageToCheck.Setup(x => x.ToString()).Returns(packageName);
             packagesToCheck.Add(packageToCheck.Object);
+        }
+
+        public void WithProjectFile(string fileName)
+        {
+            Task.ProjectFile = fileName;
         }
 
         public void WithReferencedPackage(string packageName, string privateAssets = "")

@@ -61,7 +61,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests
                 ErrorDialog = false,
                 WorkingDirectory = Environment.CurrentDirectory,
                 FileName = "dotnet",
+#if NETCORE
+                Arguments = "build " + projFile
+#else
                 Arguments = "msbuild " + projFile
+#endif
             };
 
             var exitcode = -1;

@@ -1,0 +1,6 @@
+{
+    "description": "omitting StyleCop.Analyzers yields no warning",
+    "exitCode": 0,
+    "errors": [],
+    "warnings": [ ]
+}
