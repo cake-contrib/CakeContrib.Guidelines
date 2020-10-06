@@ -1,6 +1,0 @@
-{
-    "description": "not referencing StyleCop.Analyzers yields a warning",
-    "exitCode": 0,
-    "errors": [],
-    "warnings": [ "CCG0005" ]
-}

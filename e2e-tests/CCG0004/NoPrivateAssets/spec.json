@@ -1,6 +1,0 @@
-{
-    "description": "Referencing Cake.Core without PrivateAssets results in CCG0004 error",
-    "exitCode": 1,
-    "errors": [ "CCG0004" ],
-    "warnings": [ ]
-}

@@ -1,6 +1,0 @@
-{
-    "description": "PackageIconUrl-Tag mssing results in CCG0002 warning",
-    "exitCode": 0,
-    "errors": [],
-    "warnings": [ "CCG0002" ]
-}

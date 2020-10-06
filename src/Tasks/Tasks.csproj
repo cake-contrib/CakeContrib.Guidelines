@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
@@ -23,8 +23,6 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.Collections.Immutable" Version="1.7.1" CopyLocal="false" Publish="false" PrivateAssets="All" />
-        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
@@ -49,9 +47,7 @@
         <PropertyGroup>
             <TasksFolder>$(SolutionDir)/Guidelines/tasks/$(TargetFramework)</TasksFolder>
         </PropertyGroup>
-        <Copy SourceFiles="@(Dll)"
-              DestinationFolder="$(TasksFolder)" />
-        <Message Importance="high"
-                 Text="Copied %(Dll.Identity) to $(TasksFolder)" />
+        <Copy SourceFiles="@(Dll)" DestinationFolder="$(TasksFolder)" />
+        <Message Importance="high" Text="Copied %(Dll.Identity) to $(TasksFolder)" />
     </Target>
 </Project>

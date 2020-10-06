@@ -1,6 +1,0 @@
-{
-    "description": "missing PackageIcon-Tag results in CCG0001 error",
-    "exitCode": 1,
-    "errors": [ "CCG0001" ],
-    "warnings": []
-}
