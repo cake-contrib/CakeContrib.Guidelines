@@ -1,6 +1,0 @@
-{
-    "description": "PackageIcon-Tag with non-standard value results in CCG0003 warning",
-    "exitCode": 0,
-    "errors": [ ],
-    "warnings": [ "CCG0003" ]
-}

@@ -1,7 +1,7 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+
+using CakeContrib.Guidelines.Tasks.Testability;
 
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -16,6 +16,14 @@ namespace CakeContrib.Guidelines.Tasks
         private const string FileName = ".editorconfig";
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RequiredFileEditorconfig"/> class.
+        /// </summary>
+        public RequiredFileEditorconfig()
+        {
+            FileSearcher = new FileSearcher();
+        }
+
+        /// <summary>
         /// Gets or sets the project file.
         /// </summary>
         [Required]
@@ -26,6 +34,11 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         [Required]
         public ITaskItem[] OmitFiles { get; set; }
+
+        /// <summary>
+        /// Sets the FileSearcher. INTERNAL USE. replaced in unit-tests.
+        /// </summary>
+        internal IFileSearcher FileSearcher { private get; set; }
 
         /// <inheritdoc />
         public override bool Execute()
@@ -39,17 +52,9 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
-            var folder = Path.GetDirectoryName(ProjectFile);
-            var found = false;
-            while (folder != null && !found)
+            if (FileSearcher.HasFileInFolderStructure(ProjectFile, FileName))
             {
-                found = File.Exists(Path.Combine(folder, FileName));
-                if (found)
-                {
-                    return true;
-                }
-
-                folder = Path.GetDirectoryName(folder);
+                return true;
             }
 
             Log.LogWarning(

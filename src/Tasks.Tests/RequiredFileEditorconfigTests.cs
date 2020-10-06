@@ -8,17 +8,20 @@ using Xunit;
 
 namespace CakeContrib.Guidelines.Tasks.Tests
 {
-    public class RequiredFilesTests
+    public class RequiredFileEditorconfigTests
     {
-        // TODO: Use https://github.com/System-IO-Abstractions/System.IO.Abstractions
-        // to test the editorconfig-task?
+        private readonly RequiredFileEditorconfigFixture fixture;
+
+        public RequiredFileEditorconfigTests()
+        {
+            fixture = new RequiredFileEditorconfigFixture();
+        }
 
         [Fact]
-        public void RequiredStylecopJson_Should_Not_Warn_If_StylecopJson_Is_Referenced()
+        public void RequiredEditorconfig_Should_Not_Warn_If_Editorconfig_exists()
         {
             // given
-            var fixture = new RequiredFileStylecopJsonFixture();
-            fixture.WithAdditionalFile("some/path/to/a/stylecop.json");
+            fixture.WithExistingEditorconfig();
 
             // when
             fixture.Execute();
@@ -28,10 +31,10 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         }
 
         [Fact]
-        public void RequiredStylecopJson_Should_Warn_If_No_StylecopJson_Is_Referenced()
+        public void RequiredEditorconfig_Should_Warn_If_No_Editorconfig_exists()
         {
             // given
-            var fixture = new RequiredFileStylecopJsonFixture();
+            fixture.WithNonExistingEditorconfig();
 
             // when
             fixture.Execute();
@@ -43,11 +46,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         }
 
         [Fact]
-        public void RequiredStylecopJson_Should_Not_Warn_If_StylecopJson_Is_Omitted()
+        public void RequiredEditorconfig_Should_Not_Warn_If_Editorconfig_Is_Omitted()
         {
             // given
-            var fixture = new RequiredFileStylecopJsonFixture();
-            fixture.WithOmittedFile("stylecop.json");
+            fixture.WithNonExistingEditorconfig();
+            fixture.WithOmittedFile(".editorconfig");
 
             // when
             fixture.Execute();

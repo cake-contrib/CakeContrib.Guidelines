@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;</TargetFrameworks>
         <TargetFrameworks Condition="'$(OS)'!='Unix'">$(TargetFrameworks);net472</TargetFrameworks>
-        <AssemblyName>CakeContrib.Guidelines.Tasks.Tests</AssemblyName>
-        <RootNamespace>CakeContrib.Guidelines.Tasks.Tests</RootNamespace>
+        <AssemblyName>CakeContrib.Guidelines.Tasks.IntegrationTests</AssemblyName>
+        <RootNamespace>CakeContrib.Guidelines.Tasks.IntegrationTests</RootNamespace>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
