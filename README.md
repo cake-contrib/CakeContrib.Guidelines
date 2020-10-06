@@ -6,7 +6,7 @@
 [![Appveyor build][appveyorimage]][appveyor]
 [![NuGet package][nugetimage]][nuget]
 
-Adds common guildelines to cake-contrib projects
+Adds common guidelines to cake-contrib projects
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
