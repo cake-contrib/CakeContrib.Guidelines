@@ -22,6 +22,11 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public ITaskItem[] PackagesToCheck { get; set; }
 
+        /// <summary>
+        /// Gets or sets the project file.
+        /// </summary>
+        public string ProjectFile { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -43,7 +48,7 @@ namespace CakeContrib.Guidelines.Tasks
                             null,
                             "CCG0004",
                             string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                            string.Empty,
+                            ProjectFile ?? string.Empty,
                             0,
                             0,
                             0,

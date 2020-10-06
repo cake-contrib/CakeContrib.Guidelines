@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <!-- This inline task iterates over two Item-Arrays - msbuild batching simply can't. -->
-    <!-- TODO: This task should probably be in a dll with some tests.. -->
-    <UsingTask 
-        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CheckPrivateAssetsOnReferences" 
-        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)"/>
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CheckPrivateAssetsOnReferences"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
 
     <Target
-        Name="_CheckCakeReferenceIsPrivateIterator"
+        Name="_CheckPrivateAssets"
         AfterTargets="BeforeBuild"
         BeforeTargets="CoreBuild">
         <ItemGroup>
@@ -21,7 +19,7 @@
         <CheckPrivateAssetsOnReferences
             Condition="($(CakeContribGuidelinesCakeReferenceOmitPrivateCheck) == '')"
             PackagesToCheck="@(CakeContribGuidelinesPrivateReference)"
-            References="@(PackageReference)" />
+            References="@(PackageReference)"
+            ProjectFile="$(MSBuildProjectFullPath)" />
     </Target>
-
 </Project>

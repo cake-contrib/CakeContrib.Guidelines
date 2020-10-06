@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
@@ -7,20 +7,22 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <AdditionalFiles Include="$(SolutionDir)/stylecop.json" Link="stylecop.json" />
+        <None Include="$(SolutionDir)/.editorconfig" Link=".editorconfig" />
+    </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.3.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.Build.Framework" Version="16.3.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.7.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Build.Framework" Version="16.7.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
         <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.Collections.Immutable" Version="1.6.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
-        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
@@ -28,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
     <Target Name="RemoveMicrosoftBuildDllsFromOutput" AfterTargets="ResolveReferences">
         <PropertyGroup>
@@ -40,14 +42,12 @@
     </Target>
     <Target Name="CopyDllToGuidelines" AfterTargets="Build">
         <ItemGroup>
-            <Dll Include="$(TargetPath)"/>
+            <Dll Include="$(TargetPath)" />
         </ItemGroup>
         <PropertyGroup>
             <TasksFolder>$(SolutionDir)/Guidelines/tasks/$(TargetFramework)</TasksFolder>
         </PropertyGroup>
-        <Copy SourceFiles="@(Dll)"
-              DestinationFolder="$(TasksFolder)" />
-        <Message Importance="high"
-                 Text="Copied %(Dll.Identity) to $(TasksFolder)" />
+        <Copy SourceFiles="@(Dll)" DestinationFolder="$(TasksFolder)" />
+        <Message Importance="high" Text="Copied %(Dll.Identity) to $(TasksFolder)" />
     </Target>
 </Project>
