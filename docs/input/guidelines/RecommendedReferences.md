@@ -21,8 +21,8 @@ To have consistency in code-style among the different tools/plugins the use of A
 
 Example-Files can be found at:
 
-* [`stylecop.json`](./examples/StyleCopJson.md)
-* [`.editorconfig`](./examples/Editorconfig.md)
+* [`stylecop.json`](./examples/StyleCopJson)
+* [`.editorconfig`](./examples/Editorconfig)
 
 ## Related rules
 
