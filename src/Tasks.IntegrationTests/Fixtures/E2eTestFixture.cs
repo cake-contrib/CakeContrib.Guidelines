@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-
 using Xunit.Abstractions;
 
-namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
+namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 {
     public class E2eTestFixture : IDisposable
     {

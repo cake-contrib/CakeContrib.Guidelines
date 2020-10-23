@@ -1,14 +1,11 @@
 using System;
 using System.IO;
-
-using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
-
+using CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures;
 using FluentAssertions;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace CakeContrib.Guidelines.Tasks.Tests
+namespace CakeContrib.Guidelines.Tasks.IntegrationTests
 {
     // TODO: Writing things to disk is not deterministic...
     // TODO: Running Code-Coverage on the integration-tests breaks all tests
