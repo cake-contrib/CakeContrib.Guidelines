@@ -1,7 +1,10 @@
 using System;
 using System.IO;
+
 using CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures;
+
 using FluentAssertions;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -190,6 +193,36 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             result.IsErrorExitCode.Should().BeFalse();
             result.WarningLines.Should().Contain(l => l.IndexOf("CCG0006", StringComparison.Ordinal) > -1);
             result.WarningLines.Should().Contain(l => l.IndexOf(".editorconfig", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Missing_Required_Target_results_in_CCG0007_error()
+        {
+            // given
+            fixture.WithTargetFrameworks("net47");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeTrue();
+            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.ErrorLines.Should().Contain(l => l.IndexOf("netstandard2.0", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Missing_Suggested_Target_results_in_CCG0007_warning()
+        {
+            // given
+            fixture.WithTargetFrameworks("netstandard2.0");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.WarningLines.Should().Contain(l => l.IndexOf("net461", StringComparison.Ordinal) > -1);
         }
     }
 }

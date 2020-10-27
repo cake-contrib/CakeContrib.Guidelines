@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
 using Xunit.Abstractions;
 
 namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
@@ -17,7 +18,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private bool hasStylecopJson = true;
         private bool hasStylecopReference = true;
         private bool hasEditorConfig = true;
-        private List<string> customContent = new List<string>();
+        private readonly List<string> customContent = new List<string>();
+        private string targetFrameworks = "netstandard2.0;net461";
 
         public E2eTestFixture(string tempFolder, ITestOutputHelper logger)
         {
@@ -40,7 +42,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
     <Import Project=""{0}"" />
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>{5}</TargetFrameworks>
         {2}
     </PropertyGroup>
 
@@ -94,7 +96,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
                 targets.Item2,
                 string.Join(Environment.NewLine, properties),
                 string.Join(Environment.NewLine, items),
-                string.Join(Environment.NewLine, customContent)));
+                string.Join(Environment.NewLine, customContent),
+                targetFrameworks));
 
             return csproj;
         }
@@ -132,6 +135,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         internal void WithoutFileEditorconfig()
         {
             hasEditorConfig = false;
+        }
+
+        internal void WithTargetFrameworks(string targetFrameworks)
+        {
+            this.targetFrameworks = targetFrameworks;
         }
 
         private Tuple<string, string> GetTargetsToImport()
