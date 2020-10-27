@@ -35,7 +35,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.WithRequiredReferences("Some.Analyser");
 
             // when
-            var actual = fixture.Execute();
+            fixture.Execute();
 
             // then
             fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
@@ -54,7 +54,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.WithOmittedReferences(required);
 
             // when
-            var actual = fixture.Execute();
+            fixture.Execute();
 
             // then
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);

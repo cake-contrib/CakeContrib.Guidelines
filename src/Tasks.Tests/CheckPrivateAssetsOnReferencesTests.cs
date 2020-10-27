@@ -45,7 +45,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new CheckPrivateAssetsOnReferencesFixture();
-            fixture.WithReferencedPackage("Cake.Core", "");
+            fixture.WithReferencedPackage("Cake.Core");
             fixture.WithPackageToCheck("Cake.Core");
 
             // when
@@ -60,7 +60,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new CheckPrivateAssetsOnReferencesFixture();
-            fixture.WithReferencedPackage("Cake.Core", "");
+            fixture.WithReferencedPackage("Cake.Core");
             fixture.WithPackageToCheck("Cake.Core");
 
             // when
@@ -78,7 +78,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // given
             const string projectFileName = "some.project.csproj";
             var fixture = new CheckPrivateAssetsOnReferencesFixture();
-            fixture.WithReferencedPackage("Cake.Core", "");
+            fixture.WithReferencedPackage("Cake.Core");
             fixture.WithPackageToCheck("Cake.Core");
             fixture.WithProjectFile(projectFileName);
 

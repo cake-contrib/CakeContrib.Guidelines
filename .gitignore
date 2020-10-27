@@ -50,3 +50,6 @@ docs/input/tasks/*
 
 # Wyam related
 config.wyam.*
+
+# JetBrains Rider
+.idea/
