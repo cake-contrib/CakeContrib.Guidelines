@@ -8,6 +8,7 @@ Title: Target Frameworks
 ## Table of Contents
 
 - [Goals](#goals)
+  - [Required / Suggested versions](#required--suggested-versions)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
