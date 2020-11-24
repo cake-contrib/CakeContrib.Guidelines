@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.ref }}
 
-      - uses: technote-space/toc-generator@v2
+      - uses: technote-space/toc-generator@v3
         with:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           TARGET_PATHS: "."
