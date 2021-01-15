@@ -14,6 +14,7 @@ Adds common guidelines to cake-contrib projects
 
 - [Install](#install)
 - [Guidelines](#guidelines)
+- [Discussion](#discussion)
 - [Maintainer](#maintainer)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
@@ -41,6 +42,12 @@ See [NuGet](https://www.nuget.org/packages/CakeContrib.Guidelines/) for the curr
 ## Guidelines
 
 All [guidelines](https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines) and [rules](https://cake-contrib.github.io/CakeContrib.Guidelines/rules) are documented at <https://cake-contrib.github.io/CakeContrib.Guidelines/>
+
+## Discussion
+
+If you have questions, search for an existing one, or create a new discussion on the Cake GitHub repository, using the `extension-q-a` category.
+
+[![Join in the discussion on the Cake repository](https://img.shields.io/badge/GitHub-Discussions-green?logo=github)](https://github.com/cake-build/cake/discussions)
 
 ## Maintainer
 

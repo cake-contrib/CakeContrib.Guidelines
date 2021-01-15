@@ -53,3 +53,4 @@ config.wyam.*
 
 # JetBrains Rider
 .idea/
+.history/
