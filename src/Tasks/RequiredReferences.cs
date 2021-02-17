@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -52,15 +54,9 @@ namespace CakeContrib.Guidelines.Tasks
                     continue;
                 }
 
-                Log.LogWarning(
-                    null,
-                    "CCG0005",
-                    string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                    ProjectFile ?? string.Empty,
-                    0,
-                    0,
-                    0,
-                    0,
+                Log.CcgWarning(
+                    5,
+                    ProjectFile,
                     $"No reference to '{r}' found. Usage of '{r}' is strongly recommended");
             }
 

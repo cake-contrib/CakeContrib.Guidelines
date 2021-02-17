@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
 using CakeContrib.Guidelines.Tasks.Testability;
 
 using Microsoft.Build.Framework;
@@ -57,15 +58,9 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
-            Log.LogWarning(
-                null,
-                "CCG0006",
-                string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
+            Log.CcgWarning(
+                6,
                 ProjectFile,
-                0,
-                0,
-                0,
-                0,
                 $"No '{FileName}' found in folder-structure. Usage of '{FileName}' is strongly recommended.");
             return true;
         }
