@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 using Xunit.Abstractions;
 
@@ -20,6 +21,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private bool hasEditorConfig = true;
         private readonly List<string> customContent = new List<string>();
         private string targetFrameworks = "netstandard2.0;net461";
+        private readonly List<string> references = new List<string>();
 
         public E2eTestFixture(string tempFolder, ITestOutputHelper logger)
         {
@@ -90,6 +92,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
     <PrivateAssets>all</PrivateAssets>
 </PackageReference>");
             }
+            items.AddRange(references);
 
             File.WriteAllText(csproj, string.Format(template,
                 targets.Item1,
@@ -120,6 +123,28 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         internal void WithCustomContent(string content)
         {
             customContent.Add(content);
+        }
+
+        internal void WithPackageReference(
+            string packageName,
+            string version,
+            string privateAssets = null,
+            params Tuple<string, string>[] additionalAttributes)
+        {
+            var reference = new StringBuilder();
+            reference.Append($@"<PackageReference Include=""{packageName}"" Version=""{version}""");
+            if (privateAssets != null)
+            {
+                reference.Append($@" PrivateAssets=""{privateAssets}""");
+            }
+
+            foreach ((string key, string val) in additionalAttributes)
+            {
+                reference.Append($@" {key}=""{val}""");
+            }
+
+            reference.Append(" />");
+            references.Add(reference.ToString());
         }
 
         internal void WithoutStylecopReference()
