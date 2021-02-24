@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -61,15 +63,9 @@ namespace CakeContrib.Guidelines.Tasks
                 }
             }
 
-            Log.LogWarning(
-                null,
-                "CCG0006",
-                string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                ProjectFile ?? string.Empty,
-                0,
-                0,
-                0,
-                0,
+            Log.CcgWarning(
+                6,
+                ProjectFile,
                 $"No reference to '{SettingsFileName}' found. Usage of '{SettingsFileName}' is strongly recommended.");
 
             return true;

@@ -83,7 +83,9 @@ namespace CakeContrib.Guidelines.Tasks
 
             if (!Version.TryParse(cakeCore.GetMetadata("version"), out Version version))
             {
-                Log.LogWarning(
+                Log.CcgWarning(
+                    7,
+                    ProjectFile,
                     $"Cake.Core has a version of {cakeCore.GetMetadata("version")} which is not a valid version. Using default TargetVersions.");
                 return Execute(DefaultTarget);
             }
@@ -144,15 +146,9 @@ namespace CakeContrib.Guidelines.Tasks
                     continue;
                 }
 
-                Log.LogError(
-                    null,
-                    "CCG0007",
-                    string.Empty,
-                    ProjectFile ?? string.Empty,
-                    0,
-                    0,
-                    0,
-                    0,
+                Log.CcgError(
+                    7,
+                    ProjectFile,
                     "Missing required target: " + requiredTarget.Name);
                 return false;
             }
@@ -181,15 +177,9 @@ namespace CakeContrib.Guidelines.Tasks
                     continue;
                 }
 
-                Log.LogWarning(
-                    null,
-                    "CCG0007",
-                    string.Empty,
-                    ProjectFile ?? string.Empty,
-                    0,
-                    0,
-                    0,
-                    0,
+                Log.CcgWarning(
+                    7,
+                    ProjectFile,
                     "Missing suggested target: " + suggestedTarget.Name);
             }
 

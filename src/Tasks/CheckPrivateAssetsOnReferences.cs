@@ -1,5 +1,7 @@
 using System;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -44,15 +46,9 @@ namespace CakeContrib.Guidelines.Tasks
 
                     if (!privateAssets.Equals("all", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        Log.LogError(
-                            null,
-                            "CCG0004",
-                            string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                            ProjectFile ?? string.Empty,
-                            0,
-                            0,
-                            0,
-                            0,
+                        Log.CcgError(
+                            4,
+                            ProjectFile,
                             $"{pack} should have PrivateAssets=\"All\"");
                         return false;
                     }

@@ -10,5 +10,13 @@
         <CakeContribGuidelinesCustomTasksAssembly Condition="'$(MSBuildRuntimeType)' != 'Core'">$(MSBuildThisFileDirectory)/../tasks/net472/CakeContrib.Guidelines.Tasks.dll</CakeContribGuidelinesCustomTasksAssembly>
         <CakeContribGuidelinesCustomTasksNamespace>CakeContrib.Guidelines.Tasks</CakeContribGuidelinesCustomTasksNamespace>
     </PropertyGroup>
+
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CcgLogError"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CcgLogWarning"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+
     <Import Project="$(MSBuildThisFileDirectory)Icon.props" />
 </Project>
