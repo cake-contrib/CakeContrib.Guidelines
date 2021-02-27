@@ -132,13 +132,14 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="goals">Goals</h2>
-<p>As .NET Framework &lt; 4.7.2 has issues with running .NET Standard assemblies, and Cake itself can run on .NET Framework 4.6.1 it is suggested to multi-target addins to <code>netstandard2.0</code> and <code>net461</code> to have the maximum compatibility.</p>
+<p>Each addin should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are
+suggested, depending on the Cake.Core version that is being referenced.</p>
 <h3 id="required-suggested-versions">Required / Suggested versions</h3>
 <p>Depending on the referenced <code>Cake.Core</code>-version different target versions are required and/or suggested.
 Missing a required target version will raise <a href="../rules/ccg0007">CCG0007</a> as an error
 while missing a suggested target version will raise <a href="../rules/ccg0007">CCG0007</a> as a warning.</p>
 <ul>
-<li>Cake.Core &lt;= 0.33.0
+<li>Cake.Core &lt; 1.0.0
 <ul>
 <li>Required: <code>netstandard2.0</code></li>
 <li>Suggested: <code>net461</code>
@@ -146,6 +147,17 @@ while missing a suggested target version will raise <a href="../rules/ccg0007">C
 <li>alternative: <code>net46</code></li>
 </ul>
 </li>
+</ul>
+</li>
+<li>Cake.Core &gt;= 1.0.0
+<ul>
+<li>Required: <code>netstandard2.0</code></li>
+<li>Suggested: <code>net461</code>
+<ul>
+<li>alternative: <code>net46</code></li>
+</ul>
+</li>
+<li>Suggested: <code>net5.0</code></li>
 </ul>
 </li>
 </ul>

@@ -124,11 +124,11 @@
 <p>This warning is raised, when the addin is not targeted to a recommended target version.
 Also, This could be raised as an error, if a required target version is not set.</p>
 <h2 id="description">Description</h2>
-<p>Addins should be multi-targeted to <code>netstandard2.0</code> and <code>net461</code> to have the maximum compatibility.</p>
+<p>Addins should be multi-targeted to different framework versions to have the maximum compatibility.</p>
 <h2 id="how-to-fix-violations">How to fix violations</h2>
-<p>Add the recommended target(s) to the project:</p>
+<p>Add the recommended target(s) to the project (example for an addin referencing Cake.Core 1.0.0):</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
-  &lt;TargetFrameworks&gt;netstandard2.0;net472&lt;/TargetFrameworks&gt;
+  &lt;TargetFrameworks&gt;netstandard2.0;net461;net5.0&lt;/TargetFrameworks&gt;
 &lt;/PropertyGroup&gt;
 </code></pre>
 <p>(Or opt-out of this rule, by setting <code>CakeContribGuidelinesOmitTargetFramework</code>)</p>
