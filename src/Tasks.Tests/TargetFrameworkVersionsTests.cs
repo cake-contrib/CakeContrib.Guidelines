@@ -13,6 +13,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         private const string NetStandard20 = "netstandard2.0";
         private const string Net46 = "net46";
         private const string Net461 = "net461";
+        private const string Net50 = "net5.0";
 
         [Fact]
         public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted()
@@ -47,7 +48,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
-            fixture.WithTargetFramwork(NetStandard20);
+            fixture.WithTargetFramework(NetStandard20);
 
             // when
             fixture.Execute();
@@ -63,7 +64,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
-            fixture.WithTargetFramwork(NetStandard20);
+            fixture.WithTargetFramework(NetStandard20);
             fixture.WithOmittedTargetFramework(Net461);
 
             // when
@@ -79,7 +80,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
-            fixture.WithTargetFramworks(NetStandard20, Net461);
+            fixture.WithTargetFrameworks(NetStandard20, Net461);
 
             // when
             fixture.Execute();
@@ -94,7 +95,40 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
-            fixture.WithTargetFramworks(NetStandard20, Net46);
+            fixture.WithTargetFrameworks(NetStandard20, Net46);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Warn_If_Net5_is_missing_and_Cake_Version_is_1_0_0()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
+            fixture.WithTargetFrameworks(NetStandard20, Net461);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
+            fixture.BuildEngine.WarningEvents.First().Message.Should().Contain(Net50);
+        }
+
+        [Fact]
+        public void Should_Not_Warn_If_All_References_for_Cake_Version_is_1_0_0_is_present()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
+            fixture.WithTargetFrameworks(NetStandard20, Net461, Net50);
 
             // when
             fixture.Execute();

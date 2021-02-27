@@ -103,10 +103,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Referencing_Cake_Core_with_PrivateAssets_results_in_no_error()
         {
             // given
-            fixture.WithCustomContent($@"
-<ItemGroup>
-      <PackageReference Include=""Cake.Core"" Version=""0.38.5"" PrivateAssets=""all"" />
-</ItemGroup>");
+            fixture.WithPackageReference("Cake.Core", "0.38.5", "all");
 
             // when
             var result = fixture.Run();
@@ -120,10 +117,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Referencing_Cake_Core_without_PrivateAssets_results_in_CCG0004_error()
         {
             // given
-            fixture.WithCustomContent($@"
-<ItemGroup>
-      <PackageReference Include=""Cake.Core"" Version=""0.38.5"" />
-</ItemGroup>");
+            fixture.WithPackageReference("Cake.Core", "0.38.5");
 
             // when
             var result = fixture.Run();
@@ -223,6 +217,37 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             result.IsErrorExitCode.Should().BeFalse();
             result.WarningLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
             result.WarningLines.Should().Contain(l => l.IndexOf("net461", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Missing_Suggested_Target_net5_for_Cake_v100_results_in_CCG0007_warning()
+        {
+            // given
+            fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
+            fixture.WithTargetFrameworks("netstandard2.0;net461");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.WarningLines.Should().Contain(l => l.IndexOf("net5.0", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Referencing_CakeCore_With_all_targets_raises_no_warning()
+        {
+            // given
+            fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
+            fixture.WithTargetFrameworks("netstandard2.0;net461;net5.0");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().BeEmpty();
         }
     }
 }

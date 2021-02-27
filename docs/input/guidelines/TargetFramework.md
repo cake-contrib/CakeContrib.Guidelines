@@ -18,7 +18,8 @@ Title: Target Frameworks
 
 ## Goals
 
-As .NET Framework < 4.7.2 has issues with running .NET Standard assemblies, and Cake itself can run on .NET Framework 4.6.1 it is suggested to multi-target addins to `netstandard2.0` and `net461` to have the maximum compatibility.
+Each addin should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are 
+suggested, depending on the Cake.Core version that is being referenced. 
 
 ### Required / Suggested versions
 
@@ -26,10 +27,15 @@ Depending on the referenced `Cake.Core`-version different target versions are re
 Missing a required target version will raise [CCG0007](../rules/ccg0007) as an error
 while missing a suggested target version will raise [CCG0007](../rules/ccg0007) as a warning.
 
-* Cake.Core <= 0.33.0
+* Cake.Core < 1.0.0
   * Required: `netstandard2.0`
   * Suggested: `net461`
     * alternative: `net46`
+* Cake.Core >= 1.0.0
+  * Required: `netstandard2.0`
+  * Suggested: `net461`
+    * alternative: `net46`
+  * Suggested: `net5.0`
 
 ## Related rules
 

@@ -12,7 +12,7 @@
         <!-- All other rules have some "configuration" here, this rules required/suggested targets are hard-coded in the task. Sadly. -->
 
         <TargetFrameworkVersions
-            References="@(Reference)"
+            References="@(PackageReference)"
             TargetFramework="$(TargetFramework)"
             TargetFrameworks="$(TargetFrameworks)"
             Omitted="@(CakeContribGuidelinesOmitTargetFramework)"
