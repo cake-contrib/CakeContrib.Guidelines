@@ -56,9 +56,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             references.Add(cakeRef.Object);
         }
 
-        public void WithProjectFile(string fileName)
+        public void WithProjectType(string projectType)
         {
-            Task.ProjectFile = fileName;
+            Task.ProjectType = projectType;
         }
     }
 }

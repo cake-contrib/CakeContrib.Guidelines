@@ -137,5 +137,37 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
         }
+
+        [Fact]
+        public void Should_Error_If_ProjectType_Is_Module_And_Reference_Is_Missing()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
+            fixture.WithProjectType("module");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Should_Not_Warn_If_ProjectType_Is_Module_And_Reference_Is_NetStandard()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
+            fixture.WithTargetFramework("netstandard2.0");
+            fixture.WithProjectType("module");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
     }
 }

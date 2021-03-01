@@ -252,6 +252,25 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         }
 
         [Fact]
+        public void Referencing_CakeCore_With_NetStandard_raises_no_warning_If_PackageType_Is_Module()
+        {
+            // given
+            fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
+            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <PackageId>Cake.Buildsystems.Module</PackageId>
+</PropertyGroup>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().BeEmpty();
+        }
+
+        [Fact]
         public void ProjectType_Default_Is_Addin()
         {
             // given
