@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures;
 
@@ -248,6 +249,142 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             // then
             result.IsErrorExitCode.Should().BeFalse();
             result.WarningLines.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ProjectType_Default_Is_Addin()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<Target Name=""ForTest""
+  AfterTargets=""BeforeBuild""
+  BeforeTargets=""CoreBuild""
+  DependsOnTargets=""EnsureProjectTypeIsSet"">
+
+  <Warning Text=""!FOR-TEST!:$(CakeContribGuidelinesProjectType)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("Addin");
+        }
+
+        [Fact]
+        public void ProjectType_Manually_Set_Is_Not_Overridden()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <CakeContribGuidelinesProjectType>MyCustomProjectType</CakeContribGuidelinesProjectType>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  AfterTargets=""BeforeBuild""
+  BeforeTargets=""CoreBuild""
+  DependsOnTargets=""EnsureProjectTypeIsSet"">
+
+  <Warning Text=""!FOR-TEST!:$(CakeContribGuidelinesProjectType)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("MyCustomProjectType");
+        }
+
+        [Fact]
+        public void ProjectType_When_Assembly_Is_Module_Is_Module()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <AssemblyName>Cake.Buildsystems.Module</AssemblyName>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  AfterTargets=""BeforeBuild""
+  BeforeTargets=""CoreBuild""
+  DependsOnTargets=""EnsureProjectTypeIsSet"">
+
+  <Warning Text=""!FOR-TEST!:$(CakeContribGuidelinesProjectType)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("Module");
+        }
+
+        [Fact]
+        public void ProjectType_When_PackageId_Is_Module_Is_Module()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <PackageId>Cake.Buildsystems.Module</PackageId>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  AfterTargets=""BeforeBuild""
+  BeforeTargets=""CoreBuild""
+  DependsOnTargets=""EnsureProjectTypeIsSet"">
+
+  <Warning Text=""!FOR-TEST!:$(CakeContribGuidelinesProjectType)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("Module");
+        }
+
+        [Fact]
+        public void ProjectType_When_Assembly_Is_Not_Module_Is_Addin()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <AssemblyName>Cake.7zip</AssemblyName>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  AfterTargets=""BeforeBuild""
+  BeforeTargets=""CoreBuild""
+  DependsOnTargets=""EnsureProjectTypeIsSet"">
+
+  <Warning Text=""!FOR-TEST!:$(CakeContribGuidelinesProjectType)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("Addin");
         }
     }
 }
