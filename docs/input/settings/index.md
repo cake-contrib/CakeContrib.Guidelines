@@ -9,8 +9,15 @@ NoSidebar: true
 ## Table of Contents
 
 - [General](#general)
+  - [ProjectType](#projecttype)
 - [Icons](#icons)
+  - [IconDestinationLocation](#icondestinationlocation)
+  - [IconOmitImport](#iconomitimport)
 - [Opt-Out](#opt-out)
+  - [OmitRecommendedConfigFile](#omitrecommendedconfigfile)
+  - [OmitRecommendedReference](#omitrecommendedreference)
+  - [OmitPrivateCheck](#omitprivatecheck)
+  - [OmitTargetFramework](#omittargetframework)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

@@ -13,7 +13,7 @@ Title: CakeContrib-Icon
 - [Settings](#settings)
   - [Icon-Location](#icon-location)
   - [Icon include in project](#icon-include-in-project)
-  - [migrating from an existing project](#migrating-from-an-existing-project)
+- [Migrating from an existing project](#migrating-from-an-existing-project)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
