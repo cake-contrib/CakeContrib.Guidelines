@@ -60,6 +60,7 @@
                         <ul class="nav navbar-nav">                            
                                     <li><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
         <li class="active"><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
+        <li><a href="/CakeContrib.Guidelines/settings">Settings</a></li>
  
                         </ul>       
                     </div>
@@ -134,8 +135,7 @@ be exposed to consuming packages.</p>
 <p>References to <code>Cake.Addin.Analyzer</code> and <code>CakeContrib.Guidelines</code> are only used to analyze the current project and
 should never be exposed to consuming packages.</p>
 <h2 id="how-to-fix-violations">How to fix violations</h2>
-<p>Add the attribute <code>PrivateAssets=&quot;all&quot;</code> to all required references.
-(Or opt-out of this rule, by setting <code>CakeContribGuidelinesCakeReferenceOmitPrivateCheck</code>)</p>
+<p>Add the attribute <code>PrivateAssets=&quot;all&quot;</code> to all required references.</p>
 <h2 id="related-guidelines">Related guidelines</h2>
 <ul>
 <li><a href="../guidelines/PrivateAssets">PrivateAssets in references</a></li>

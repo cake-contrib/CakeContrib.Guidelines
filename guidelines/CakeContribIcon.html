@@ -60,6 +60,7 @@
                         <ul class="nav navbar-nav">                            
                                     <li class="active"><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
         <li><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
+        <li><a href="/CakeContrib.Guidelines/settings">Settings</a></li>
  
                         </ul>       
                     </div>
@@ -124,9 +125,9 @@
 <ul>
 <li><a href="#icon-location">Icon-Location</a></li>
 <li><a href="#icon-include-in-project">Icon include in project</a></li>
-<li><a href="#migrating-from-an-existing-project">migrating from an existing project</a></li>
 </ul>
 </li>
+<li><a href="#migrating-from-an-existing-project">Migrating from an existing project</a></li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="goals">Goals</h2>
@@ -150,15 +151,21 @@
 </ul>
 <h2 id="settings">Settings</h2>
 <h3 id="icon-location">Icon-Location</h3>
-<p>The default location of the icon is <code>icon.png</code>, next to the csproj (i.e. <code>$(MSBuildProjectDirectory)/icon.png</code>).</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>The default location of the cake-contrib icon is <code>icon.png</code>, next to the csproj (i.e. <code>$(MSBuildProjectDirectory)/icon.png</code>).</p>
 <p>Setting <code>CakeContribGuidelinesIconDestinationLocation</code> makes it possible to override the default location of the Icon. For example setting</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;IconDestinationLocation&gt;../logo.png&lt;/IconDestinationLocation&gt;
+    &lt;CakeContribGuidelinesIconDestinationLocation&gt;../logo.png&lt;/CakeContribGuidelinesIconDestinationLocation&gt;
 &lt;/PropertyGroup&gt;
 </code></pre>
 <p>in the csproj will place the icon as <code>logo.png</code> one folder up (relative to the current project).</p>
 <h3 id="icon-include-in-project">Icon include in project</h3>
-<p>The icon will be automatically included in the project, unless <code>CakeContribGuidelinesIconOmitImport</code> was defined.</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>The cake-contrib icon will be automatically included in the project, unless <code>CakeContribGuidelinesIconOmitImport</code> was defined.</p>
 <p>To to use a &quot;custom&quot; import the following could be used:</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
     &lt;CakeContribGuidelinesIconOmitImport&gt;1&lt;/CakeContribGuidelinesIconOmitImport&gt;
@@ -170,7 +177,7 @@
     &lt;/None&gt;
 &lt;/ItemGroup&gt; 
 </code></pre>
-<h3 id="migrating-from-an-existing-project">migrating from an existing project</h3>
+<h2 id="migrating-from-an-existing-project">Migrating from an existing project</h2>
 <ul>
 <li>remove the existing icon</li>
 <li>remove the <code>Include</code> of the icon from the project-file</li>

@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - CCG0007</title>
+        <title>CakeContrib.Guidelines - Omittargetframework</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -59,8 +59,8 @@
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">                            
                                     <li><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
-        <li class="active"><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
-        <li><a href="/CakeContrib.Guidelines/settings">Settings</a></li>
+        <li><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
+        <li class="active"><a href="/CakeContrib.Guidelines/settings">Settings</a></li>
  
                         </ul>       
                     </div>
@@ -74,7 +74,7 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/rules/ccg0007.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/settings/fragments/OmitTargetFramework.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -85,13 +85,19 @@
                     <ul class="sidebar-menu">
                         
 
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0001">CCG0001</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0002">CCG0002</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0003">CCG0003</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0004">CCG0004</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0005">CCG0005</a></li>
-                <li><a href="/CakeContrib.Guidelines/rules/ccg0006">CCG0006</a></li>
-                <li class="selected"><a href="/CakeContrib.Guidelines/rules/ccg0007">CCG0007</a></li>
+                <li class="treeview active">
+                    <a href="/CakeContrib.Guidelines/settings/fragments">Fragments</a> <a href="#" class="expand"></a>
+                    <ul class="treeview-menu">
+                        
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/IconDestinationLocation">Icondestinationlocation</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/IconOmitImport">Iconomitimport</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/settings/fragments/OmitTargetFramework">Omittargetframework</a></li>
+
+                    </ul>
+                </li>
 
                     </ul>
                             
@@ -105,37 +111,20 @@
 
 
 		<section class="content-header">
-			<h1>CCG0007</h1>
+			<h1>Omittargetframework</h1>
 		</section>
 	<section class="content">
-		<blockquote class="blockquote">
-<p>Missing required target: netstandard2.0</p>
-</blockquote>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#cause">Cause</a></li>
-<li><a href="#description">Description</a></li>
-<li><a href="#how-to-fix-violations">How to fix violations</a></li>
-<li><a href="#related-guidelines">Related guidelines</a></li>
-</ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<h2 id="cause">Cause</h2>
-<p>This warning is raised, when the addin is not targeted to a recommended target version.
-Also, This could be raised as an error, if a required target version is not set.</p>
-<h2 id="description">Description</h2>
-<p>Addins should be multi-targeted to different framework versions to have the maximum compatibility.</p>
-<h2 id="how-to-fix-violations">How to fix violations</h2>
-<p>Add the recommended target(s) to the project (example for an addin referencing Cake.Core 1.0.0):</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-  &lt;TargetFrameworks&gt;netstandard2.0;net461;net5.0&lt;/TargetFrameworks&gt;
-&lt;/PropertyGroup&gt;
+<p>It it possible to opt-out of the check for target framework(s) by using the <code>CakeContribGuidelinesOmitTargetFramework</code> setting
+and setting it's <code>Include</code> to the target framework that should not be checked.</p>
+<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+    &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;netstandard2.0&quot; /&gt;
+    &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;net461&quot; /&gt;
+&lt;/ItemGroup&gt;
 </code></pre>
-<h2 id="related-guidelines">Related guidelines</h2>
-<ul>
-<li><a href="../guidelines/TargetFramework">Target Frameworks</a></li>
-</ul>
 
 	</section>
                 
