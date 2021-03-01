@@ -49,13 +49,4 @@ Using this package automatically enables this guideline.
 
 ### Opt-Out
 
-It it possible to opt-out of the check for target framework using the following setting:
-
-(*Keep in mind, though that it is not recommended to opt-out of this feature*)
-
-```xml
-<ItemGroup>
-    <CakeContribGuidelinesOmitTargetFramework Include="netstandard2.0" />
-    <CakeContribGuidelinesOmitTargetFramework Include="net461" />
-</ItemGroup>
-```
+<?! Include "../settings/fragments/OmitTargetFramework.md" /?>

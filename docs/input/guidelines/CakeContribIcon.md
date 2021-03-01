@@ -40,36 +40,12 @@ With no special settings at all (i.e. "The Standard"):
 ## Settings
 
 ### Icon-Location
-The default location of the icon is `icon.png`, next to the csproj (i.e. `$(MSBuildProjectDirectory)/icon.png`).
-
-Setting `CakeContribGuidelinesIconDestinationLocation` makes it possible to override the default location of the Icon. For example setting 
-
-```xml
-<PropertyGroup>
-    <IconDestinationLocation>../logo.png</IconDestinationLocation>
-</PropertyGroup>
-```
-
-in the csproj will place the icon as `logo.png` one folder up (relative to the current project).
+<?! Include "../settings/fragments/IconDestinationLocation.md" /?>
 
 ### Icon include in project
-The icon will be automatically included in the project, unless `CakeContribGuidelinesIconOmitImport` was defined.
+<?! Include "../settings/fragments/IconOmitImport.md" /?>
 
-To to use a "custom" import the following could be used:
-
-```xml
-<PropertyGroup>
-    <CakeContribGuidelinesIconOmitImport>1</CakeContribGuidelinesIconOmitImport>
-</PropertyGroup>
-<ItemGroup>
-    <None Include="$(CakeContribGuidelinesIconDestinationLocation)">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-    </None>
-</ItemGroup> 
-```
-
-### migrating from an existing project
+## Migrating from an existing project
 
 * remove the existing icon
 * remove the `Include` of the icon from the project-file

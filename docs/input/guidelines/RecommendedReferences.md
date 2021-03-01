@@ -37,21 +37,6 @@ Using this package automatically enables this guideline.
 
 ### Opt-Out
 
-It it possible to opt-out of the check for StyleCop using the following setting:
+<?! Include "../settings/fragments/OmitRecommendedReference.md" /?>
 
-(*Keep in mind, though that it is not recommended to opt-out of this feature*)
-
-```xml
-<ItemGroup>
-    <CakeContribGuidelinesOmitRecommendedReference Include="StyleCop.Analyzers" />
-</ItemGroup>
-```
-
-It is also possible to opt-out of the check for configuration-files (`stylecop.json` as well as `.editorconfig`)
-using the following settings:
-```xml
-<ItemGroup>
-    <CakeContribGuidelinesOmitRecommendedConfigFile Include="stylecop.json" />
-    <CakeContribGuidelinesOmitRecommendedConfigFile Include=".editorconfig" />
-</ItemGroup>
-```
+<?! Include "../settings/fragments/OmitRecommendedConfigFile.md" /?>

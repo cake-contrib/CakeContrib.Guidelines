@@ -224,9 +224,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
                 WorkingDirectory = Path.GetDirectoryName(projectFile),
                 FileName = "dotnet",
 #if NETCORE
-                Arguments = "build " + projectFile
+                Arguments = "build -nologo " + projectFile
 #else
-                Arguments = "msbuild " + projectFile
+                Arguments = "msbuild -nologo " + projectFile
 #endif
             };
 
