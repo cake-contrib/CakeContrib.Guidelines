@@ -133,12 +133,14 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="goals">Goals</h2>
-<p>Each addin should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are
+<p>Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are
 suggested, depending on the Cake.Core version that is being referenced.</p>
 <h3 id="required-suggested-versions">Required / Suggested versions</h3>
-<p>Depending on the referenced <code>Cake.Core</code>-version different target versions are required and/or suggested.
+<p>Depending on the package type and the referenced <code>Cake.Core</code>-version different target versions are required and/or suggested.
 Missing a required target version will raise <a href="../rules/ccg0007">CCG0007</a> as an error
 while missing a suggested target version will raise <a href="../rules/ccg0007">CCG0007</a> as a warning.</p>
+<ul>
+<li>Package type: addin
 <ul>
 <li>Cake.Core &lt; 1.0.0
 <ul>
@@ -159,6 +161,13 @@ while missing a suggested target version will raise <a href="../rules/ccg0007">C
 </ul>
 </li>
 <li>Suggested: <code>net5.0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Package type: module
+<ul>
+<li>Required: <code>netstandard2.0</code></li>
 </ul>
 </li>
 </ul>
