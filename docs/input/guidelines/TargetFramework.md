@@ -18,24 +18,27 @@ Title: Target Frameworks
 
 ## Goals
 
-Each addin should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are 
+Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are 
 suggested, depending on the Cake.Core version that is being referenced. 
 
 ### Required / Suggested versions
 
-Depending on the referenced `Cake.Core`-version different target versions are required and/or suggested.
+Depending on the package type and the referenced `Cake.Core`-version different target versions are required and/or suggested.
 Missing a required target version will raise [CCG0007](../rules/ccg0007) as an error
 while missing a suggested target version will raise [CCG0007](../rules/ccg0007) as a warning.
 
-* Cake.Core < 1.0.0
+* Package type: addin
+  * Cake.Core < 1.0.0
+    * Required: `netstandard2.0`
+    * Suggested: `net461`
+      * alternative: `net46`
+  * Cake.Core >= 1.0.0
+    * Required: `netstandard2.0`
+    * Suggested: `net461`
+      * alternative: `net46`
+    * Suggested: `net5.0`
+* Package type: module
   * Required: `netstandard2.0`
-  * Suggested: `net461`
-    * alternative: `net46`
-* Cake.Core >= 1.0.0
-  * Required: `netstandard2.0`
-  * Suggested: `net461`
-    * alternative: `net46`
-  * Suggested: `net5.0`
 
 ## Related rules
 

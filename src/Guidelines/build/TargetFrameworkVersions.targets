@@ -8,7 +8,9 @@
     <Target
         Name="_CheckTargetFrameworkVersions"
         AfterTargets="BeforeBuild"
-        BeforeTargets="CoreBuild">
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="EnsureProjectTypeIsSet">
+
         <!-- All other rules have some "configuration" here, this rules required/suggested targets are hard-coded in the task. Sadly. -->
 
         <TargetFrameworkVersions
@@ -16,6 +18,6 @@
             TargetFramework="$(TargetFramework)"
             TargetFrameworks="$(TargetFrameworks)"
             Omitted="@(CakeContribGuidelinesOmitTargetFramework)"
-            ProjectFile="$(MSBuildProjectFullPath)" />
+            ProjectType="$(CakeContribGuidelinesProjectType)" />
     </Target>
 </Project>

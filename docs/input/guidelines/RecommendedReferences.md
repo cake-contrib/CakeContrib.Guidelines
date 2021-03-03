@@ -17,7 +17,7 @@ Title: Recommended References
 
 ## Goals
 
-To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers). Additionally code-style anlysis using StyleCopy (and code generation in the IDE) should be properly configured using a `stylecop.json`-file as well as `.editorconfig`-file, respectively.
+To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers). Additionally code-style analysis using StyleCopy (and code generation in the IDE) should be properly configured using a `stylecop.json`-file as well as `.editorconfig`-file, respectively.
 
 Example-Files can be found at:
 

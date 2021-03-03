@@ -26,14 +26,8 @@ namespace CakeContrib.Guidelines.Tasks
         private const string Net461 = "net461";
         private const string Net50 = "net5.0";
 
-
-        // ReSharper disable SA1310
-#pragma warning disable SA3110
-        private static readonly Version V0_26_0 = new Version(0, 26, 0);
-        private static readonly Version V1_0_0 = new Version(1, 0, 0);
-
-        // ReSharper restore SA1310
-#pragma warning restore SA3110
+        private static readonly Version Vo26 = new Version(0, 26, 0);
+        private static readonly Version V1 = new Version(1, 0, 0);
 
         private static readonly TargetsDefinitions DefaultTarget = new TargetsDefinitions
         {
@@ -42,11 +36,19 @@ namespace CakeContrib.Guidelines.Tasks
             SuggestedTargets = new[] { TargetsDefinition.From(Net461, Net46) },
         };
 
-        private static readonly Dictionary<Predicate<Version>, TargetsDefinitions> SpecificTargets =
-            new Dictionary<Predicate<Version>, TargetsDefinitions>
+        private static readonly Dictionary<Predicate<Differentiator>, TargetsDefinitions> SpecificTargets =
+            new Dictionary<Predicate<Differentiator>, TargetsDefinitions>
             {
                 {
-                    v => v.GreaterEqual(V0_26_0) && v.LessThan(V1_0_0),
+                    d => d.IsModuleProject,
+                    new TargetsDefinitions
+                    {
+                        Name = "Module",
+                        RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
+                    }
+                },
+                {
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(Vo26) && d.Version.LessThan(V1),
                     new TargetsDefinitions
                     {
                         Name = "0.26.0 <= x < 1.0.0",
@@ -55,7 +57,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    v => v.GreaterEqual(V1_0_0),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(V1),
                     new TargetsDefinitions
                     {
                         Name = "x >= 1.0.0",
@@ -88,9 +90,10 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem TargetFramework { get; set; }
 
         /// <summary>
-        /// Gets or sets the project file.
+        /// Gets or sets the ProjectType.
         /// </summary>
-        public string ProjectFile { get; set; }
+        [Required]
+        public string ProjectType { get; set; }
 
         /// <summary>
         /// Gets or sets Targets to omit. I.e. if those are missing, they will not be reported.
@@ -115,7 +118,7 @@ namespace CakeContrib.Guidelines.Tasks
             {
                 Log.CcgWarning(
                     7,
-                    ProjectFile,
+                    BuildEngine.ProjectFileOfTaskNode,
                     $"Cake.Core has a version of {cakeCore.GetMetadata("version")} which is not a valid version. Using default TargetVersions.");
                 return Execute(DefaultTarget);
             }
@@ -126,7 +129,12 @@ namespace CakeContrib.Guidelines.Tasks
 
             foreach (var targetsDefinition in SpecificTargets)
             {
-                var match = targetsDefinition.Key(version);
+                var differentiator = new Differentiator
+                {
+                    IsModuleProject = "module".Equals(ProjectType, StringComparison.OrdinalIgnoreCase),
+                    Version = version,
+                };
+                var match = targetsDefinition.Key(differentiator);
                 if (!match)
                 {
                     continue;
@@ -187,7 +195,7 @@ namespace CakeContrib.Guidelines.Tasks
 
                 Log.CcgError(
                     7,
-                    ProjectFile,
+                    BuildEngine.ProjectFileOfTaskNode,
                     "Missing required target: " + requiredTarget.Name);
                 return false;
             }
@@ -220,7 +228,7 @@ namespace CakeContrib.Guidelines.Tasks
 
                 Log.CcgWarning(
                     7,
-                    ProjectFile,
+                    BuildEngine.ProjectFileOfTaskNode,
                     "Missing suggested target: " + suggestedTarget.Name);
             }
 
@@ -229,6 +237,12 @@ namespace CakeContrib.Guidelines.Tasks
 
         private class TargetsDefinitions
         {
+            public TargetsDefinitions()
+            {
+                RequiredTargets = Array.Empty<TargetsDefinition>();
+                SuggestedTargets = Array.Empty<TargetsDefinition>();
+            }
+
             public string Name { get; set; }
 
             public TargetsDefinition[] RequiredTargets { get; set; }
@@ -246,6 +260,13 @@ namespace CakeContrib.Guidelines.Tasks
             {
                 return new TargetsDefinition { Name = name, Alternatives = alternatives ?? Array.Empty<string>(), };
             }
+        }
+
+        private class Differentiator
+        {
+            internal Version Version { get; set; }
+
+            internal bool IsModuleProject { get; set; }
         }
     }
 }
