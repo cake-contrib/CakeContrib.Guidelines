@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <!-- 
-        Always copy/replace the icon.png
-        There is no opt-out of this feature, as the opt-out is removing the reference to CakeContrib.Guidelines
-    -->
-    <Target Name="_CopyCakeContribGuidelinesIcon" AfterTargets="BeforeBuild" BeforeTargets="CoreBuild">
-        <Copy 
-            SourceFiles="$(MSBuildThisFileDirectory)/../images/icon.png" 
-            DestinationFiles="$(MSBuildProjectDirectory)/$(CakeContribGuidelinesIconDestinationLocation)" />
-        <Message 
-            Importance="normal"
-            Text="Copied cake-contrib icon to $(MSBuildProjectDirectory)/$(CakeContribGuidelinesIconDestinationLocation)" />
-        <Message 
-            Condition="$(CakeContribGuidelinesIconOmitImport) != ''" 
-            Importance="normal"
-            Text="CakeContribGuidelinesIconOmitImport is set, so icon-include will be omitted" />
-        
-        <!-- check PackageIcon -->
-        <Message 
-            Importance="low"
-            Text="PackageIcon is set to $(PackageIcon)" />
-        <CcgLogError
-            Condition="$(PackageIcon) == ''"
-            CcgId="1"
-            File="$(MSBuildProjectFullPath)"
-            Text="PackageIcon is empty. Since you're using CakeContrib.Guidelines the PackageIcon should be set." />
-        <CcgLogWarning
-            Condition="$(PackageIcon) != '$(CakeContribGuidelinesIconDestinationLocation)'"
-            CcgId="3"
-            File="$(MSBuildProjectFullPath)"
-            Text="PackageIcon should point to $(CakeContribGuidelinesIconDestinationLocation)." />
-        
-        <!-- check PackageIconUrl -->
-        <Message 
-            Importance="low"
-            Text="PackageIconUrl is set to $(PackageIconUrl)" />
-        <CcgLogWarning
-            Condition="$(PackageIconUrl) == ''"
-            CcgId="2"
-            File="$(MSBuildProjectFullPath)"
-            Text="PackageIconUrl is empty. For compatibility it should be set." />
+
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).EnsureCakeContribIcon"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).EnsureCakeContribIconUrl"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+
+    <Target Name="_CopyCakeContribGuidelinesIcon"
+            AfterTargets="BeforeBuild"
+            BeforeTargets="CoreBuild;SetNuspecProperties;GenerateNuspec;_GetPackageFiles">
+        <EnsureCakeContribIcon
+            ProjectFile="$(MSBuildProjectFullPath)"
+            PackageIcon="$(PackageIcon)"
+            NoneReferences="@(None)"
+            CakeContribIconPath="$(MSBuildThisFileDirectory)/../images/icon.png"
+            OmitIconImport="$(CakeContribGuidelinesIconOmitImport)">
+            <Output PropertyName="TempPackageIcon" TaskParameter="PackageIconOutput" />
+            <Output ItemName="TempNone" TaskParameter="AdditionalNoneRefOutput" />
+        </EnsureCakeContribIcon>
+
+        <CreateProperty
+            Condition="$(TempPackageIcon) != ''"
+            Value="$(TempPackageIcon)">
+            <Output
+                TaskParameter="Value"
+                PropertyName="PackageIcon" />
+        </CreateProperty>
+        <CreateItem
+            Condition="@(TempNone) != ''"
+            Include="@(TempNone)">
+            <Output
+                TaskParameter="Include"
+                ItemName="None" />
+        </CreateItem>
+
+        <EnsureCakeContribIconUrl
+            ProjectFile="$(MSBuildProjectFullPath)"
+            PackageIconUrl="$(PackageIconUrl)"
+            OmitIconImport="$(CakeContribGuidelinesIconOmitImport)"
+            CakeContribIconUrl="https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png">
+            <Output ItemName="TempPackageIconUrl" TaskParameter="PackageIconUrlOutput" />
+        </EnsureCakeContribIconUrl>
+        <CreateProperty
+            Condition="$(TempPackageIconUrl) != ''"
+            Value="$(TempPackageIconUrl)">
+            <Output
+                TaskParameter="Value"
+                PropertyName="PackageIconUrl" />
+        </CreateProperty>
     </Target>
 </Project>

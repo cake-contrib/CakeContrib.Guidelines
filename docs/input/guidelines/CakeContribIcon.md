@@ -34,21 +34,22 @@ Title: CakeContrib-Icon
 Using this package automatically enables this guideline.
 
 With no special settings at all (i.e. "The Standard"):
-* the current cake-contrib icon will be copied as "icon.png" in the project-directory 
-* the icon will be included in the project
+* if no `PackageIcon` property is specified, a default will be assigned.
+* if no icon (matching the `PackageIcon` property) is referenced in the project, a default will be referenced.
+* if the referenced icon is not binary equal to the default icon, it will be updated.
+* if no `PackageIconUrl` property is specified, a default will be assigned.
 
 ## Settings
-
-### Icon-Location
-<?! Include "../settings/fragments/IconDestinationLocation.md" /?>
 
 ### Icon include in project
 <?! Include "../settings/fragments/IconOmitImport.md" /?>
 
 ## Migrating from an existing project
 
+No steps are needed anymore. Existing settings will be detected and honored.
+
+Optionally:
 * remove the existing icon
 * remove the `Include` of the icon from the project-file
-* add a reference to CakeContrib.Guidelines
-* build the project
-* set `PackageIcon` to `icon.png`
+* remove the `PackageIcon` from the project-file
+* remove the `PackageIconUrl` from the project-file
