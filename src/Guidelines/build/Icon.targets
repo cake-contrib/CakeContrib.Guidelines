@@ -8,7 +8,7 @@
         TaskName="$(CakeContribGuidelinesCustomTasksNamespace).EnsureCakeContribIconUrl"
         AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
 
-    <Target Name="_CopyCakeContribGuidelinesIcon"
+    <Target Name="_EnsureCakeContribGuidelinesIcon"
             AfterTargets="BeforeBuild"
             BeforeTargets="CoreBuild;SetNuspecProperties;GenerateNuspec;_GetPackageFiles">
         <EnsureCakeContribIcon
@@ -41,7 +41,7 @@
             PackageIconUrl="$(PackageIconUrl)"
             OmitIconImport="$(CakeContribGuidelinesIconOmitImport)"
             CakeContribIconUrl="https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png">
-            <Output ItemName="TempPackageIconUrl" TaskParameter="PackageIconUrlOutput" />
+            <Output PropertyName="TempPackageIconUrl" TaskParameter="PackageIconUrlOutput" />
         </EnsureCakeContribIconUrl>
         <CreateProperty
             Condition="$(TempPackageIconUrl) != ''"

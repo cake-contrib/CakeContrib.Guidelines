@@ -14,6 +14,7 @@
         <!-- All other rules have some "configuration" here, this rules required/suggested targets are hard-coded in the task. Sadly. -->
 
         <TargetFrameworkVersions
+            ProjectFile="$(MSBuildProjectFullPath)"
             References="@(PackageReference)"
             TargetFramework="$(TargetFramework)"
             TargetFrameworks="$(TargetFrameworks)"

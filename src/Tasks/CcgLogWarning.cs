@@ -1,5 +1,7 @@
 using CakeContrib.Guidelines.Tasks.Extensions;
 
+using JetBrains.Annotations;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -9,6 +11,7 @@ namespace CakeContrib.Guidelines.Tasks
     /// <summary>
     /// This is a convenience-Task to call CcgWarning from inside the msbuild.
     /// </summary>
+    [UsedImplicitly]
     public class CcgLogWarning : Task
     {
         /// <summary>

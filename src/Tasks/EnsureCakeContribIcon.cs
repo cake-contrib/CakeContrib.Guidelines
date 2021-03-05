@@ -93,15 +93,15 @@ namespace CakeContrib.Guidelines.Tasks
                     return false;
                 }
 
-                PackageIconOutput = Path.GetFileName(CakeContribIconPath);
+                PackageIconOutput = Path.GetFileName(CakeContribIconPath.NormalizePathSeparators());
                 Log.LogMessage(
                     LogLevel,
                     $"PackageIcon was not set. Setting it to {PackageIconOutput}.");
             }
 
-            PackageIconOutput = PackageIconOutput.Replace("\\", "/");
+            PackageIconOutput = PackageIconOutput.NormalizePathSeparators();
             var packageIconOutputPath =
-                (Path.GetDirectoryName(PackageIconOutput) ?? string.Empty).Replace("\\", "/");
+                (Path.GetDirectoryName(PackageIconOutput) ?? string.Empty).NormalizePathSeparators();
 
             // find icon in FileSystem from References
             var mappedReferences = NoneReferences.Select(MapToDataStructure).ToList();
@@ -190,7 +190,7 @@ namespace CakeContrib.Guidelines.Tasks
             var pack = item.GetMetadata("Pack");
             var data = new PackDataStructure
             {
-                SourceInFileSystem = item.ToString(),
+                SourceInFileSystem = item.ToString().NormalizePathSeparators(),
                 DestinationInPackage = item.GetMetadata("PackagePath") ?? string.Empty,
                 Pack = !string.IsNullOrEmpty(pack) && Convert.ToBoolean(pack),
             };
@@ -200,7 +200,7 @@ namespace CakeContrib.Guidelines.Tasks
                 return data;
             }
 
-            data.DestinationInPackage = data.DestinationInPackage.Replace("\\", "/").TrimEnd('/');
+            data.DestinationInPackage = data.DestinationInPackage.NormalizePathSeparators();
             var fileName = Path.GetFileName(data.SourceInFileSystem);
             var fileExtension = Path.GetExtension(fileName);
             if (!data.DestinationInPackage.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
@@ -208,7 +208,7 @@ namespace CakeContrib.Guidelines.Tasks
                 data.DestinationInPackage =
                     string.IsNullOrEmpty(data.DestinationInPackage)
                         ? fileName
-                        : $"{data.DestinationInPackage}/{fileName}";
+                        : Path.Combine(data.DestinationInPackage, fileName);
             }
 
             return data;

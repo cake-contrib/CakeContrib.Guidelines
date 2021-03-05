@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
@@ -28,7 +29,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         public void Should_Output_PackageIcon_If_One_Is_Specified()
         {
             // given
-            const string iconPath = "some/cool-icon.png";
+            var iconPath = Path.Combine("some", "cool-icon.png");
             var fixture = new EnsureCakeContribIconFixture();
             fixture.WithPackageIcon(iconPath);
 
@@ -260,7 +261,6 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         public void Should_Warn_CCG0003_On_Omit_Set_But_Wrong_Icon()
         {
             // given
-            const string projectFileName = "some.project.csproj";
             var fixture = new EnsureCakeContribIconFixture();
             fixture.WithPackageIcon("foo.png");
             fixture.WithIconFileReference("foo.png", "");

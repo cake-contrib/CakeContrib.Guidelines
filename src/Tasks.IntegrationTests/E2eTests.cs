@@ -47,7 +47,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
 <Target Name=""ForTest""
   AfterTargets=""BeforeBuild""
   BeforeTargets=""CoreBuild""
-  DependsOnTargets=""_CopyCakeContribGuidelinesIcon"">
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
 
   <Warning Text=""!FOR-TEST!:$(PackageIcon)"" />
 </Target>");
@@ -112,8 +112,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeTrue();
-            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -433,7 +433,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
 
 <Target Name=""ForTest""
   BeforeTargets=""SetNuspecProperties;GenerateNuspec""
-  DependsOnTargets=""_CopyCakeContribGuidelinesIcon"">
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
 
   <Warning Text=""!FOR-TEST!:$(PackageIcon)"" />
 </Target>");
@@ -462,7 +462,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
 
 <Target Name=""ForTest""
   BeforeTargets=""SetNuspecProperties;GenerateNuspec""
-  DependsOnTargets=""_CopyCakeContribGuidelinesIcon"">
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
 
   <Warning Text=""!FOR-TEST!:%(None.Identity) Pack:%(None.Pack) Link:%(None.Link) PackagePath:%(None.PackagePath)"" />
 </Target>");
@@ -479,6 +479,35 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             output.Should().Contain("Pack:True");
             output.Should().Contain("Link:icon.png");
             output.Should().Contain("PackagePath:");
+        }
+
+        [Fact]
+        public void Packaging_Should_Add_The_IconUrl_To_Properties()
+        {
+            // given
+            fixture.WithoutPackageIcon();
+            fixture.WithoutPackageIconUrl();
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  BeforeTargets=""SetNuspecProperties;GenerateNuspec""
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
+
+  <Warning Text=""!FOR-TEST!:$(PackageIconUrl)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .Single(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Contain("cake-contrib/graphics/png/cake-contrib-medium.png");
         }
     }
 }

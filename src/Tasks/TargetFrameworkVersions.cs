@@ -100,6 +100,12 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         public ITaskItem[] Omitted { get; set; }
 
+        /// <summary>
+        /// Gets or sets the project file.
+        /// </summary>
+        [Required]
+        public string ProjectFile { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -118,7 +124,7 @@ namespace CakeContrib.Guidelines.Tasks
             {
                 Log.CcgWarning(
                     7,
-                    BuildEngine.ProjectFileOfTaskNode,
+                    ProjectFile,
                     $"Cake.Core has a version of {cakeCore.GetMetadata("version")} which is not a valid version. Using default TargetVersions.");
                 return Execute(DefaultTarget);
             }
@@ -195,7 +201,7 @@ namespace CakeContrib.Guidelines.Tasks
 
                 Log.CcgError(
                     7,
-                    BuildEngine.ProjectFileOfTaskNode,
+                    ProjectFile,
                     "Missing required target: " + requiredTarget.Name);
                 return false;
             }
@@ -228,7 +234,7 @@ namespace CakeContrib.Guidelines.Tasks
 
                 Log.CcgWarning(
                     7,
-                    BuildEngine.ProjectFileOfTaskNode,
+                    ProjectFile,
                     "Missing suggested target: " + suggestedTarget.Name);
             }
 

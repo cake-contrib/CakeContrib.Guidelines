@@ -11,7 +11,6 @@ Title: CakeContrib-Icon
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
-  - [Icon-Location](#icon-location)
   - [Icon include in project](#icon-include-in-project)
 - [Migrating from an existing project](#migrating-from-an-existing-project)
 
