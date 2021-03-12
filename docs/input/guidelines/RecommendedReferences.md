@@ -29,6 +29,8 @@ Example-Files can be found at:
  * [CCG0005](../rules/ccg0005)
  * [CCG0006](../rules/ccg0006)
 
+These rules are not applied for package type recipe.
+
 ## Usage
 
 Using this package automatically enables this guideline.

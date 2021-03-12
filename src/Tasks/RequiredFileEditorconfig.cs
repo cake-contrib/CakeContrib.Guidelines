@@ -42,6 +42,12 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem[] OmitFiles { get; set; }
 
         /// <summary>
+        /// Gets or sets the ProjectType.
+        /// </summary>
+        [Required]
+        public string ProjectType { get; set; }
+
+        /// <summary>
         /// Sets the FileSearcher. INTERNAL USE. replaced in unit-tests.
         /// </summary>
         internal IFileSearcher FileSearcher { private get; set; }
@@ -49,6 +55,15 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            {
+                // not for recipes!
+                Log.LogMessage(
+                    LogLevel,
+                    "No .editorconfig required for recipe projects.");
+                return true;
+            }
+
             if (OmitFiles
                 .Select(x => x.GetMetadata("Identity"))
                 .Where(x => !string.IsNullOrEmpty(x))

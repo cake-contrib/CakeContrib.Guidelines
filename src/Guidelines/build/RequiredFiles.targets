@@ -11,15 +11,18 @@
     <Target
         Name="_CheckRequiredFiles"
         AfterTargets="BeforeBuild"
-        BeforeTargets="CoreBuild">
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="EnsureProjectTypeIsSet">
 
         <RequiredFileEditorconfig
             OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"
-            ProjectFile="$(MSBuildProjectFullPath)" />
+            ProjectFile="$(MSBuildProjectFullPath)"
+            ProjectType="$(CakeContribGuidelinesProjectType)" />
 
         <RequiredFileStylecopJson
             OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"
             AdditionalFiles="@(AdditionalFiles)"
-            ProjectFile="$(MSBuildProjectFullPath)" />
+            ProjectFile="$(MSBuildProjectFullPath)"
+            ProjectType="$(CakeContribGuidelinesProjectType)" />
     </Target>
 </Project>

@@ -40,6 +40,8 @@ while missing a suggested target version will raise [CCG0007](../rules/ccg0007) 
 * Package type: module
   * Required: `netstandard2.0`
 
+For package type recipe no framework reference is required or suggested.
+
 ## Related rules
 
  * [CCG0007](../rules/ccg0007)

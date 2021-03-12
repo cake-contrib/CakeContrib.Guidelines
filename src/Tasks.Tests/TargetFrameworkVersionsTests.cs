@@ -91,6 +91,25 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         }
 
         [Fact]
+        public void Should_Warn_For_Broken_CakeCore_Reference()
+        {
+            // given
+            const string brokenVersion = "1.2.3.4.5.6.7.8.9";
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(brokenVersion);
+            fixture.WithTargetFrameworks(NetStandard20, Net461);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents
+                .Should().HaveCount(1)
+                .And.Contain(x => x.Message.Contains(brokenVersion));
+        }
+
+        [Fact]
         public void Should_Not_Warn_If_Required_And_Alternative_SuggestedTargetFramework_Is_Targeted()
         {
             // given
@@ -161,6 +180,39 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.WithCakeCoreReference(1);
             fixture.WithTargetFramework("netstandard2.0");
             fixture.WithProjectType("module");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Correct_SourceFile_On_Error_With_Given_ProjectFile()
+        {
+            // given
+            const string projectFileName = "some.project.csproj";
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
+            fixture.WithProjectFile(projectFileName);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents
+                .Should().HaveCount(1)
+                .And.Contain(x => x.File == projectFileName);
+        }
+
+        [Fact]
+        public void Should_Not_Warn_Or_Error_With_No_Reference_And_ProjectType_Recipe()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithProjectType("recipe");
 
             // when
             fixture.Execute();
