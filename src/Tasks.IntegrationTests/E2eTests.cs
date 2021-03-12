@@ -43,20 +43,37 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithoutPackageIcon();
+            fixture.WithCustomContent(@"
+<Target Name=""ForTest""
+  AfterTargets=""BeforeBuild""
+  BeforeTargets=""CoreBuild""
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
+
+  <Warning Text=""!FOR-TEST!:$(PackageIcon)"" />
+</Target>");
 
             // when
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeTrue();
-            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0001", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("icon.png");
         }
 
         [Fact]
-        public void PackageIconUrl_Tag_missing_results_in_CCG0002_warning()
+        public void PackageIconUrl_Tag_missing_And_results_in_CCG0002_warning()
         {
             // given
+            fixture.WithPackageIcon("icon.png");
             fixture.WithoutPackageIconUrl();
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <CakeContribGuidelinesIconOmitImport>True</CakeContribGuidelinesIconOmitImport>
+</PropertyGroup>
+");
 
             // when
             var result = fixture.Run();
@@ -67,7 +84,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         }
 
         [Fact]
-        public void PackageIcon_Tag_with_non_standard_value_results_in_CCG0003_warning()
+        public void PackageIcon_Tag_with_wrong_extension_results_in_CCG0003_error()
         {
             // given
             fixture.WithPackageIcon("coolIcon.jpeg");
@@ -76,28 +93,27 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.Should().BeTrue();
+            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
-        public void PackageIcon_Tag_with_modified_CakeContribGuidelinesIconDestinationLocation_results_not_in_CCG0003_warning()
+        public void PackageIcon_Tag_with_wrong_extension_and_custom_Icon_include_results_in_CCG0003_error()
         {
-            const string icon = "coolIcon.jpeg";
-
             // given
-            fixture.WithPackageIcon(icon);
-            fixture.WithCustomContent($@"
-<PropertyGroup>
-    <CakeContribGuidelinesIconDestinationLocation>{icon}</CakeContribGuidelinesIconDestinationLocation>
-</PropertyGroup>");
+            fixture.WithPackageIcon("icons/coolIcon.jpeg");
+            fixture.WithCustomContent(@"
+<ItemGroup>
+  <None Include=""c:\\something\\coolIcon.jpeg"" Pack=""True"" PackagePath=""icons/coolIcon.jpeg"" />
+</ItemGroup>
+");
 
             // when
             var result = fixture.Run();
 
             // then
             result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().BeEmpty();
+            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -404,6 +420,94 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
             output.Should().Be("Addin");
+        }
+
+        [Fact]
+        public void Packing_Should_Add_PackageIcon_Property()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  BeforeTargets=""SetNuspecProperties;GenerateNuspec""
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
+
+  <Warning Text=""!FOR-TEST!:$(PackageIcon)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Be("icon.png");
+        }
+
+        [Fact]
+        public void Packaging_Should_Add_The_Icon_As_Link_And_Pack_True()
+        {
+            // given
+            fixture.WithoutPackageIcon();
+            fixture.WithoutPackageIconUrl();
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  BeforeTargets=""SetNuspecProperties;GenerateNuspec""
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
+
+  <Warning Text=""!FOR-TEST!:%(None.Identity) Pack:%(None.Pack) Link:%(None.Link) PackagePath:%(None.PackagePath)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .Where(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1)
+                .First(x => x.IndexOf("icon.png", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Contain("Pack:True");
+            output.Should().Contain("Link:icon.png");
+            output.Should().Contain("PackagePath:");
+        }
+
+        [Fact]
+        public void Packaging_Should_Add_The_IconUrl_To_Properties()
+        {
+            // given
+            fixture.WithoutPackageIcon();
+            fixture.WithoutPackageIconUrl();
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  BeforeTargets=""SetNuspecProperties;GenerateNuspec""
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
+
+  <Warning Text=""!FOR-TEST!:$(PackageIconUrl)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .Single(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Contain("cake-contrib/graphics/png/cake-contrib-medium.png");
         }
     }
 }

@@ -14,6 +14,11 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RequiredFileEditorconfig : Task
     {
+#if DEBUG
+        private const MessageImportance LogLevel = MessageImportance.High;
+#else
+        private const MessageImportance LogLevel = MessageImportance.Low;
+#endif
         private const string FileName = ".editorconfig";
 
         /// <summary>
@@ -49,7 +54,7 @@ namespace CakeContrib.Guidelines.Tasks
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Any(x => x.Equals(FileName, StringComparison.OrdinalIgnoreCase)))
             {
-                Log.LogMessage(MessageImportance.Low, $"Recommended file '{FileName}' is set to omit.");
+                Log.LogMessage(LogLevel, $"Recommended file '{FileName}' is set to omit.");
                 return true;
             }
 

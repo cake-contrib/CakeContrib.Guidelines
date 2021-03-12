@@ -17,6 +17,4 @@
     <UsingTask
         TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CcgLogWarning"
         AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
-
-    <Import Project="$(MSBuildThisFileDirectory)Icon.props" />
 </Project>

@@ -11,7 +11,6 @@ NoSidebar: true
 - [General](#general)
   - [ProjectType](#projecttype)
 - [Icons](#icons)
-  - [IconDestinationLocation](#icondestinationlocation)
   - [IconOmitImport](#iconomitimport)
 - [Opt-Out](#opt-out)
   - [OmitRecommendedConfigFile](#omitrecommendedconfigfile)
@@ -40,9 +39,6 @@ different values than `addin` or `module` might yield unexpected results.
 :::
 
 ## Icons
-
-### IconDestinationLocation
-<?! Include "./fragments/IconDestinationLocation.md" /?>
 
 ### IconOmitImport
 <?! Include "./fragments/IconOmitImport.md" /?>

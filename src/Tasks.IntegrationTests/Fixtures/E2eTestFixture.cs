@@ -226,7 +226,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 #if NETCORE
                 Arguments = "build -nologo " + projectFile
 #else
-                Arguments = "msbuild -nologo " + projectFile
+                Arguments = "msbuild -nologo -bl " + projectFile
 #endif
             };
 
