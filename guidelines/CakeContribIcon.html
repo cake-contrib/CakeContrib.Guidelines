@@ -123,7 +123,6 @@
 <li><a href="#usage">Usage</a></li>
 <li><a href="#settings">Settings</a>
 <ul>
-<li><a href="#icon-location">Icon-Location</a></li>
 <li><a href="#icon-include-in-project">Icon include in project</a></li>
 </ul>
 </li>
@@ -146,44 +145,35 @@
 <p>Using this package automatically enables this guideline.</p>
 <p>With no special settings at all (i.e. &quot;The Standard&quot;):</p>
 <ul>
-<li>the current cake-contrib icon will be copied as &quot;icon.png&quot; in the project-directory</li>
-<li>the icon will be included in the project</li>
+<li>if no <code>PackageIcon</code> property is specified, a default will be assigned.</li>
+<li>if no icon (matching the <code>PackageIcon</code> property) is referenced in the project, a default will be referenced.</li>
+<li>if the referenced icon is not binary equal to the default icon, it will be updated.</li>
+<li>if no <code>PackageIconUrl</code> property is specified, a default will be assigned.</li>
 </ul>
 <h2 id="settings">Settings</h2>
-<h3 id="icon-location">Icon-Location</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>The default location of the cake-contrib icon is <code>icon.png</code>, next to the csproj (i.e. <code>$(MSBuildProjectDirectory)/icon.png</code>).</p>
-<p>Setting <code>CakeContribGuidelinesIconDestinationLocation</code> makes it possible to override the default location of the Icon. For example setting</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesIconDestinationLocation&gt;../logo.png&lt;/CakeContribGuidelinesIconDestinationLocation&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
-<p>in the csproj will place the icon as <code>logo.png</code> one folder up (relative to the current project).</p>
 <h3 id="icon-include-in-project">Icon include in project</h3>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>The cake-contrib icon will be automatically included in the project, unless <code>CakeContribGuidelinesIconOmitImport</code> was defined.</p>
+<p>The cake-contrib icon will be automatically included in the project, unless
+<code>CakeContribGuidelinesIconOmitImport</code> is set to <code>True</code>.</p>
 <p>To to use a &quot;custom&quot; import the following could be used:</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesIconOmitImport&gt;1&lt;/CakeContribGuidelinesIconOmitImport&gt;
+    &lt;CakeContribGuidelinesIconOmitImport&gt;True&lt;/CakeContribGuidelinesIconOmitImport&gt;
+    &lt;PackageIcon&gt;logo.png&lt;/PackageIcon&gt;
 &lt;/PropertyGroup&gt;
 &lt;ItemGroup&gt;
-    &lt;None Include=&quot;$(CakeContribGuidelinesIconDestinationLocation)&quot;&gt;
-        &lt;Pack&gt;True&lt;/Pack&gt;
-        &lt;PackagePath&gt;&lt;/PackagePath&gt;
-    &lt;/None&gt;
+    &lt;None Include=&quot;icons/logo.png&quot; Pack=&quot;True&quot; PackagePath=&quot;&quot; /&gt;
 &lt;/ItemGroup&gt; 
 </code></pre>
 <h2 id="migrating-from-an-existing-project">Migrating from an existing project</h2>
+<p>No steps are needed anymore. Existing settings will be detected and honored.</p>
+<p>Optionally:</p>
 <ul>
 <li>remove the existing icon</li>
 <li>remove the <code>Include</code> of the icon from the project-file</li>
-<li>add a reference to CakeContrib.Guidelines</li>
-<li>build the project</li>
-<li>set <code>PackageIcon</code> to <code>icon.png</code></li>
+<li>remove the <code>PackageIcon</code> from the project-file</li>
+<li>remove the <code>PackageIconUrl</code> from the project-file</li>
 </ul>
 
 	</section>

@@ -127,12 +127,8 @@
 <p>The guideline <a href="../guidelines/CakeContribIcon">CakeContrib-Icon</a> states, that the icon should be embedded.
 To that end, setting <code>PackageIcon</code> is required.</p>
 <h2 id="how-to-fix-violations">How to fix violations</h2>
-<p>Add</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;PackageIcon&gt;$(CakeContribGuidelinesIconDestinationLocation)&lt;/PackageIcon&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
-<p>to the project.</p>
+<p>This error will only show, if <code>CakeContribGuidelinesIconOmitImport</code> is <code>True</code> and no manual include of the icon was done.</p>
+<p>To fix this error, you need to remove the definition of <code>CakeContribGuidelinesIconOmitImport</code> or define a <code>PackageIcon</code> manually.</p>
 <h2 id="related-guidelines">Related guidelines</h2>
 <ul>
 <li><a href="../guidelines/CakeContribIcon">CakeContrib-Icon</a></li>

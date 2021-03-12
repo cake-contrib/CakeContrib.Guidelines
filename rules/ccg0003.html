@@ -109,7 +109,7 @@
 		</section>
 	<section class="content">
 		<blockquote class="blockquote">
-<p>PackageIcon points to wrong place</p>
+<p>The PackageIcon source (path/to/icon.jpeg) has an extension of jpeg. It can not be set from the CakeContrib-Icon.</p>
 </blockquote>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -122,12 +122,21 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="cause">Cause</h2>
-<p>This warning is raised, when <code>PackageIcon</code> does not point to the copied icon.
-(I.e. <code>PackageIcon</code> is not equal to <code>$(CakeContribGuidelinesIconDestinationLocation)</code>)</p>
+<p>This warning/error is raised, when the source of <code>PackageIcon</code> was outdated
+but could not be updated.</p>
 <h2 id="description">Description</h2>
-<p>Since the correct icon is copied to <code>$(CakeContribGuidelinesIconDestinationLocation)</code> it is expected, that this icon is packaged into the nupkg.</p>
+<p>The default package icon is a <code>png</code> and will be used to update outdated icons.
+If a different icon format than <code>png</code> is used, simply updating that icon with a
+<code>png</code> content will break the icon.</p>
+<p>If a <code>PackageIcon</code> is set, but no corresponding icon reference could be
+found, a reference should be added automatically. However, if <code>PackageIcon</code>
+is not set to a <code>png</code> file, such reference would not be possible.
+In this case <code>CCG0003</code> is an error and will break the build.</p>
+<p>If a <code>PackageIcon</code> is set with a corresponding icon reference but not to
+a <code>png</code> file, a test whether the icon is up-to-date is not possible.
+In this case <code>CCG0003</code> is a warning .</p>
 <h2 id="how-to-fix-violations">How to fix violations</h2>
-<p>Modify <code>PackageIcon</code> to point to the same place as <code>$(CakeContribGuidelinesIconDestinationLocation)</code>.</p>
+<p>Modify <code>PackageIcon</code> to point to a <code>png</code> file or remove the custom file entirely.</p>
 <h2 id="related-guidelines">Related guidelines</h2>
 <ul>
 <li><a href="../guidelines/CakeContribIcon">CakeContrib-Icon</a></li>

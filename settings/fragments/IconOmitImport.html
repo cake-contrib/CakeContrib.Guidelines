@@ -89,7 +89,6 @@
                     <a href="/CakeContrib.Guidelines/settings/fragments">Fragments</a> <a href="#" class="expand"></a>
                     <ul class="treeview-menu">
                         
-                <li><a href="/CakeContrib.Guidelines/settings/fragments/IconDestinationLocation">Icondestinationlocation</a></li>
                 <li class="selected"><a href="/CakeContrib.Guidelines/settings/fragments/IconOmitImport">Iconomitimport</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
@@ -117,16 +116,15 @@
 		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>The cake-contrib icon will be automatically included in the project, unless <code>CakeContribGuidelinesIconOmitImport</code> was defined.</p>
+<p>The cake-contrib icon will be automatically included in the project, unless
+<code>CakeContribGuidelinesIconOmitImport</code> is set to <code>True</code>.</p>
 <p>To to use a &quot;custom&quot; import the following could be used:</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesIconOmitImport&gt;1&lt;/CakeContribGuidelinesIconOmitImport&gt;
+    &lt;CakeContribGuidelinesIconOmitImport&gt;True&lt;/CakeContribGuidelinesIconOmitImport&gt;
+    &lt;PackageIcon&gt;logo.png&lt;/PackageIcon&gt;
 &lt;/PropertyGroup&gt;
 &lt;ItemGroup&gt;
-    &lt;None Include=&quot;$(CakeContribGuidelinesIconDestinationLocation)&quot;&gt;
-        &lt;Pack&gt;True&lt;/Pack&gt;
-        &lt;PackagePath&gt;&lt;/PackagePath&gt;
-    &lt;/None&gt;
+    &lt;None Include=&quot;icons/logo.png&quot; Pack=&quot;True&quot; PackagePath=&quot;&quot; /&gt;
 &lt;/ItemGroup&gt; 
 </code></pre>
 

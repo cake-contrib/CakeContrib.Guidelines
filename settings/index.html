@@ -85,7 +85,6 @@
                     <a href="/CakeContrib.Guidelines/settings/fragments">Fragments</a> <a href="#" class="expand"></a>
                     <ul class="treeview-menu">
                         
-                <li><a href="/CakeContrib.Guidelines/settings/fragments/IconDestinationLocation">Icondestinationlocation</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/IconOmitImport">Iconomitimport</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
@@ -121,7 +120,6 @@
 </li>
 <li><a href="#icons">Icons</a>
 <ul>
-<li><a href="#icondestinationlocation">IconDestinationLocation</a></li>
 <li><a href="#iconomitimport">IconOmitImport</a></li>
 </ul>
 </li>
@@ -148,31 +146,19 @@ The project type is automatically detected. To override auto-detection use the f
 different values than <code>addin</code> or <code>module</code> might yield unexpected results.</p>
 </div>
 <h2 id="icons">Icons</h2>
-<h3 id="icondestinationlocation">IconDestinationLocation</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>The default location of the cake-contrib icon is <code>icon.png</code>, next to the csproj (i.e. <code>$(MSBuildProjectDirectory)/icon.png</code>).</p>
-<p>Setting <code>CakeContribGuidelinesIconDestinationLocation</code> makes it possible to override the default location of the Icon. For example setting</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesIconDestinationLocation&gt;../logo.png&lt;/CakeContribGuidelinesIconDestinationLocation&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
-<p>in the csproj will place the icon as <code>logo.png</code> one folder up (relative to the current project).</p>
 <h3 id="iconomitimport">IconOmitImport</h3>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>The cake-contrib icon will be automatically included in the project, unless <code>CakeContribGuidelinesIconOmitImport</code> was defined.</p>
+<p>The cake-contrib icon will be automatically included in the project, unless
+<code>CakeContribGuidelinesIconOmitImport</code> is set to <code>True</code>.</p>
 <p>To to use a &quot;custom&quot; import the following could be used:</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesIconOmitImport&gt;1&lt;/CakeContribGuidelinesIconOmitImport&gt;
+    &lt;CakeContribGuidelinesIconOmitImport&gt;True&lt;/CakeContribGuidelinesIconOmitImport&gt;
+    &lt;PackageIcon&gt;logo.png&lt;/PackageIcon&gt;
 &lt;/PropertyGroup&gt;
 &lt;ItemGroup&gt;
-    &lt;None Include=&quot;$(CakeContribGuidelinesIconDestinationLocation)&quot;&gt;
-        &lt;Pack&gt;True&lt;/Pack&gt;
-        &lt;PackagePath&gt;&lt;/PackagePath&gt;
-    &lt;/None&gt;
+    &lt;None Include=&quot;icons/logo.png&quot; Pack=&quot;True&quot; PackagePath=&quot;&quot; /&gt;
 &lt;/ItemGroup&gt; 
 </code></pre>
 <h2 id="opt-out">Opt-Out</h2>
