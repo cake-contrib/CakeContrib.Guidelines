@@ -2,6 +2,14 @@ name: Build
 
 on:
   push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+      - "release/**"
+      - "hotfix/**"
+    tags:
+      - "*"
     paths-ignore:
       - "README.md"
   pull_request:
@@ -9,17 +17,15 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    #mimic "skip_branch_with_pr: true", see https://github.community/t/duplicate-checks-on-push-and-pull-request-simultaneous-event/18012/4
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     strategy:
       matrix:
         os:  [ ubuntu-18.04, windows-2019, macos-10.15 ]
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.ref }}
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Fetch all tags and branches
+        run: git fetch --prune --unshallow
       - name: Cache Tools
         uses: actions/cache@v2
         with:
