@@ -13,6 +13,12 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RequiredReferences : Task
     {
+#if DEBUG
+        private const MessageImportance LogLevel = MessageImportance.High;
+#else
+        private const MessageImportance LogLevel = MessageImportance.Low;
+#endif
+
         /// <summary>
         /// Gets or sets the References.
         /// </summary>
@@ -36,18 +42,33 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         public string ProjectFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ProjectType.
+        /// </summary>
+        [Required]
+        public string ProjectType { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            {
+                // not for recipes!
+                Log.LogMessage(
+                    LogLevel,
+                    "No stylecop.json required for recipe projects.");
+                return true;
+            }
+
             foreach (var r in Required)
             {
                 if (Omitted.Any(x => x.ToString().Equals(r.ToString(), StringComparison.OrdinalIgnoreCase)))
                 {
-                    Log.LogMessage(MessageImportance.Low, $"Required reference '{r}' is set to omit.");
+                    Log.LogMessage(LogLevel, $"Required reference '{r}' is set to omit.");
                     continue;
                 }
 
-                Log.LogMessage(MessageImportance.Low, $"Checking required reference: {r}");
+                Log.LogMessage(LogLevel, $"Checking required reference: {r}");
                 if (References.Any(x => x.ToString().Equals(r.ToString(), StringComparison.OrdinalIgnoreCase)))
                 {
                     // found.

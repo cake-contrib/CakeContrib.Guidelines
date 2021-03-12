@@ -58,5 +58,36 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // then
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
         }
+
+        [Fact]
+        public void RequiredEditorconfig_Should_Not_Warn_If_PojectType_Is_Recipe()
+        {
+            // given
+            fixture.WithNonExistingEditorconfig();
+            fixture.WithProjectTypeRecipe();
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Correct_SourceFile_On_Warning_With_Given_ProjectFile()
+        {
+            // given
+            const string projectFileName = "some.project.csproj";
+            fixture.WithNonExistingEditorconfig();
+            fixture.WithProjectFile(projectFileName);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents
+                .Should().HaveCount(1)
+                .And.Contain(x => x.File == projectFileName);
+        }
     }
 }

@@ -109,6 +109,15 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            {
+                // no required references for recipes!
+                Log.LogMessage(
+                    LogLevel,
+                    "No TargetFrameworks suggested for recipe projects.");
+                return true;
+            }
+
             // find cake.core version
             var cakeCore =
                 References?.FirstOrDefault(x => x.ToString().Equals("Cake.Core", StringComparison.OrdinalIgnoreCase));
@@ -137,7 +146,7 @@ namespace CakeContrib.Guidelines.Tasks
             {
                 var differentiator = new Differentiator
                 {
-                    IsModuleProject = "module".Equals(ProjectType, StringComparison.OrdinalIgnoreCase),
+                    IsModuleProject = CalculateProjectType.TypeModule.Equals(ProjectType, StringComparison.OrdinalIgnoreCase),
                     Version = version,
                 };
                 var match = targetsDefinition.Key(differentiator);

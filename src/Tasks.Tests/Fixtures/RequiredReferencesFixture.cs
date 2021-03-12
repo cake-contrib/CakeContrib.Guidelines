@@ -49,12 +49,16 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 
         public void WithReferencedPackage(string packageName, string privateAssets = "")
         {
-            var referencedPackage = new Mock<ITaskItem>();
-            referencedPackage.Setup(x => x.ToString()).Returns(packageName);
+            var referencedPackage = GetMockTaskItem(packageName);
             referencedPackage.Setup(x => x.GetMetadata(
                 It.Is<string>(y => "PrivateAssets".Equals(y, StringComparison.OrdinalIgnoreCase))))
                 .Returns(privateAssets);
             references.Add(referencedPackage.Object);
+        }
+
+        public void WithProjectTypeRecipe()
+        {
+            Task.ProjectType = "Recipe";
         }
     }
 }

@@ -14,6 +14,12 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RequiredFileStylecopJson : Task
     {
+#if DEBUG
+        private const MessageImportance LogLevel = MessageImportance.High;
+#else
+        private const MessageImportance LogLevel = MessageImportance.Low;
+#endif
+
         private const string SettingsFileName = "stylecop.json";
         private const string AltSettingsFileName = ".stylecop.json";
 
@@ -34,16 +40,31 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public ITaskItem[] OmitFiles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ProjectType.
+        /// </summary>
+        [Required]
+        public string ProjectType { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            {
+                // not for recipes!
+                Log.LogMessage(
+                    LogLevel,
+                    "No stylecop.json required for recipe projects.");
+                return true;
+            }
+
             if (OmitFiles
                 .Select(x => x.GetMetadata("Identity"))
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Any(x => x.Equals(SettingsFileName, StringComparison.OrdinalIgnoreCase) ||
                     x.Equals(AltSettingsFileName, StringComparison.OrdinalIgnoreCase)))
             {
-                Log.LogMessage(MessageImportance.Low, $"Recommended file '{SettingsFileName}' is set to omit.");
+                Log.LogMessage(LogLevel, $"Recommended file '{SettingsFileName}' is set to omit.");
                 return true;
             }
 

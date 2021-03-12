@@ -29,8 +29,20 @@ namespace CakeContrib.Guidelines.Tasks
     /// ]]></example>
     public class CalculateProjectType : Task
     {
-        private const string TypeAddin = "Addin";
-        private const string TypeModule = "Module";
+        /// <summary>
+        /// Type: Addin
+        /// </summary>
+        public const string TypeAddin = "Addin";
+
+        /// <summary>
+        /// Type: Module
+        /// </summary>
+        public const string TypeModule = "Module";
+
+        /// <summary>
+        /// Type: Recipe
+        /// </summary>
+        public const string TypeRecipe = "Recipe";
 
 #if DEBUG
         private const MessageImportance LogLevel = MessageImportance.High;
@@ -83,6 +95,17 @@ namespace CakeContrib.Guidelines.Tasks
                     LogLevel,
                     $"The name '{match}' suggest a module project. Setting output to '{TypeModule}'.");
                 Output = TypeModule;
+                return true;
+            }
+
+            match = names
+                .FirstOrDefault(x => x.EndsWith(".recipe", StringComparison.InvariantCultureIgnoreCase));
+            if (match != null)
+            {
+                Log.LogMessage(
+                    LogLevel,
+                    $"The name '{match}' suggest a recipe project. Setting output to '{TypeRecipe}'.");
+                Output = TypeRecipe;
                 return true;
             }
 

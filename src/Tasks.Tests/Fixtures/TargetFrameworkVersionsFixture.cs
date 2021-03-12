@@ -49,16 +49,26 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 
         public void WithCakeCoreReference(int major = 0, int minor = 0, int patch = 0)
         {
+            WithCakeCoreReference($"{major}.{minor}.{patch}");
+        }
+
+        public void WithCakeCoreReference(string reference)
+        {
             var cakeRef = GetMockTaskItem("Cake.Core");
             cakeRef.Setup(x => x.GetMetadata(
-                It.Is<string>(y => "version".Equals(y, StringComparison.OrdinalIgnoreCase))))
-                .Returns($"{major}.{minor}.{patch}");
+                    It.Is<string>(y => "version".Equals(y, StringComparison.OrdinalIgnoreCase))))
+                .Returns(reference);
             references.Add(cakeRef.Object);
         }
 
         public void WithProjectType(string projectType)
         {
             Task.ProjectType = projectType;
+        }
+
+        public void WithProjectFile(string fileName)
+        {
+            Task.ProjectFile = fileName;
         }
     }
 }

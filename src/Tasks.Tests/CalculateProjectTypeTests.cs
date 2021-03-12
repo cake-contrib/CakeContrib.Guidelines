@@ -10,6 +10,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
     {
         private const string ExpectedTypeAddin = "Addin";
         private const string ExpectedTypeModule = "Module";
+        private const string ExpectedTypeRecipe = "Recipe";
 
         [Fact]
         public void Should_Return_The_ProjectType_If_Set()
@@ -65,6 +66,20 @@ namespace CakeContrib.Guidelines.Tasks.Tests
 
             // then
             fixture.Output.Should().Be(ExpectedTypeModule);
+        }
+
+        [Fact]
+        public void Should_Return_Recipe_If_Names_Point_To_Recipe()
+        {
+            // given
+            var fixture = new CalculateProjectTypeFixture();
+            fixture.WithProjectNames("foo","bar","Cake.Recipe","baz");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.Output.Should().Be(ExpectedTypeRecipe);
         }
     }
 }

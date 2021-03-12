@@ -38,5 +38,10 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         {
             Task.ProjectFile = fileName;
         }
+
+        public void WithProjectTypeRecipe()
+        {
+            Task.ProjectType = "Recipe";
+        }
     }
 }
