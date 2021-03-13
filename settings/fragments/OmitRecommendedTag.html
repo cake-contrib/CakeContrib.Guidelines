@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - Settings</title>
+        <title>CakeContrib.Guidelines - Omitrecommendedtag</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
 
         
     </head>
-    <body class="hold-transition wyam layout-boxed layout-top-nav ">    
+    <body class="hold-transition wyam layout-boxed  ">    
         <div class="top-banner"></div>
         <div class="wrapper with-container">
             <!-- Header -->
@@ -43,6 +43,10 @@
                          
                 <nav class="navbar navbar-static-top" role="navigation">
                     <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
                                         
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -67,10 +71,10 @@
             </header>
             
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="main-sidebar hidden">
+            <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/settings/index.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/settings/fragments/OmitRecommendedTag.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -81,7 +85,7 @@
                     <ul class="sidebar-menu">
                         
 
-                <li class="treeview">
+                <li class="treeview active">
                     <a href="/CakeContrib.Guidelines/settings/fragments">Fragments</a> <a href="#" class="expand"></a>
                     <ul class="treeview-menu">
                         
@@ -89,7 +93,7 @@
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
-                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedTag">Omitrecommendedtag</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedTag">Omitrecommendedtag</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitTargetFramework">Omittargetframework</a></li>
 
                     </ul>
@@ -107,87 +111,10 @@
 
 
 		<section class="content-header">
-			<h1>Settings</h1>
+			<h1>Omitrecommendedtag</h1>
 		</section>
 	<section class="content">
 		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#general">General</a>
-<ul>
-<li><a href="#projecttype">ProjectType</a></li>
-</ul>
-</li>
-<li><a href="#icons">Icons</a>
-<ul>
-<li><a href="#iconomitimport">IconOmitImport</a></li>
-</ul>
-</li>
-<li><a href="#opt-out">Opt-Out</a>
-<ul>
-<li><a href="#omitrecommendedconfigfile">OmitRecommendedConfigFile</a></li>
-<li><a href="#omitrecommendedreference">OmitRecommendedReference</a></li>
-<li><a href="#omitrecommendedtag">OmitRecommendedTag</a></li>
-<li><a href="#omitprivatecheck">OmitPrivateCheck</a></li>
-<li><a href="#omittargetframework">OmitTargetFramework</a></li>
-</ul>
-</li>
-</ul>
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<h2 id="general">General</h2>
-<h3 id="projecttype">ProjectType</h3>
-<p>A project can be one of two types: <code>addin</code> or <code>module</code>. Some rules have different behavior for
-different project types.
-The project type is automatically detected. To override auto-detection use the following:</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesProjectType&gt;module&lt;/CakeContribGuidelinesProjectType&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
-<div class="alert alert-info"><p>Though you can technically set <code>CakeContribGuidelinesProjectType</code> to anything you want, setting it to
-different values than <code>addin</code> or <code>module</code> might yield unexpected results.</p>
-</div>
-<h2 id="icons">Icons</h2>
-<h3 id="iconomitimport">IconOmitImport</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>The cake-contrib icon will be automatically included in the project, unless
-<code>CakeContribGuidelinesIconOmitImport</code> is set to <code>True</code>.</p>
-<p>To to use a &quot;custom&quot; import the following could be used:</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesIconOmitImport&gt;True&lt;/CakeContribGuidelinesIconOmitImport&gt;
-    &lt;PackageIcon&gt;logo.png&lt;/PackageIcon&gt;
-&lt;/PropertyGroup&gt;
-&lt;ItemGroup&gt;
-    &lt;None Include=&quot;icons/logo.png&quot; Pack=&quot;True&quot; PackagePath=&quot;&quot; /&gt;
-&lt;/ItemGroup&gt; 
-</code></pre>
-<h2 id="opt-out">Opt-Out</h2>
-<h3 id="omitrecommendedconfigfile">OmitRecommendedConfigFile</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It is possible to opt-out of the check for configuration-files by using the <code>CakeContribGuidelinesOmitRecommendedConfigFile</code> setting
-and setting it's <code>Include</code> to the file name that should not be checked:</p>
-<pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;CakeContribGuidelinesOmitRecommendedConfigFile Include=&quot;stylecop.json&quot; /&gt;
-    &lt;CakeContribGuidelinesOmitRecommendedConfigFile Include=&quot;.editorconfig&quot; /&gt;
-&lt;/ItemGroup&gt;
-</code></pre>
-<h3 id="omitrecommendedreference">OmitRecommendedReference</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It it possible to opt-out of the check for recommended references by using the <code>CakeContribGuidelinesOmitRecommendedReference</code> setting
-and setting it's <code>Include</code> to the reference that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
-<pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;CakeContribGuidelinesOmitRecommendedReference Include=&quot;StyleCop.Analyzers&quot; /&gt;
-&lt;/ItemGroup&gt;
-</code></pre>
-<h3 id="omitrecommendedtag">OmitRecommendedTag</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for recommended tags by using the <code>CakeContribGuidelinesOmitRecommendedTag</code> setting
@@ -196,28 +123,6 @@ and setting it's <code>Include</code> to the tag that should not be checked.</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;CakeContribGuidelinesOmitRecommendedTag Include=&quot;script&quot; /&gt;
     &lt;CakeContribGuidelinesOmitRecommendedTag Include=&quot;build&quot; /&gt;
-&lt;/ItemGroup&gt;
-</code></pre>
-<h3 id="omitprivatecheck">OmitPrivateCheck</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It it possible to opt-out of the check for <code>PrivateAssets</code> using the <code>CakeContribGuidelinesCakeReferenceOmitPrivateCheck</code> setting:</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
-<pre><code class="language-xml">&lt;PropertyGroup&gt;
-    &lt;CakeContribGuidelinesCakeReferenceOmitPrivateCheck&gt;1&lt;/CakeContribGuidelinesCakeReferenceOmitPrivateCheck&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
-<h3 id="omittargetframework">OmitTargetFramework</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It it possible to opt-out of the check for target framework(s) by using the <code>CakeContribGuidelinesOmitTargetFramework</code> setting
-and setting it's <code>Include</code> to the target framework that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
-<pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;netstandard2.0&quot; /&gt;
-    &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;net461&quot; /&gt;
 &lt;/ItemGroup&gt;
 </code></pre>
 
