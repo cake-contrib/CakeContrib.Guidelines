@@ -1,5 +1,4 @@
 ---
-Order: 2
 Title: PrivateAssets in references
 ---
 

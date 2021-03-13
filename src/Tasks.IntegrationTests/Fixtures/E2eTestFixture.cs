@@ -22,6 +22,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private readonly List<string> customContent = new List<string>();
         private string targetFrameworks = "netstandard2.0;net461";
         private readonly List<string> references = new List<string>();
+        private string tags = "cake, cake-build, build, script, addin, cake-addin, module, cake-module, recipe, cake-recipe";
 
         public E2eTestFixture(string tempFolder, ITestOutputHelper logger)
         {
@@ -68,6 +69,10 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
             if (!string.IsNullOrEmpty(packageIconUrl))
             {
                 properties.Add($"<PackageIconUrl>{packageIconUrl}</PackageIconUrl>");
+            }
+            if (!string.IsNullOrEmpty(tags))
+            {
+                properties.Add($"<PackageTags>{tags}</PackageTags>");
             }
             if (hasStylecopJson)
             {
@@ -165,6 +170,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         internal void WithTargetFrameworks(string targetFrameworks)
         {
             this.targetFrameworks = targetFrameworks;
+        }
+
+        internal void WithTags(string customTags)
+        {
+            tags = customTags;
         }
 
         private Tuple<string, string> GetTargetsToImport()

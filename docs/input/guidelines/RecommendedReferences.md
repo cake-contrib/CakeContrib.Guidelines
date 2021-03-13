@@ -1,5 +1,4 @@
 ---
-Order: 3
 Title: Recommended References
 ---
 
