@@ -11,6 +11,8 @@ jobs:
   generateTOCs:
     name: Generate all TOCs
     runs-on: ubuntu-latest
+    # "better" would be to check if GH_TOKEN is available
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
       - uses: actions/checkout@v2
