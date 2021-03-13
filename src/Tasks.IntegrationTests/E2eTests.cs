@@ -509,5 +509,68 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
             output.Should().Contain("cake-contrib/graphics/png/cake-contrib-medium.png");
         }
+
+        [Fact]
+        public void Missing_Addin_Tag_Should_Raise_CCG0008()
+        {
+            // given
+            fixture.WithTags("cake build cake-build script");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines
+                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
+                .And.Contain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1)
+                .And.NotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1)
+                .And.NotContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Missing_Module_Tag_Should_Raise_CCG0008_For_Modules()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <PackageId>Cake.Buildsystems.Module</PackageId>
+</PropertyGroup>");
+            fixture.WithTags("cake build cake-build script");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines
+                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
+                .And.Contain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1)
+                .And.NotContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1)
+                .And.NotContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Missing_Recipe_Tag_Should_Raise_CCG0008_For_Recipes()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <PackageId>Cake.Recipe</PackageId>
+</PropertyGroup>");
+            fixture.WithTags("cake build cake-build script");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines
+                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
+                .And.Contain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1)
+                .And.NotContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1)
+                .And.NotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1);
+        }
+
     }
 }

@@ -1,5 +1,4 @@
 ---
-Order: 1
 Title: CakeContrib-Icon
 ---
 

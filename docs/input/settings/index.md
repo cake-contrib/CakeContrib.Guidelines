@@ -15,6 +15,7 @@ NoSidebar: true
 - [Opt-Out](#opt-out)
   - [OmitRecommendedConfigFile](#omitrecommendedconfigfile)
   - [OmitRecommendedReference](#omitrecommendedreference)
+  - [OmitRecommendedTag](#omitrecommendedtag)
   - [OmitPrivateCheck](#omitprivatecheck)
   - [OmitTargetFramework](#omittargetframework)
 
@@ -50,6 +51,9 @@ different values than `addin` or `module` might yield unexpected results.
 
 ### OmitRecommendedReference
 <?! Include "./fragments/OmitRecommendedReference.md" /?>
+
+### OmitRecommendedTag
+<?! Include "./fragments/OmitRecommendedTag.md" /?>
 
 ### OmitPrivateCheck
 <?! Include "./fragments/OmitPrivateCheck.md" /?>
