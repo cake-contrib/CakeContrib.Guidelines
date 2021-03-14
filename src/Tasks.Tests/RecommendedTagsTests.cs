@@ -1,5 +1,3 @@
-using System.Linq;
-
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
 using FluentAssertions;

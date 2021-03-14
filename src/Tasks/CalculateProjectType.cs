@@ -30,17 +30,17 @@ namespace CakeContrib.Guidelines.Tasks
     public class CalculateProjectType : Task
     {
         /// <summary>
-        /// Type: Addin
+        /// Type: Addin.
         /// </summary>
         public const string TypeAddin = "Addin";
 
         /// <summary>
-        /// Type: Module
+        /// Type: Module.
         /// </summary>
         public const string TypeModule = "Module";
 
         /// <summary>
-        /// Type: Recipe
+        /// Type: Recipe.
         /// </summary>
         public const string TypeRecipe = "Recipe";
 

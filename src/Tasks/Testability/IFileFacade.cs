@@ -14,7 +14,7 @@
         bool AreFilesSame(string pathLhs, string pathRhs);
 
         /// <summary>
-        /// copy source to destination
+        /// copy source to destination.
         /// </summary>
         /// <param name="source">The source to copy from.</param>
         /// <param name="destination">The destination to copy to.</param>

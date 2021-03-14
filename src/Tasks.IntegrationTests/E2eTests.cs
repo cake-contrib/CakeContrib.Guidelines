@@ -572,5 +572,39 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
                 .And.NotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1);
         }
 
+        [Fact]
+        public void Incorrect_Cake_Reference_Should_Raise_CCG0009()
+        {
+            // given
+            fixture.WithPackageReference("cake.core", "0.38.5", "All");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should()
+                .Contain(l => l.IndexOf("CCG0009", StringComparison.Ordinal) > -1)
+                .And
+                .Contain(l => l.IndexOf("cake.core", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Incorrect_But_Omitted_Cake_Reference_Should_Not_Raise_CCG0009()
+        {
+            // given
+            fixture.WithPackageReference("cake.core", "0.38.5", "All");
+            fixture.WithCustomContent(@"
+<ItemGroup>
+    <CakeContribGuidelinesOmitRecommendedCakeVersion Include=""Cake.Core"" />
+</ItemGroup>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().BeEmpty();
+        }
     }
 }

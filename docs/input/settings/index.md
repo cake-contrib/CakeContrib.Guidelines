@@ -46,6 +46,9 @@ different values than `addin` or `module` might yield unexpected results.
 
 ## Opt-Out
 
+### OmitRecommendedCakeVersion
+<?! Include "./fragments/OmitRecommendedCakeVersion.md" /?>
+
 ### OmitRecommendedConfigFile
 <?! Include "./fragments/OmitRecommendedConfigFile.md" /?>
 

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -12,11 +15,24 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 
         protected T Task { get; }
 
-        protected Mock<ITaskItem> GetMockTaskItem(string identity)
+        protected Mock<ITaskItem> GetMockTaskItem(string identity, Dictionary<string, string> metadata = null)
         {
             var item = new Mock<ITaskItem>();
             item.Setup(x => x.ToString()).Returns(identity);
             item.Setup(x => x.GetMetadata("Identity")).Returns(identity);
+            if (metadata != null)
+            {
+                // ReSharper disable once UseDeconstruction
+                foreach (var kvp in metadata)
+                {
+                    var key = kvp.Key;
+                    var val = kvp.Value;
+                    item.Setup(x =>
+                        x.GetMetadata(It.Is<string>(arg =>
+                            arg.Equals(key, StringComparison.OrdinalIgnoreCase))))
+                        .Returns(val);
+                }
+            }
             return item;
         }
 
