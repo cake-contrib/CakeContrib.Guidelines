@@ -87,6 +87,7 @@
                         
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/IconOmitImport">Iconomitimport</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedCakeVersion">Omitrecommendedcakeversion</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedTag">Omitrecommendedtag</a></li>
@@ -164,6 +165,18 @@ different values than <code>addin</code> or <code>module</code> might yield unex
 &lt;/ItemGroup&gt; 
 </code></pre>
 <h2 id="opt-out">Opt-Out</h2>
+<h3 id="omitrecommendedcakeversion">OmitRecommendedCakeVersion</h3>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>It it possible to opt-out of the check for recommended Cake version using the <code>CakeContribGuidelinesOmitRecommendedCakeVersion</code> setting
+and setting it's <code>Include</code> to the reference that should not be checked.</p>
+<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<pre><code class="language-xml">&lt;ItemGroup&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedCakeVersion Include=&quot;Cake.Common&quot; /&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedCakeVersion Include=&quot;Cake.Core&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
 <h3 id="omitrecommendedconfigfile">OmitRecommendedConfigFile</h3>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

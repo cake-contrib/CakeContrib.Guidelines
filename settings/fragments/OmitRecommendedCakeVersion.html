@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - Target Frameworks</title>
+        <title>CakeContrib.Guidelines - Omitrecommendedcakeversion</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -58,9 +58,9 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">                            
-                                    <li class="active"><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
+                                    <li><a href="/CakeContrib.Guidelines/guidelines">Guidelines</a></li>
         <li><a href="/CakeContrib.Guidelines/rules">Rules</a></li>
-        <li><a href="/CakeContrib.Guidelines/settings">Settings</a></li>
+        <li class="active"><a href="/CakeContrib.Guidelines/settings">Settings</a></li>
  
                         </ul>       
                     </div>
@@ -74,7 +74,7 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/guidelines/TargetFramework.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/settings/fragments/OmitRecommendedCakeVersion.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -85,21 +85,20 @@
                     <ul class="sidebar-menu">
                         
 
-                <li><a href="/CakeContrib.Guidelines/guidelines/CakeContribIcon">CakeContrib-Icon</a></li>
-                <li class="treeview">
-                    <a href="/CakeContrib.Guidelines/guidelines/examples">Examples</a> <a href="#" class="expand"></a>
+                <li class="treeview active">
+                    <a href="/CakeContrib.Guidelines/settings/fragments">Fragments</a> <a href="#" class="expand"></a>
                     <ul class="treeview-menu">
                         
-                <li><a href="/CakeContrib.Guidelines/guidelines/examples/Editorconfig">Example for .editorconfig</a></li>
-                <li><a href="/CakeContrib.Guidelines/guidelines/examples/StyleCopJson">Example for stylecop.json</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/IconOmitImport">Iconomitimport</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedCakeVersion">Omitrecommendedcakeversion</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedTag">Omitrecommendedtag</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitTargetFramework">Omittargetframework</a></li>
 
                     </ul>
                 </li>
-                <li><a href="/CakeContrib.Guidelines/guidelines/PrivateAssets">PrivateAssets in references</a></li>
-                <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedCakeVersion">Recommended Cake Version</a></li>
-                <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedReferences">Recommended References</a></li>
-                <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedTags">Recommended Tags</a></li>
-                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/TargetFramework">Target Frameworks</a></li>
 
                     </ul>
                             
@@ -113,84 +112,18 @@
 
 
 		<section class="content-header">
-			<h1>Target Frameworks</h1>
+			<h1>Omitrecommendedcakeversion</h1>
 		</section>
 	<section class="content">
 		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#goals">Goals</a>
-<ul>
-<li><a href="#required--suggested-versions">Required / Suggested versions</a></li>
-</ul>
-</li>
-<li><a href="#related-rules">Related rules</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#settings">Settings</a>
-<ul>
-<li><a href="#opt-out">Opt-Out</a></li>
-</ul>
-</li>
-</ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<h2 id="goals">Goals</h2>
-<p>Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are
-suggested, depending on the Cake.Core version that is being referenced.</p>
-<h3 id="required-suggested-versions">Required / Suggested versions</h3>
-<p>Depending on the package type and the referenced <code>Cake.Core</code>-version different target versions are required and/or suggested.
-Missing a required target version will raise <a href="../rules/ccg0007">CCG0007</a> as an error
-while missing a suggested target version will raise <a href="../rules/ccg0007">CCG0007</a> as a warning.</p>
-<ul>
-<li>Package type: addin
-<ul>
-<li>Cake.Core &lt; 1.0.0
-<ul>
-<li>Required: <code>netstandard2.0</code></li>
-<li>Suggested: <code>net461</code>
-<ul>
-<li>alternative: <code>net46</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Cake.Core &gt;= 1.0.0
-<ul>
-<li>Required: <code>netstandard2.0</code></li>
-<li>Suggested: <code>net461</code>
-<ul>
-<li>alternative: <code>net46</code></li>
-</ul>
-</li>
-<li>Suggested: <code>net5.0</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Package type: module
-<ul>
-<li>Required: <code>netstandard2.0</code></li>
-</ul>
-</li>
-</ul>
-<p>For package type recipe no framework reference is required or suggested.</p>
-<h2 id="related-rules">Related rules</h2>
-<ul>
-<li><a href="../rules/ccg0007">CCG0007</a></li>
-</ul>
-<h2 id="usage">Usage</h2>
-<p>Using this package automatically enables this guideline.</p>
-<h2 id="settings">Settings</h2>
-<h3 id="opt-out">Opt-Out</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It it possible to opt-out of the check for target framework(s) by using the <code>CakeContribGuidelinesOmitTargetFramework</code> setting
-and setting it's <code>Include</code> to the target framework that should not be checked.</p>
+<p>It it possible to opt-out of the check for recommended Cake version using the <code>CakeContribGuidelinesOmitRecommendedCakeVersion</code> setting
+and setting it's <code>Include</code> to the reference that should not be checked.</p>
 <p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;netstandard2.0&quot; /&gt;
-    &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;net461&quot; /&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedCakeVersion Include=&quot;Cake.Common&quot; /&gt;
+    &lt;CakeContribGuidelinesOmitRecommendedCakeVersion Include=&quot;Cake.Core&quot; /&gt;
 &lt;/ItemGroup&gt;
 </code></pre>
 
