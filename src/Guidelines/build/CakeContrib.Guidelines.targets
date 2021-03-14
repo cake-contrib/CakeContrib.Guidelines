@@ -9,6 +9,7 @@
     <Import Project="$(MSBuildThisFileDirectory)PrivateAssets.targets" />
     <Import Project="$(MSBuildThisFileDirectory)RequiredReferences.targets" />
     <Import Project="$(MSBuildThisFileDirectory)RequiredFiles.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)RecommendedCakeVersion.targets" />
     <Import Project="$(MSBuildThisFileDirectory)RecommendedTags.targets" />
     <Import Project="$(MSBuildThisFileDirectory)TargetFrameworkVersions.targets" />
 
