@@ -48,6 +48,8 @@ addin further. (E.g. add `twitter` tag to the `Cake.Twitter` addin.)
 
  * [CCG0008](../rules/ccg0008)
 
+These rules are only applied for [project types](../settings#projecttype) `addin`, `module` and `recipe`.
+
 ## Usage
 
 Using this package automatically enables this guideline.

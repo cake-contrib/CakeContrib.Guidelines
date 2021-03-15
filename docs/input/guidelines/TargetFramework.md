@@ -45,6 +45,8 @@ For package type recipe no framework reference is required or suggested.
 
  * [CCG0007](../rules/ccg0007)
 
+These rules are only applied for [project types](../settings#projecttype) `addin` and `module`.
+
 ## Usage
 
 Using this package automatically enables this guideline.

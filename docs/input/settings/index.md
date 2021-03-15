@@ -25,9 +25,18 @@ NoSidebar: true
 ## General
 
 ### ProjectType
-A project can be one of two types: `addin` or `module`. Some rules have different behavior for 
-different project types.
-The project type is automatically detected. To override auto-detection use the following:
+A project can be one of different types: `addin`, `module`, `recipe` or `other`. 
+Some rules have different behavior for different project types.
+The project type is automatically detected but can be overridden.
+
+The rules on how project type detection is done are as follows (first matching rule applies):
+* Projects not referencing `Cake.Core` or `Cake.Common` are always of type `other`
+* Project names (AssemblyName, PackageId) starting with `Cake.` and ending in `.Module` will be treated as `module`
+* Project names (AssemblyName, PackageId) starting with `Cake.` and ending in `.Recipe` will be treated as `recipe`
+* Project names (AssemblyName, PackageId) starting with `Cake.` will be treated as `addin`
+* All other projects are of type `other`
+
+To override auto-detection use the following:
 
 ```xml
 <PropertyGroup>
@@ -37,7 +46,7 @@ The project type is automatically detected. To override auto-detection use the f
 
 :::{.alert .alert-info}
 Though you can technically set `CakeContribGuidelinesProjectType` to anything you want, setting it to
-different values than `addin` or `module` might yield unexpected results.
+different values than `addin`, `module` or `recipe` might yield unexpected results.
 :::
 
 ## Icons

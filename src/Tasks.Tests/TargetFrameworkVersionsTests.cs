@@ -48,6 +48,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(0, 38, 5);
             fixture.WithTargetFramework(NetStandard20);
 
             // when
@@ -64,6 +65,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(0, 38, 5);
             fixture.WithTargetFramework(NetStandard20);
             fixture.WithOmittedTargetFramework(Net461);
 
@@ -80,6 +82,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(0, 38, 5);
             fixture.WithTargetFrameworks(NetStandard20, Net461);
 
             // when
@@ -97,7 +100,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             const string brokenVersion = "1.2.3.4.5.6.7.8.9";
             var fixture = new TargetFrameworkVersionsFixture();
             fixture.WithCakeCoreReference(brokenVersion);
-            fixture.WithTargetFrameworks(NetStandard20, Net461);
+            fixture.WithTargetFrameworks(NetStandard20, Net461, Net50);
 
             // when
             fixture.Execute();
@@ -114,6 +117,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(0, 38, 5);
             fixture.WithTargetFrameworks(NetStandard20, Net46);
 
             // when

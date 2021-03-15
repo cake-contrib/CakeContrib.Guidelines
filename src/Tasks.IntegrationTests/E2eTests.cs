@@ -120,6 +120,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Referencing_Cake_Core_with_PrivateAssets_results_in_no_error()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "0.38.5", "all");
 
             // when
@@ -134,6 +135,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Referencing_Cake_Core_without_PrivateAssets_results_in_CCG0004_error()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "0.38.5");
 
             // when
@@ -240,6 +242,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Missing_Suggested_Target_net5_for_Cake_v100_results_in_CCG0007_warning()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0;net461");
 
@@ -256,6 +259,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Referencing_CakeCore_With_all_targets_raises_no_warning()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0;net461;net5.0");
 
@@ -271,6 +275,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Referencing_CakeCore_With_NetStandard_raises_no_warning_If_PackageType_Is_Module()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0");
             fixture.WithCustomContent(@"
@@ -307,7 +312,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("Addin");
+            output.Should().BeEquivalentTo("Addin");
         }
 
         [Fact]
@@ -363,7 +368,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("Module");
+            output.Should().BeEquivalentTo("Module");
         }
 
         [Fact]
@@ -391,7 +396,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("Module");
+            output.Should().BeEquivalentTo("Module");
         }
 
         [Fact]
@@ -419,7 +424,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("Addin");
+            output.Should().BeEquivalentTo("Addin");
         }
 
         [Fact]
@@ -576,6 +581,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Incorrect_Cake_Reference_Should_Raise_CCG0009()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("cake.core", "0.38.5", "All");
 
             // when
@@ -593,6 +599,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Incorrect_But_Omitted_Cake_Reference_Should_Not_Raise_CCG0009()
         {
             // given
+            fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("cake.core", "0.38.5", "All");
             fixture.WithCustomContent(@"
 <ItemGroup>

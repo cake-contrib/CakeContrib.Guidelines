@@ -51,12 +51,12 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
-            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
             {
                 // not for recipes!
                 Log.LogMessage(
                     LogLevel,
-                    "No stylecop.json required for recipe projects.");
+                    $"References are not required for {ProjectType} projects.");
                 return true;
             }
 

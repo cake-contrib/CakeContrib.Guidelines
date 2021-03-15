@@ -17,6 +17,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 
         public TargetFrameworkVersionsFixture()
         {
+            Task.ProjectType = CakeProjectType.Addin.ToString();
             references = new List<ITaskItem>();
             omittedTargets = new List<ITaskItem>();
             targetFrameworks = new List<ITaskItem>();

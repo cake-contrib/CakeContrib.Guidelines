@@ -8,9 +8,10 @@ namespace CakeContrib.Guidelines.Tasks.Tests
 {
     public class CalculateProjectTypeTests
     {
-        private const string ExpectedTypeAddin = "Addin";
-        private const string ExpectedTypeModule = "Module";
-        private const string ExpectedTypeRecipe = "Recipe";
+        private const string ExpectedTypeOther = "other";
+        private const string ExpectedTypeAddin = "addin";
+        private const string ExpectedTypeModule = "module";
+        private const string ExpectedTypeRecipe = "recipe";
 
         [Fact]
         public void Should_Return_The_ProjectType_If_Set()
@@ -24,11 +25,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().Be(existingType);
+            fixture.Output.Should().BeEquivalentTo(existingType);
         }
 
         [Fact]
-        public void Should_Return_Addin_If_Nothing_Is_Set()
+        public void Should_Return_Other_If_Nothing_Is_Set()
         {
             // given
             var fixture = new CalculateProjectTypeFixture();
@@ -37,11 +38,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().Be(ExpectedTypeAddin);
+            fixture.Output.Should().BeEquivalentTo(ExpectedTypeOther);
         }
 
         [Fact]
-        public void Should_Return_Addin_Names_Point_To_Addin()
+        public void Should_Return_Addin_If_Names_Point_To_Addin()
         {
             // given
             var fixture = new CalculateProjectTypeFixture();
@@ -51,7 +52,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().Be(ExpectedTypeAddin);
+            fixture.Output.Should().BeEquivalentTo(ExpectedTypeAddin);
         }
 
         [Fact]
@@ -65,7 +66,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().Be(ExpectedTypeModule);
+            fixture.Output.Should().BeEquivalentTo(ExpectedTypeModule);
         }
 
         [Fact]
@@ -79,7 +80,22 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().Be(ExpectedTypeRecipe);
+            fixture.Output.Should().BeEquivalentTo(ExpectedTypeRecipe);
+        }
+
+        [Fact]
+        public void Should_Return_Other_If_Cake_Is_Not_Referenced()
+        {
+            // given
+            var fixture = new CalculateProjectTypeFixture();
+            fixture.WithProjectNames("Cake.7zip","Cake.Buildsystems.Module","Cake.Recipe","foo");
+            fixture.WithoutCakeReference();
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.Output.Should().BeEquivalentTo(ExpectedTypeOther);
         }
     }
 }

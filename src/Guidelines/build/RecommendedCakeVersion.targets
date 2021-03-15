@@ -7,7 +7,8 @@
 
     <Target Name="_checkRecommendedCakeVersion"
             AfterTargets="BeforeBuild"
-            BeforeTargets="CoreBuild">
+            BeforeTargets="CoreBuild"
+            DependsOnTargets="EnsureProjectTypeIsSet">
         <ItemGroup>
             <CakeReferenceToCheck Include="cake.core" />
             <CakeReferenceToCheck Include="cake.common" />
@@ -22,6 +23,7 @@
             RecommendedVersion="$(RecommendedCakeVersion)"
             References="@(PackageReference)"
             Omitted="@(CakeContribGuidelinesOmitRecommendedCakeVersion)"
-            ReferencesToCheck="@(CakeReferenceToCheck)"/>
+            ReferencesToCheck="@(CakeReferenceToCheck)"
+            ProjectType="$(CakeContribGuidelinesProjectType)"/>
     </Target>
 </Project>

@@ -22,11 +22,15 @@
         <ItemGroup>
             <ProjectNames Include="$(AssemblyName)" />
             <ProjectNames Include="$(PackageId)" />
+            <CakeRequiredReference Include="cake.core" />
+            <CakeRequiredReference Include="cake.common" />
         </ItemGroup>
 
         <CalculateProjectType
             ProjectType="$(CakeContribGuidelinesProjectType)"
-            ProjectNames="@(ProjectNames)">
+            ProjectNames="@(ProjectNames)"
+            References="@(PackageReference)"
+            CakeRequiredReference="@(CakeRequiredReference)">
             <Output PropertyName="TempCakeContribGuidelinesProjectType" TaskParameter="Output"/>
         </CalculateProjectType>
         <CreateProperty
