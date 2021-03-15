@@ -25,3 +25,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           TARGET_PATHS: "."
           TOC_TITLE: "## Table of Contents"
+          CREATE_PR: true

@@ -13,6 +13,7 @@ NoSidebar: true
 - [Icons](#icons)
   - [IconOmitImport](#iconomitimport)
 - [Opt-Out](#opt-out)
+  - [OmitRecommendedCakeVersion](#omitrecommendedcakeversion)
   - [OmitRecommendedConfigFile](#omitrecommendedconfigfile)
   - [OmitRecommendedReference](#omitrecommendedreference)
   - [OmitRecommendedTag](#omitrecommendedtag)
