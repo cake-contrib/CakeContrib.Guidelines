@@ -23,19 +23,14 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public override bool Execute()
         {
             Task.Omitted = omittedTags.ToArray();
-            Task.Tags =  string.Join(", ", givenTags);
+            Task.Tags =  string.Join(";", givenTags);
             Task.CakeContribTags = recommendedTags.ToArray();
             return base.Execute();
         }
 
         private ITaskItem[] Convert(IEnumerable<string> tags)
         {
-            return tags.Select(x =>
-            {
-                var reference = new Mock<ITaskItem>();
-                reference.Setup(y => y.ToString()).Returns(x);
-                return reference.Object;
-            }).ToArray();
+            return tags.Select(x => GetMockTaskItem(x).Object).ToArray();
         }
 
         public void WithOmittedTags(params string[] tags)

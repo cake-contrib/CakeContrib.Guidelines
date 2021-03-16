@@ -24,7 +24,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private readonly List<string> customContent = new List<string>();
         private string targetFrameworks = "netstandard2.0;net461;net5.0";
         private readonly List<string> references = new List<string>();
-        private string tags = "cake, cake-build, build, script, addin, cake-addin, module, cake-module, recipe, cake-recipe";
+        private string tags = "cake;cake-build;build;script;addin;cake-addin;module;cake-module;recipe;cake-recipe";
 
         public E2eTestFixture(string tempFolder, ITestOutputHelper logger)
         {
