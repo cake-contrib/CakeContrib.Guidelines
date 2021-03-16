@@ -123,6 +123,7 @@
 <li><a href="#goals">Goals</a>
 <ul>
 <li><a href="#recommended-tags">Recommended tags</a></li>
+<li><a href="#tag-delimiter">Tag delimiter</a></li>
 </ul>
 </li>
 <li><a href="#related-rules">Related rules</a></li>
@@ -170,6 +171,11 @@ displayed in the NuGet Gallery (compare this <a href="https://github.com/NuGet/N
 </ul>
 <p>Additionally, for addins, it is always advised to include an additional tag to describe the
 addin further. (E.g. add <code>twitter</code> tag to the <code>Cake.Twitter</code> addin.)</p>
+<h3 id="tag-delimiter">Tag delimiter</h3>
+<p>NuGet specifications require the delimiter of tags to be a space. MsBuild supports the semicolon <code>;</code>
+as an additional delimiter (effectively converting all semicolons to spaces during packaging.)</p>
+<p>While having comma (<code>,</code>) as a delimiter currently seems to work in the NuGet Gallery, it is not
+a supported delimiter for tags.</p>
 <h2 id="related-rules">Related rules</h2>
 <ul>
 <li><a href="../rules/ccg0008">CCG0008</a></li>

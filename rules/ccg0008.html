@@ -113,6 +113,9 @@
 		<blockquote class="blockquote">
 <p>Missing recommended tag: cake</p>
 </blockquote>
+<blockquote class="blockquote">
+<p>Unsupported delimiter in PackageTags: comma.</p>
+</blockquote>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <h2 id="table-of-contents">Table of Contents</h2>
@@ -125,12 +128,15 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="cause">Cause</h2>
 <p>This warning is raised, when the addin/module is packaged for NuGet but does not include a recommended tag.</p>
+<p>Also, this warning is raised when a comma (<code>,</code>) is found in the list of tags,
+as comma is not a supported delimiter for tags in NuGet.</p>
 <h2 id="description">Description</h2>
 <p>NuGet packages should be correctly tagged have good discoverability and installation instructions in the NuGet gallery.</p>
 <h2 id="how-to-fix-violations">How to fix violations</h2>
-<p>Add the recommended tag(s) to the project (example for an addin):</p>
+<p>Add the recommended tag(s) to the project (example for an addin) and
+separate them either by space (<code> </code>) or by semicolon (<code>;</code>):</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
-  &lt;PackageTags&gt;cake, build, cake-build, script, addin, cake-addin&lt;/PackageTags&gt;
+  &lt;PackageTags&gt;cake;build;cake-build;script;addin;cake-addin&lt;/PackageTags&gt;
 &lt;/PropertyGroup&gt;
 </code></pre>
 <h2 id="related-guidelines">Related guidelines</h2>
