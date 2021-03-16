@@ -139,15 +139,24 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="general">General</h2>
 <h3 id="projecttype">ProjectType</h3>
-<p>A project can be one of two types: <code>addin</code> or <code>module</code>. Some rules have different behavior for
-different project types.
-The project type is automatically detected. To override auto-detection use the following:</p>
+<p>A project can be one of different types: <code>addin</code>, <code>module</code>, <code>recipe</code> or <code>other</code>.
+Some rules have different behavior for different project types.
+The project type is automatically detected but can be overridden.</p>
+<p>The rules on how project type detection is done are as follows (first matching rule applies):</p>
+<ul>
+<li>Projects not referencing <code>Cake.Core</code> or <code>Cake.Common</code> are always of type <code>other</code></li>
+<li>Project names (AssemblyName, PackageId) starting with <code>Cake.</code> and ending in <code>.Module</code> will be treated as <code>module</code></li>
+<li>Project names (AssemblyName, PackageId) starting with <code>Cake.</code> and ending in <code>.Recipe</code> will be treated as <code>recipe</code></li>
+<li>Project names (AssemblyName, PackageId) starting with <code>Cake.</code> will be treated as <code>addin</code></li>
+<li>All other projects are of type <code>other</code></li>
+</ul>
+<p>To override auto-detection use the following:</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
     &lt;CakeContribGuidelinesProjectType&gt;module&lt;/CakeContribGuidelinesProjectType&gt;
 &lt;/PropertyGroup&gt;
 </code></pre>
 <div class="alert alert-info"><p>Though you can technically set <code>CakeContribGuidelinesProjectType</code> to anything you want, setting it to
-different values than <code>addin</code> or <code>module</code> might yield unexpected results.</p>
+different values than <code>addin</code>, <code>module</code> or <code>recipe</code> might yield unexpected results.</p>
 </div>
 <h2 id="icons">Icons</h2>
 <h3 id="iconomitimport">IconOmitImport</h3>
