@@ -55,12 +55,11 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
-            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
             {
-                // not for recipes!
                 Log.LogMessage(
                     LogLevel,
-                    "No .editorconfig required for recipe projects.");
+                    $".editorconfig not required for {ProjectType} projects.");
                 return true;
             }
 

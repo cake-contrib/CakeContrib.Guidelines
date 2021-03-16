@@ -33,7 +33,11 @@ namespace CakeContrib.Guidelines.Tasks
         {
             Name = "Default",
             RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
-            SuggestedTargets = new[] { TargetsDefinition.From(Net461, Net46) },
+            SuggestedTargets = new[]
+            {
+                TargetsDefinition.From(Net461, Net46),
+                TargetsDefinition.From(Net50),
+            },
         };
 
         private static readonly Dictionary<Predicate<Differentiator>, TargetsDefinitions> SpecificTargets =
@@ -109,12 +113,11 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
-            if (CalculateProjectType.TypeRecipe.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
             {
-                // no required references for recipes!
                 Log.LogMessage(
                     LogLevel,
-                    "No TargetFrameworks suggested for recipe projects.");
+                    $"No TFM suggested for {ProjectType} projects.");
                 return true;
             }
 
@@ -146,7 +149,7 @@ namespace CakeContrib.Guidelines.Tasks
             {
                 var differentiator = new Differentiator
                 {
-                    IsModuleProject = CalculateProjectType.TypeModule.Equals(ProjectType, StringComparison.OrdinalIgnoreCase),
+                    IsModuleProject = CakeProjectType.Module.Is(ProjectType),
                     Version = version,
                 };
                 var match = targetsDefinition.Key(differentiator);

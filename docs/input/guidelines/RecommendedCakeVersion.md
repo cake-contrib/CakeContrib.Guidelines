@@ -23,6 +23,8 @@ This is currently version 1.0.0.
 
  * [CCG0009](../rules/ccg0009)
 
+This rule is only applied for [project types](../settings#projecttype) `addin` and `module`.
+
 ## Usage
 
 Using this package automatically enables this guideline.

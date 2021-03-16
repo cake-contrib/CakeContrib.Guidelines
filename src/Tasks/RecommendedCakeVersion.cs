@@ -57,10 +57,8 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
-            if (!CalculateProjectType.TypeModule.Equals(ProjectType, StringComparison.OrdinalIgnoreCase)
-                && !CalculateProjectType.TypeAddin.Equals(ProjectType, StringComparison.OrdinalIgnoreCase))
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
             {
-                // only for addins & modules!
                 Log.LogMessage(
                     LogLevel,
                     $"No Cake reference required for {ProjectType} projects.");

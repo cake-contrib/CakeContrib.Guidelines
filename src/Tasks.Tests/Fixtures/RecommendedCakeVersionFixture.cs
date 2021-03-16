@@ -16,7 +16,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             references = new List<ITaskItem>();
             omitted = new List<ITaskItem>();
             referencesToCheck = new List<ITaskItem>();
-            Task.ProjectType = CalculateProjectType.TypeAddin;
+            Task.ProjectType = CakeProjectType.Addin.ToString();
         }
 
         public override bool Execute()

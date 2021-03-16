@@ -11,6 +11,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 
         public RequiredFileStylecopJsonFixture()
         {
+            Task.ProjectType = CakeProjectType.Addin.ToString();
             additionalFiles = new List<ITaskItem>();
             omittedFiles = new List<ITaskItem>();
         }

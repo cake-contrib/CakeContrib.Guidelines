@@ -16,11 +16,13 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 
         private string packageIcon = "$(CakeContribGuidelinesIconDestinationLocation)";
         private string packageIconUrl = "https://some/icon/somewhere.png";
+        private string assemblyName = "Cake.Test";
         private bool hasStylecopJson = true;
         private bool hasStylecopReference = true;
         private bool hasEditorConfig = true;
+        private bool hasDefaultCakeReference = true;
         private readonly List<string> customContent = new List<string>();
-        private string targetFrameworks = "netstandard2.0;net461";
+        private string targetFrameworks = "netstandard2.0;net461;net5.0";
         private readonly List<string> references = new List<string>();
         private string tags = "cake, cake-build, build, script, addin, cake-addin, module, cake-module, recipe, cake-recipe";
 
@@ -45,6 +47,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
     <Import Project=""{0}"" />
 
     <PropertyGroup>
+        <AssemblyName>{6}</AssemblyName>
         <TargetFrameworks>{5}</TargetFrameworks>
         {2}
     </PropertyGroup>
@@ -97,6 +100,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
     <PrivateAssets>all</PrivateAssets>
 </PackageReference>");
             }
+
+            if (hasDefaultCakeReference)
+            {
+                WithPackageReference("cake.core","1.0.0", "all");
+            }
             items.AddRange(references);
 
             File.WriteAllText(csproj, string.Format(template,
@@ -105,7 +113,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
                 string.Join(Environment.NewLine, properties),
                 string.Join(Environment.NewLine, items),
                 string.Join(Environment.NewLine, customContent),
-                targetFrameworks));
+                targetFrameworks,
+                assemblyName));
 
             return csproj;
         }
@@ -285,7 +294,34 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 
         public void Dispose()
         {
+            ShutdownDotnetBuild(tempFolder);
             Directory.Delete(tempFolder, true);
+        }
+
+        private void ShutdownDotnetBuild(string dir)
+        {
+            var arg = "build-server shutdown";
+
+#if !NETCORE
+            arg += " --msbuild";
+#endif
+            var psi = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                RedirectStandardError = false,
+                RedirectStandardOutput = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true,
+                ErrorDialog = false,
+                WorkingDirectory = dir,
+                FileName = "dotnet",
+                Arguments = arg
+            };
+
+            using (Process process = Process.Start(psi))
+            {
+                process.WaitForExit();
+            }
         }
 
         public class BuildRunResult
@@ -299,6 +335,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
             {
                 get { return ExitCode != 0; }
             }
+        }
+
+        public void WithoutDefaultCakeReference()
+        {
+            hasDefaultCakeReference = false;
         }
     }
 }

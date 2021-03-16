@@ -28,7 +28,7 @@ Example-Files can be found at:
  * [CCG0005](../rules/ccg0005)
  * [CCG0006](../rules/ccg0006)
 
-These rules are not applied for package type recipe.
+These rules are only applied for [project types](../settings#projecttype) `addin` and `module`.
 
 ## Usage
 

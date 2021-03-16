@@ -12,15 +12,18 @@ namespace CakeContrib.Guidelines.Tasks
     /// <example><![CDATA[
     /// <Target Name="Test">
     ///   <PropertyGroup>
-    ///     <ProjectType></ProjectType>
+    ///     <ProjectType>unknown</ProjectType>
     ///   </PropertyGroup>
     ///   <ItemGroup>
     ///     <ProjectNames Include="$(AssemblyName)" />
     ///     <ProjectNames Include="$(PackageId)" />
+    ///     <CakeRequiredReference Include="cake.core" />
+    ///     <CakeRequiredReference Include="cake.common" />
     ///   </ItemGroup>
     ///   <CalculateProjectType
     ///      ProjectType="$(ProjectType)"
-    ///      ProjectNames="@(ProjectNames)">
+    ///      ProjectNames="@(ProjectNames)"
+    ///      References="@(PackageReference)">
     ///     <Output ItemName="ProjectType" TaskParameter="Output"/>
     ///   </CalculateProjectType>
     ///
@@ -29,21 +32,6 @@ namespace CakeContrib.Guidelines.Tasks
     /// ]]></example>
     public class CalculateProjectType : Task
     {
-        /// <summary>
-        /// Type: Addin.
-        /// </summary>
-        public const string TypeAddin = "Addin";
-
-        /// <summary>
-        /// Type: Module.
-        /// </summary>
-        public const string TypeModule = "Module";
-
-        /// <summary>
-        /// Type: Recipe.
-        /// </summary>
-        public const string TypeRecipe = "Recipe";
-
 #if DEBUG
         private const MessageImportance LogLevel = MessageImportance.High;
 #else
@@ -65,6 +53,18 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem[] ProjectNames { get; set; }
 
         /// <summary>
+        /// Gets or sets the References.
+        /// </summary>
+        [Required]
+        public ITaskItem[] References { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CakeRequiredReference.
+        /// </summary>
+        [Required]
+        public ITaskItem[] CakeRequiredReference { get; set; }
+
+        /// <summary>
         /// Gets the output of this Task.
         /// </summary>
         [Output]
@@ -82,37 +82,70 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
+            var requiredCakeReferences = CakeRequiredReference
+                .Select(x => x.ToString())
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
+
+            var references = References
+                .Select(x => x.ToString())
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
+
+            if (!references.Any(x => requiredCakeReferences.Contains(x)))
+            {
+                Output = CakeProjectType.Other.ToString();
+                Log.LogMessage(
+                    LogLevel,
+                    $"No reference to Cake found. Setting output to '{Output}'.");
+                return true;
+            }
+
             var names = ProjectNames
                 .Select(x => x.ToString())
                 .Where(x => !string.IsNullOrEmpty(x))
                 .ToList();
 
-            var match = names
-                .FirstOrDefault(x => x.EndsWith(".module", StringComparison.InvariantCultureIgnoreCase));
-            if (match != null)
+            var thisCouldHaveBeenAConfiguration = new[]
             {
+                new Tuple<Predicate<string>, string>(
+                    x =>
+                        x.StartsWith("cake.", StringComparison.InvariantCultureIgnoreCase) &&
+                        x.EndsWith(".module", StringComparison.InvariantCultureIgnoreCase),
+                    CakeProjectType.Module.ToString()),
+                new Tuple<Predicate<string>, string>(
+                    x =>
+                        x.StartsWith("cake.", StringComparison.InvariantCultureIgnoreCase) &&
+                        x.EndsWith(".recipe", StringComparison.InvariantCultureIgnoreCase),
+                    CakeProjectType.Recipe.ToString()),
+                new Tuple<Predicate<string>, string>(
+                    x =>
+                        x.StartsWith("cake.", StringComparison.InvariantCultureIgnoreCase),
+                    CakeProjectType.Addin.ToString()),
+            };
+
+            foreach (var tuple in thisCouldHaveBeenAConfiguration)
+            {
+                var match = names
+                    .FirstOrDefault(x => tuple.Item1(x));
+                if (match == null)
+                {
+                    continue;
+                }
+
+                Output = tuple.Item2;
                 Log.LogMessage(
                     LogLevel,
-                    $"The name '{match}' suggest a module project. Setting output to '{TypeModule}'.");
-                Output = TypeModule;
+                    $"The name '{match}' suggest a {Output} project. Setting output to '{Output}'.");
                 return true;
             }
 
-            match = names
-                .FirstOrDefault(x => x.EndsWith(".recipe", StringComparison.InvariantCultureIgnoreCase));
-            if (match != null)
-            {
-                Log.LogMessage(
-                    LogLevel,
-                    $"The name '{match}' suggest a recipe project. Setting output to '{TypeRecipe}'.");
-                Output = TypeRecipe;
-                return true;
-            }
-
+            Output = CakeProjectType.Other.ToString();
             Log.LogMessage(
                 LogLevel,
-                $"Setting output to the default of '{TypeAddin}'.");
-            Output = TypeAddin;
+                $"Setting output to the default of '{Output}'.");
             return true;
         }
     }
