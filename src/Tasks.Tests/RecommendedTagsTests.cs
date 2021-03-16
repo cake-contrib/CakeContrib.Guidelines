@@ -1,3 +1,5 @@
+using System;
+
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
 using FluentAssertions;
@@ -71,5 +73,22 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
             fixture.BuildEngine.WarningEvents.Should().Contain(x => x.File == projectFileName);
         }
+
+        [Fact]
+        public void Should_Warn_If_Tags_Contain_Comma()
+        {
+            // given
+            var fixture = new RequiredTagsFixture();
+            fixture.WithGivenTags("one, two, three");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(1)
+                .And.Contain(x => x.Code == "CCG0008")
+                .And.Contain(x => x.Message.IndexOf("comma", StringComparison.OrdinalIgnoreCase) > -1);
+        }
+
     }
 }

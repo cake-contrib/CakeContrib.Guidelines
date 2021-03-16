@@ -45,7 +45,15 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
-            var tagsSetInProj = Tags.Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (Tags.IndexOf(",", StringComparison.Ordinal) > -1)
+            {
+                Log.CcgWarning(
+                    8,
+                    ProjectFile,
+                    $"Unsupported delimiter in PackageTags: comma.");
+            }
+
+            var tagsSetInProj = Tags.Split(new[] { ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var r in CakeContribTags)
             {
                 var recommended = r.ToString();

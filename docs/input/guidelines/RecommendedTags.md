@@ -8,6 +8,7 @@ Title: Recommended Tags
 
 - [Goals](#goals)
   - [Recommended tags](#recommended-tags)
+  - [Tag delimiter](#tag-delimiter)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
@@ -43,6 +44,14 @@ Depending on the package type, different tags are suggested:
 
 Additionally, for addins, it is always advised to include an additional tag to describe the
 addin further. (E.g. add `twitter` tag to the `Cake.Twitter` addin.)
+
+### Tag delimiter
+
+NuGet specifications require the delimiter of tags to be a space. MsBuild supports the semicolon `;`
+as an additional delimiter (effectively converting all semicolons to spaces during packaging.)
+
+While having comma (`,`) as a delimiter currently seems to work in the NuGet Gallery, it is not
+a supported delimiter for tags.
 
 ## Related rules
 

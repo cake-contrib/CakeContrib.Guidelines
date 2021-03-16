@@ -578,6 +578,26 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         }
 
         [Fact]
+        public void Delimiting_Tag_By_Comma_Should_Raise_CCG0008()
+        {
+            // given
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <PackageId>Cake.Recipe</PackageId>
+</PropertyGroup>");
+            fixture.WithTags("cake, build, cake-build, cake-recipe");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines
+                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
+                .And.Contain(l => l.IndexOf("comma", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
         public void Incorrect_Cake_Reference_Should_Raise_CCG0009()
         {
             // given
