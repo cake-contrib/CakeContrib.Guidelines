@@ -32,6 +32,8 @@
             ProjectFile="$(MSBuildProjectFullPath)"
             CakeContribTags="@(RecommendedTag)"
             Tags="$(PackageTags)"
-            Omitted="@(CakeContribGuidelinesOmitRecommendedTag)" />
+            Omitted="@(CakeContribGuidelinesOmitRecommendedTag)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)" />
     </Target>
 </Project>

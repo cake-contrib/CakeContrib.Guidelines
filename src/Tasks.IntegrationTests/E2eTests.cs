@@ -633,5 +633,43 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             result.IsErrorExitCode.Should().BeFalse();
             result.WarningLines.Should().BeEmpty();
         }
+
+        [Fact]
+        public void Missing_Suggested_Target_results_not_in_CCG0007_warning_if_NoWarn_is_set()
+        {
+            // given
+            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+    <NoWarn>1701;1702;ccg0007</NoWarn>
+</PropertyGroup>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().NotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+        }
+
+        [Fact]
+        public void Missing_Suggested_Target_results_in_CCG0007_error_if_WarningsAsErrors_is_set()
+        {
+            // given
+            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+    <WarningsAsErrors>NU1605;ccg0007</WarningsAsErrors >
+</PropertyGroup>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            result.WarningLines.Should().NotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+        }
+
     }
 }

@@ -42,6 +42,17 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         public string ProjectFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -50,7 +61,9 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     8,
                     ProjectFile,
-                    $"Unsupported delimiter in PackageTags: comma.");
+                    $"Unsupported delimiter in PackageTags: comma.",
+                    NoWarn,
+                    WarningsAsErrors);
             }
 
             var tagsSetInProj = Tags.Split(new[] { ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -74,7 +87,9 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     8,
                     ProjectFile,
-                    $"Usage of tag '{recommended}' is recommended.");
+                    $"Usage of tag '{recommended}' is recommended.",
+                    NoWarn,
+                    WarningsAsErrors);
             }
 
             return true;

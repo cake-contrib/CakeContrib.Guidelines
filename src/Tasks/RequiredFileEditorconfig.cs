@@ -48,6 +48,16 @@ namespace CakeContrib.Guidelines.Tasks
         public string ProjectType { get; set; }
 
         /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
+        /// <summary>
         /// Sets the FileSearcher. INTERNAL USE. replaced in unit-tests.
         /// </summary>
         internal IFileSearcher FileSearcher { private get; set; }
@@ -80,7 +90,9 @@ namespace CakeContrib.Guidelines.Tasks
             Log.CcgWarning(
                 6,
                 ProjectFile,
-                $"No '{FileName}' found in folder-structure. Usage of '{FileName}' is strongly recommended.");
+                $"No '{FileName}' found in folder-structure. Usage of '{FileName}' is strongly recommended.",
+                NoWarn,
+                WarningsAsErrors);
             return true;
         }
     }

@@ -110,6 +110,16 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public string ProjectFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -137,7 +147,9 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     7,
                     ProjectFile,
-                    $"Cake.Core has a version of {cakeCore.GetMetadata("version")} which is not a valid version. Using default TargetVersions.");
+                    $"Cake.Core has a version of {cakeCore.GetMetadata("version")} which is not a valid version. Using default TargetVersions.",
+                    NoWarn,
+                    WarningsAsErrors);
                 return Execute(DefaultTarget);
             }
 
@@ -247,7 +259,9 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     7,
                     ProjectFile,
-                    "Missing suggested target: " + suggestedTarget.Name);
+                    "Missing suggested target: " + suggestedTarget.Name,
+                    NoWarn,
+                    WarningsAsErrors);
             }
 
             return true;

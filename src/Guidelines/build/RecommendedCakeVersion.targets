@@ -24,6 +24,8 @@
             References="@(PackageReference)"
             Omitted="@(CakeContribGuidelinesOmitRecommendedCakeVersion)"
             ReferencesToCheck="@(CakeReferenceToCheck)"
-            ProjectType="$(CakeContribGuidelinesProjectType)"/>
+            ProjectType="$(CakeContribGuidelinesProjectType)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)"/>
     </Target>
 </Project>

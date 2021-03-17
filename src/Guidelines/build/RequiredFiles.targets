@@ -17,12 +17,16 @@
         <RequiredFileEditorconfig
             OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"
             ProjectFile="$(MSBuildProjectFullPath)"
-            ProjectType="$(CakeContribGuidelinesProjectType)" />
+            ProjectType="$(CakeContribGuidelinesProjectType)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)" />
 
         <RequiredFileStylecopJson
             OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"
             AdditionalFiles="@(AdditionalFiles)"
             ProjectFile="$(MSBuildProjectFullPath)"
-            ProjectType="$(CakeContribGuidelinesProjectType)" />
+            ProjectType="$(CakeContribGuidelinesProjectType)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)" />
     </Target>
 </Project>

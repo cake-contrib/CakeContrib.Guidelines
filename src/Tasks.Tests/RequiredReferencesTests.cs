@@ -94,5 +94,35 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // then
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
         }
+
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            var fixture = new RequiredReferencesFixture();
+            fixture.WithRequiredReferences("Some.Analyser");
+            fixture.WithNoWarn("ccg0005");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            var fixture = new RequiredReferencesFixture();
+            fixture.WithRequiredReferences("Some.Analyser");
+            fixture.WithWarningsAsErrors("ccg0005");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }

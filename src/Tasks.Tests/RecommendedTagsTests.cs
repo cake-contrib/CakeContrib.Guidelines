@@ -14,7 +14,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         public void Should_Not_Warn_If_RecommendedTags_Are_Used()
         {
             // given
-            var fixture = new RequiredTagsFixture();
+            var fixture = new RecommendedTagsFixture();
             fixture.WithRecommendedTags("cake", "cake-build");
             fixture.WithGivenTags("cake", "cake-build");
 
@@ -29,7 +29,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         public void Should_Warn_If_RequiredTags_Are_Not_Used()
         {
             // given
-            var fixture = new RequiredTagsFixture();
+            var fixture = new RecommendedTagsFixture();
             fixture.WithRecommendedTags("cake", "cake-build");
             fixture.WithGivenTags("cake");
 
@@ -45,7 +45,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         public void Should_Not_Warn_If_RequiredTags_Are_Omitted()
         {
             // given
-            var fixture = new RequiredTagsFixture();
+            var fixture = new RecommendedTagsFixture();
             fixture.WithRecommendedTags("cake", "cake-build");
             fixture.WithOmittedTags("cake-build");
             fixture.WithGivenTags("cake");
@@ -62,7 +62,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             const string projectFileName = "some.project.csproj";
-            var fixture = new RequiredTagsFixture();
+            var fixture = new RecommendedTagsFixture();
             fixture.WithProjectFile(projectFileName);
             fixture.WithRecommendedTags("not-used");
 
@@ -78,7 +78,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         public void Should_Warn_If_Tags_Contain_Comma()
         {
             // given
-            var fixture = new RequiredTagsFixture();
+            var fixture = new RecommendedTagsFixture();
             fixture.WithGivenTags("one, two, three");
 
             // when
@@ -90,5 +90,36 @@ namespace CakeContrib.Guidelines.Tasks.Tests
                 .And.Contain(x => x.Message.IndexOf("comma", StringComparison.OrdinalIgnoreCase) > -1);
         }
 
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            var fixture = new RecommendedTagsFixture();
+            fixture.WithRecommendedTags("cake");
+            fixture.WithGivenTags("");
+            fixture.WithNoWarn("ccg0008");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            var fixture = new RecommendedTagsFixture();
+            fixture.WithRecommendedTags("cake");
+            fixture.WithGivenTags("");
+            fixture.WithWarningsAsErrors("ccg0008");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }

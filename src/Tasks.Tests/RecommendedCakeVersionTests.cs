@@ -106,5 +106,41 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // then
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
         }
+
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithReference("cake.core", "0.38.5");
+            fixture.WithReference("cake.common", "1.0.0");
+            fixture.WithReferencesToCheck("cake.core", "cake.common");
+            fixture.WithRecommendedVersion("1.0.0");
+            fixture.WithNoWarn("ccg0009");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithReference("cake.core", "0.38.5");
+            fixture.WithReference("cake.common", "1.0.0");
+            fixture.WithReferencesToCheck("cake.core", "cake.common");
+            fixture.WithRecommendedVersion("1.0.0");
+            fixture.WithWarningsAsErrors("ccg0009");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }
