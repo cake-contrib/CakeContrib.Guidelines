@@ -15,12 +15,6 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class EnsureCakeContribIcon : Task
     {
-#if DEBUG
-        private const MessageImportance LogLevel = MessageImportance.High;
-#else
-        private const MessageImportance LogLevel = MessageImportance.Low;
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EnsureCakeContribIcon"/> class.
         /// </summary>
@@ -70,6 +64,16 @@ namespace CakeContrib.Guidelines.Tasks
         public string ProjectFile { get; set; }
 
         /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
+        /// <summary>
         /// Sets the FileComparer. INTERNAL USE. replaced in unit-tests.
         /// </summary>
         internal IFileFacade FileFacade { private get; set; }
@@ -94,9 +98,7 @@ namespace CakeContrib.Guidelines.Tasks
                 }
 
                 PackageIconOutput = Path.GetFileName(CakeContribIconPath.NormalizePathSeparators());
-                Log.LogMessage(
-                    LogLevel,
-                    $"PackageIcon was not set. Setting it to {PackageIconOutput}.");
+                Log.CcgTrace($"PackageIcon was not set. Setting it to {PackageIconOutput}.");
             }
 
             PackageIconOutput = PackageIconOutput.NormalizePathSeparators();
@@ -138,33 +140,29 @@ namespace CakeContrib.Guidelines.Tasks
                 AdditionalNoneRefOutput.SetMetadata("Pack", "True");
                 AdditionalNoneRefOutput.SetMetadata("PackagePath", PackageIconOutput);
 
-                Log.LogMessage(
-                    LogLevel,
-                    $"PackageIcon ({PackageIconOutput}) was not referenced in Project. Referencing {CakeContribIconPath}.");
+                Log.CcgTrace($"PackageIcon ({PackageIconOutput}) was not referenced in Project. Referencing {CakeContribIconPath}.");
 
                 return true;
             }
 
             // check file format
             var dstExtension = Path.GetExtension(iconRef.SourceInFileSystem);
-            Log.LogMessage(
-                LogLevel,
-                $"Comparing compatibility of {iconRef.SourceInFileSystem} ({dstExtension}) with {CakeContribIconPath} ({srcExtension}) .");
+            Log.CcgTrace($"Comparing compatibility of {iconRef.SourceInFileSystem} ({dstExtension}) with {CakeContribIconPath} ({srcExtension}) .");
             if (!dstExtension.Equals(srcExtension, StringComparison.OrdinalIgnoreCase))
             {
                 Log.CcgWarning(
                     3,
                     ProjectFile,
-                    $"The PackageIcon source ({iconRef.SourceInFileSystem}) has an extension of {dstExtension}. It can not be updated from the CakeContrib-Icon.");
+                    $"The PackageIcon source ({iconRef.SourceInFileSystem}) has an extension of {dstExtension}. It can not be updated from the CakeContrib-Icon.",
+                    NoWarn,
+                    WarningsAsErrors);
                 return true;
             }
 
             // if a file exists override, if different.
             if (FileFacade.AreFilesSame(iconRef.SourceInFileSystem, CakeContribIconPath))
             {
-                Log.LogMessage(
-                    LogLevel,
-                    $"Package icon at {iconRef.SourceInFileSystem} is already up-to-date.");
+                Log.CcgTrace($"Package icon at {iconRef.SourceInFileSystem} is already up-to-date.");
                 return true;
             }
 
@@ -173,13 +171,13 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     3,
                     ProjectFile,
-                    $"The PackageIcon source ({iconRef.SourceInFileSystem}) is outdated and should be replaced.");
+                    $"The PackageIcon source ({iconRef.SourceInFileSystem}) is outdated and should be replaced.",
+                    NoWarn,
+                    WarningsAsErrors);
                 return true;
             }
 
-            Log.LogMessage(
-                LogLevel,
-                $"Copying CakeContrib-Icon to {iconRef.SourceInFileSystem}.");
+            Log.CcgTrace($"Copying CakeContrib-Icon to {iconRef.SourceInFileSystem}.");
             FileFacade.Copy(CakeContribIconPath, iconRef.SourceInFileSystem);
 
             return true;

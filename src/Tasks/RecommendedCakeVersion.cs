@@ -54,6 +54,17 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public string ProjectType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -90,7 +101,9 @@ namespace CakeContrib.Guidelines.Tasks
                     Log.CcgWarning(
                         9,
                         ProjectFile,
-                        $"{package} is referenced in version {version}. Recommended version is {RecommendedVersion}.");
+                        $"{package} is referenced in version {version}. Recommended version is {RecommendedVersion}.",
+                        NoWarn,
+                        WarningsAsErrors);
                 }
             }
 

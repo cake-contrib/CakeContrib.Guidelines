@@ -111,5 +111,31 @@ namespace CakeContrib.Guidelines.Tasks.Tests
                 .Should().HaveCount(1)
                 .And.Contain(x => x.File == projectFileName);
         }
+
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            fixture.WithNoWarn("ccg0006");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            fixture.WithWarningsAsErrors("ccg0006");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }

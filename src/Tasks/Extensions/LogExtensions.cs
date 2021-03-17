@@ -1,5 +1,10 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
 
+using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
 namespace CakeContrib.Guidelines.Tasks.Extensions
@@ -10,6 +15,25 @@ namespace CakeContrib.Guidelines.Tasks.Extensions
     internal static class LogExtensions
     {
         /// <summary>
+        /// Writes a trace message
+        /// This is a convenience-Method that wraps some always identical logLevel.
+        /// </summary>
+        /// <param name="log">The <see cref="TaskLoggingHelper"/> instance.</param>
+        /// <param name="message">The message to write.</param>
+        /// <param name="importance"><see cref="MessageImportance"/>. Default is <see cref="MessageImportance.Low"/>.</param>
+        [SuppressMessage("ReSharper", "RedundantAssignment", Justification = "only on DEBUG")]
+        internal static void CcgTrace(
+            this TaskLoggingHelper log,
+            string message,
+            MessageImportance importance = MessageImportance.Low)
+        {
+#if DEBUG
+            importance = MessageImportance.High;
+#endif
+            log.LogMessage(importance, message);
+        }
+
+        /// <summary>
         /// Writes a warning.
         /// This is a convenience-Method that wraps some always identical parameters.
         /// </summary>
@@ -17,9 +41,30 @@ namespace CakeContrib.Guidelines.Tasks.Extensions
         /// <param name="ccgRuleId">The CCG Rule.</param>
         /// <param name="projectFile">The project file. May be null.</param>
         /// <param name="message">The message to show.</param>
-        internal static void CcgWarning(this TaskLoggingHelper log, int ccgRuleId, string projectFile, string message)
+        /// <param name="noWarn">list of rules for which warnings are suppressed.</param>
+        /// <param name="warningsAsErrors">list of rules that should be raised as errors.</param>
+        internal static void CcgWarning(
+            this TaskLoggingHelper log,
+            int ccgRuleId,
+            string projectFile,
+            string message,
+            IEnumerable<string> noWarn,
+            IEnumerable<string> warningsAsErrors)
         {
             var ccgRule = GetRule(ccgRuleId);
+            if (noWarn != null && noWarn.Contains(ccgRule, StringComparer.OrdinalIgnoreCase))
+            {
+                log.CcgTrace($"{ccgRule} is set to noWarn.");
+                return;
+            }
+
+            if (warningsAsErrors != null && warningsAsErrors.Contains(ccgRule, StringComparer.OrdinalIgnoreCase))
+            {
+                log.CcgTrace($"{ccgRule} is set to warningAsError.");
+                log.CcgError(ccgRuleId, projectFile, message);
+                return;
+            }
+
             var helpLink = GetHelpLink(ccgRuleId);
             message = $"{message} (see {helpLink})";
 

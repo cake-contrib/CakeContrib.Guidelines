@@ -16,7 +16,9 @@
             PackageIcon="$(PackageIcon)"
             NoneReferences="@(None)"
             CakeContribIconPath="$(MSBuildThisFileDirectory)/../images/icon.png"
-            OmitIconImport="$(CakeContribGuidelinesIconOmitImport)">
+            OmitIconImport="$(CakeContribGuidelinesIconOmitImport)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)">
             <Output PropertyName="TempPackageIcon" TaskParameter="PackageIconOutput" />
             <Output ItemName="TempNone" TaskParameter="AdditionalNoneRefOutput" />
         </EnsureCakeContribIcon>
@@ -40,7 +42,9 @@
             ProjectFile="$(MSBuildProjectFullPath)"
             PackageIconUrl="$(PackageIconUrl)"
             OmitIconImport="$(CakeContribGuidelinesIconOmitImport)"
-            CakeContribIconUrl="https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png">
+            CakeContribIconUrl="https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)">
             <Output PropertyName="TempPackageIconUrl" TaskParameter="PackageIconUrlOutput" />
         </EnsureCakeContribIconUrl>
         <CreateProperty

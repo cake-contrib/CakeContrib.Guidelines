@@ -19,6 +19,8 @@
             Omitted="@(CakeContribGuidelinesOmitRecommendedReference)"
             References="@(PackageReference)"
             ProjectFile="$(MSBuildProjectFullPath)"
-            ProjectType="$(CakeContribGuidelinesProjectType)"/>
+            ProjectType="$(CakeContribGuidelinesProjectType)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)" />
     </Target>
 </Project>

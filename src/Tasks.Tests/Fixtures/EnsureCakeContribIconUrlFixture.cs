@@ -34,5 +34,15 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         {
             Task.ProjectFile = fileName;
         }
+
+        public void WithNoWarn(params string[] rules)
+        {
+            Task.NoWarn = rules;
+        }
+
+        public void WithWarningsAsErrors(params string[] rules)
+        {
+            Task.WarningsAsErrors = rules;
+        }
     }
 }

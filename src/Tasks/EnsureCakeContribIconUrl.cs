@@ -44,6 +44,16 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public string ProjectFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -58,7 +68,9 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     2,
                     ProjectFile,
-                    "PackageIconUrl is empty. For compatibility it should be set.");
+                    "PackageIconUrl is empty. For compatibility it should be set.",
+                    NoWarn,
+                    WarningsAsErrors);
                 return true;
             }
 

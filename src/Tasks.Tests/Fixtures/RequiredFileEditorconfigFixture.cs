@@ -51,5 +51,15 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         {
             Task.ProjectType = "Recipe";
         }
+
+        public void WithNoWarn(params string[] rules)
+        {
+            Task.NoWarn = rules;
+        }
+
+        public void WithWarningsAsErrors(params string[] rules)
+        {
+            Task.WarningsAsErrors = rules;
+        }
     }
 }

@@ -225,5 +225,37 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.ErrorEvents.Should().HaveCount(0);
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
         }
+
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(0, 38, 5);
+            fixture.WithTargetFramework(NetStandard20);
+            fixture.WithNoWarn("ccg0007");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(0, 38, 5);
+            fixture.WithTargetFramework(NetStandard20);
+            fixture.WithWarningsAsErrors("ccg0007");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }

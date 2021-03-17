@@ -274,5 +274,37 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
             fixture.BuildEngine.WarningEvents.Should().Contain(x => x.Code == "CCG0003");
         }
+
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            var fixture = new EnsureCakeContribIconFixture();
+            fixture.WithPackageIcon("");
+            fixture.WithOmitIconImport();
+            fixture.WithNoWarn("ccg0003");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            var fixture = new EnsureCakeContribIconFixture();
+            fixture.WithPackageIcon("");
+            fixture.WithOmitIconImport();
+            fixture.WithWarningsAsErrors("ccg0003");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }

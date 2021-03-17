@@ -7,13 +7,13 @@ using Moq;
 
 namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 {
-    public class RequiredTagsFixture : BaseBuildFixture<RecommendedTags>
+    public class RecommendedTagsFixture : BaseBuildFixture<RecommendedTags>
     {
         private readonly List<ITaskItem> recommendedTags;
         private readonly List<ITaskItem> omittedTags;
         private readonly List<string> givenTags;
 
-        public RequiredTagsFixture()
+        public RecommendedTagsFixture()
         {
             recommendedTags = new List<ITaskItem>();
             omittedTags = new List<ITaskItem>();
@@ -51,6 +51,16 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public void WithProjectFile(string fileName)
         {
             Task.ProjectFile = fileName;
+        }
+
+        public void WithNoWarn(params string[] rules)
+        {
+            Task.NoWarn = rules;
+        }
+
+        public void WithWarningsAsErrors(params string[] rules)
+        {
+            Task.WarningsAsErrors = rules;
         }
     }
 }

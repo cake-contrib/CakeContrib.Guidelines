@@ -48,6 +48,16 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public string ProjectType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
@@ -78,7 +88,9 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.CcgWarning(
                     5,
                     ProjectFile,
-                    $"No reference to '{r}' found. Usage of '{r}' is strongly recommended");
+                    $"No reference to '{r}' found. Usage of '{r}' is strongly recommended",
+                    NoWarn,
+                    WarningsAsErrors);
             }
 
             return true;
