@@ -8,7 +8,7 @@ using Xunit;
 
 namespace CakeContrib.Guidelines.Tasks.Tests
 {
-    public class RequiredCakeVersionTests
+    public class RecommendedCakeVersionTests
     {
         [Fact]
         public void Should_Warn_If_One_Version_Is_Not_Correct()
@@ -141,6 +141,28 @@ namespace CakeContrib.Guidelines.Tasks.Tests
 
             // then
             fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void Should_Suggest_Consolidation_Versions()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithReference("cake.core", "0.38.5");
+            fixture.WithReference("cake.common", "0.33.0");
+            fixture.WithReferencesToCheck("cake.core", "cake.common");
+            fixture.WithRecommendedVersion("1.0.0");
+            fixture.WithOmittedReferences("cake.core", "cake.common");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.MessageEvents.Should()
+                .Contain(x =>
+                    x.Code != null
+                    && x.Code.Equals("CCG0009", StringComparison.OrdinalIgnoreCase)
+                    && x.Message.StartsWith("2 different"));
         }
     }
 }
