@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using Microsoft.Build.Framework;
@@ -17,6 +18,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             references = new List<ITaskItem>();
             requiredReferences = new List<ITaskItem>();
             omittedReferences = new List<ITaskItem>();
+            Task.ProjectType = CakeProjectType.Addin.ToString();
         }
 
         public override bool Execute()
@@ -48,10 +50,26 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 
         public void WithReferencedPackage(string packageName, string privateAssets = "")
         {
-            var referencedPackage = new Mock<ITaskItem>();
-            referencedPackage.Setup(x => x.ToString()).Returns(packageName);
-            referencedPackage.Setup(x => x.GetMetadata("PrivateAssets")).Returns(privateAssets);
+            var referencedPackage = GetMockTaskItem(packageName);
+            referencedPackage.Setup(x => x.GetMetadata(
+                It.Is<string>(y => "PrivateAssets".Equals(y, StringComparison.OrdinalIgnoreCase))))
+                .Returns(privateAssets);
             references.Add(referencedPackage.Object);
+        }
+
+        public void WithProjectTypeRecipe()
+        {
+            Task.ProjectType = "Recipe";
+        }
+
+        public void WithNoWarn(params string[] rules)
+        {
+            Task.NoWarn = rules;
+        }
+
+        public void WithWarningsAsErrors(params string[] rules)
+        {
+            Task.WarningsAsErrors = rules;
         }
     }
 }

@@ -1,18 +1,19 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace CakeContrib.Guidelines.Tasks.Testability
 {
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     internal class FileSearcher : IFileSearcher
     {
         /// <inheritdoc />
         public bool HasFileInFolderStructure(string startFolder, string fileName)
         {
             var folder = startFolder;
-            var found = false;
-            while (folder != null && !found)
+            do
             {
-                found = File.Exists(Path.Combine(folder, fileName));
+                var found = File.Exists(Path.Combine(folder, fileName));
                 if (found)
                 {
                     return true;
@@ -20,6 +21,7 @@ namespace CakeContrib.Guidelines.Tasks.Testability
 
                 folder = Path.GetDirectoryName(folder);
             }
+            while (folder != null);
 
             return false;
         }

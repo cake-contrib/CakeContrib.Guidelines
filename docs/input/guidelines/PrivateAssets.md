@@ -1,5 +1,4 @@
 ---
-Order: 2
 Title: PrivateAssets in references
 ---
 
@@ -32,12 +31,4 @@ Using this package automatically enables this guideline.
 
 ### Opt-Out
 
-It it possible to opt-out of the check for `PrivateAssets` using the following setting:
-
-(*Keep in mind, though that it is not recommended to opt-out of this feature*)
-
-```xml
-<PropertyGroup>
-    <CakeContribGuidelinesCakeReferenceOmitPrivateCheck>1</CakeContribGuidelinesCakeReferenceOmitPrivateCheck>
-</PropertyGroup>
-```
+<?! Include "../settings/fragments/OmitPrivateCheck.md" /?>

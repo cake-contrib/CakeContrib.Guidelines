@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using CakeContrib.Guidelines.Tasks.Extensions;
 
@@ -10,58 +11,60 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Extensions
 {
     public class VersionExtensionTests
     {
-        [Fact]
-        public void GreaterEqual_Is_True_For_Equal_Versions()
+        [Theory]
+        [MemberData(nameof(GetGreaterEqualData))]
+        public void GreaterEqualTheory(Version lhs, Version rhs, bool expected)
         {
-            var a = new Version(1, 2, 3);
-            var b = new Version(a.Major, a.Minor, a.Build);
-
-            a.GreaterEqual(b).Should().BeTrue();
+            lhs.GreaterEqual(rhs).Should().Be(expected);
         }
 
-        [Fact]
-        public void GreaterEqual_Is_True_For_Greater_Versions()
+        public static IEnumerable<object[]> GetGreaterEqualData()
         {
-            var a = new Version(1, 2, 3);
-            var b = new Version(a.Major, a.Minor, a.Build - 1);
-
-            a.GreaterEqual(b).Should().BeTrue();
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 3), true };
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 2), true };
+            yield return new object[] { new Version(1, 2, 2), new Version(1, 2, 3), false };
         }
 
-        [Fact]
-        public void GreaterEqual_Is_False_For_Lesser_Versions()
+        [Theory]
+        [MemberData(nameof(GetLessEqualData))]
+        public void LessEqualTheory(Version lhs, Version rhs, bool expected)
         {
-            var a = new Version(1, 2, 3);
-            var b = new Version(a.Major, a.Minor, a.Build + 1);
-
-            a.GreaterEqual(b).Should().BeFalse();
+            lhs.LessEqual(rhs).Should().Be(expected);
         }
 
-        [Fact]
-        public void LessEqual_Is_True_For_Equal_Versions()
+        public static IEnumerable<object[]> GetLessEqualData()
         {
-            var a = new Version(1, 2, 3);
-            var b = new Version(a.Major, a.Minor, a.Build);
-
-            a.LessEqual(b).Should().BeTrue();
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 3), true };
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 2), false };
+            yield return new object[] { new Version(1, 2, 2), new Version(1, 2, 3), true };
         }
 
-        [Fact]
-        public void LessEqual_Is_True_For_Lesser_Versions()
+        [Theory]
+        [MemberData(nameof(GetGreaterThanData))]
+        public void GreaterThanTheory(Version lhs, Version rhs, bool expected)
         {
-            var a = new Version(1, 2, 3);
-            var b = new Version(a.Major, a.Minor, a.Build + 1);
-
-            a.LessEqual(b).Should().BeTrue();
+            lhs.GreaterThan(rhs).Should().Be(expected);
         }
 
-        [Fact]
-        public void LessEqual_Is_False_For_Greater_Versions()
+        public static IEnumerable<object[]> GetGreaterThanData()
         {
-            var a = new Version(1, 2, 3);
-            var b = new Version(a.Major, a.Minor, a.Build - 1);
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 3), false };
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 2), true };
+            yield return new object[] { new Version(1, 2, 2), new Version(1, 2, 3), false };
+        }
 
-            a.LessEqual(b).Should().BeFalse();
+        [Theory]
+        [MemberData(nameof(GetLessThanData))]
+        public void LessThanTheory(Version lhs, Version rhs, bool expected)
+        {
+            lhs.LessThan(rhs).Should().Be(expected);
+        }
+
+        public static IEnumerable<object[]> GetLessThanData()
+        {
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 3), false };
+            yield return new object[] { new Version(1, 2, 3), new Version(1, 2, 2), false };
+            yield return new object[] { new Version(1, 2, 2), new Version(1, 2, 3), true };
         }
     }
 }

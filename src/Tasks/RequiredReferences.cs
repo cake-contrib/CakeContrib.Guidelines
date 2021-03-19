@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -11,6 +13,12 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RequiredReferences : Task
     {
+#if DEBUG
+        private const MessageImportance LogLevel = MessageImportance.High;
+#else
+        private const MessageImportance LogLevel = MessageImportance.Low;
+#endif
+
         /// <summary>
         /// Gets or sets the References.
         /// </summary>
@@ -34,34 +42,55 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         public string ProjectFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ProjectType.
+        /// </summary>
+        [Required]
+        public string ProjectType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
+            {
+                // not for recipes!
+                Log.LogMessage(
+                    LogLevel,
+                    $"References are not required for {ProjectType} projects.");
+                return true;
+            }
+
             foreach (var r in Required)
             {
                 if (Omitted.Any(x => x.ToString().Equals(r.ToString(), StringComparison.OrdinalIgnoreCase)))
                 {
-                    Log.LogMessage(MessageImportance.Low, $"Required reference '{r}' is set to omit.");
+                    Log.LogMessage(LogLevel, $"Required reference '{r}' is set to omit.");
                     continue;
                 }
 
-                Log.LogMessage(MessageImportance.Low, $"Checking required reference: {r}");
+                Log.LogMessage(LogLevel, $"Checking required reference: {r}");
                 if (References.Any(x => x.ToString().Equals(r.ToString(), StringComparison.OrdinalIgnoreCase)))
                 {
                     // found.
                     continue;
                 }
 
-                Log.LogWarning(
-                    null,
-                    "CCG0005",
-                    string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                    ProjectFile ?? string.Empty,
-                    0,
-                    0,
-                    0,
-                    0,
-                    $"No reference to '{r}' found. Usage of '{r}' is strongly recommended");
+                Log.CcgWarning(
+                    5,
+                    ProjectFile,
+                    $"No reference to '{r}' found. Usage of '{r}' is strongly recommended",
+                    NoWarn,
+                    WarningsAsErrors);
             }
 
             return true;

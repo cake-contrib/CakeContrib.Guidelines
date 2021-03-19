@@ -1,5 +1,4 @@
 ---
-Order: 1
 Title: CakeContrib-Icon
 ---
 
@@ -11,9 +10,8 @@ Title: CakeContrib-Icon
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
-  - [Icon-Location](#icon-location)
   - [Icon include in project](#icon-include-in-project)
-  - [migrating from an existing project](#migrating-from-an-existing-project)
+- [Migrating from an existing project](#migrating-from-an-existing-project)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -34,45 +32,22 @@ Title: CakeContrib-Icon
 Using this package automatically enables this guideline.
 
 With no special settings at all (i.e. "The Standard"):
-* the current cake-contrib icon will be copied as "icon.png" in the project-directory 
-* the icon will be included in the project
+* if no `PackageIcon` property is specified, a default will be assigned.
+* if no icon (matching the `PackageIcon` property) is referenced in the project, a default will be referenced.
+* if the referenced icon is not binary equal to the default icon, it will be updated.
+* if no `PackageIconUrl` property is specified, a default will be assigned.
 
 ## Settings
 
-### Icon-Location
-The default location of the icon is `icon.png`, next to the csproj (i.e. `$(MSBuildProjectDirectory)/icon.png`).
-
-Setting `CakeContribGuidelinesIconDestinationLocation` makes it possible to override the default location of the Icon. For example setting 
-
-```xml
-<PropertyGroup>
-    <IconDestinationLocation>../logo.png</IconDestinationLocation>
-</PropertyGroup>
-```
-
-in the csproj will place the icon as `logo.png` one folder up (relative to the current project).
-
 ### Icon include in project
-The icon will be automatically included in the project, unless `CakeContribGuidelinesIconOmitImport` was defined.
+<?! Include "../settings/fragments/IconOmitImport.md" /?>
 
-To to use a "custom" import the following could be used:
+## Migrating from an existing project
 
-```xml
-<PropertyGroup>
-    <CakeContribGuidelinesIconOmitImport>1</CakeContribGuidelinesIconOmitImport>
-</PropertyGroup>
-<ItemGroup>
-    <None Include="$(CakeContribGuidelinesIconDestinationLocation)">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-    </None>
-</ItemGroup> 
-```
+No steps are needed anymore. Existing settings will be detected and honored.
 
-### migrating from an existing project
-
+Optionally:
 * remove the existing icon
 * remove the `Include` of the icon from the project-file
-* add a reference to CakeContrib.Guidelines
-* build the project
-* set `PackageIcon` to `icon.png`
+* remove the `PackageIcon` from the project-file
+* remove the `PackageIconUrl` from the project-file

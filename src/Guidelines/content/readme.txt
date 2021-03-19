@@ -1,12 +1,11 @@
 Thanks for installing CakeContrib.Guidelines.
 
-Currently your Visual Studio might show the icon.png as missing (with a red "x"). 
-This is due to the fact, that is not actually there. It will, however be copied upon build.
+MIGRATING FROM A PREVIOUS VERSION?
+We've eliminated the need to have a project-local copy of
+the Cake-Contrib icon.
 
-WHAT YOU HAVE TO DO:
-
-Once you have built the project the "icon.png" will exist. After that open
-project-properties -> Package -> IconFile and input "icon.png"
+You can - if you like - remove the <PackageIcon> and <PackageIconUrl>
+tags from the csproj, as well as the local copy of the icon.
 
 Is there more?
 Yes. Read the docs at https://github.com/cake-contrib/CakeContrib.Guidelines/

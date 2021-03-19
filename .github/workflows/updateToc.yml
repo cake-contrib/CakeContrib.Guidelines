@@ -11,15 +11,18 @@ jobs:
   generateTOCs:
     name: Generate all TOCs
     runs-on: ubuntu-latest
+    # "better" would be to check if GH_TOKEN is available
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
-      - uses: actions/checkout@v2.3.3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: ${{ github.event.ref }}
 
-      - uses: technote-space/toc-generator@v2
+      - uses: technote-space/toc-generator@v4
         with:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           TARGET_PATHS: "."
           TOC_TITLE: "## Table of Contents"
+          CREATE_PR: true

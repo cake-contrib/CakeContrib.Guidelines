@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
 using CakeContrib.Guidelines.Tasks.Testability;
 
 using Microsoft.Build.Framework;
@@ -13,6 +14,11 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RequiredFileEditorconfig : Task
     {
+#if DEBUG
+        private const MessageImportance LogLevel = MessageImportance.High;
+#else
+        private const MessageImportance LogLevel = MessageImportance.Low;
+#endif
         private const string FileName = ".editorconfig";
 
         /// <summary>
@@ -36,6 +42,22 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem[] OmitFiles { get; set; }
 
         /// <summary>
+        /// Gets or sets the ProjectType.
+        /// </summary>
+        [Required]
+        public string ProjectType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
+        /// <summary>
         /// Sets the FileSearcher. INTERNAL USE. replaced in unit-tests.
         /// </summary>
         internal IFileSearcher FileSearcher { private get; set; }
@@ -43,12 +65,20 @@ namespace CakeContrib.Guidelines.Tasks
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
+            {
+                Log.LogMessage(
+                    LogLevel,
+                    $".editorconfig not required for {ProjectType} projects.");
+                return true;
+            }
+
             if (OmitFiles
                 .Select(x => x.GetMetadata("Identity"))
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Any(x => x.Equals(FileName, StringComparison.OrdinalIgnoreCase)))
             {
-                Log.LogMessage(MessageImportance.Low, $"Recommended file '{FileName}' is set to omit.");
+                Log.LogMessage(LogLevel, $"Recommended file '{FileName}' is set to omit.");
                 return true;
             }
 
@@ -57,16 +87,12 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
-            Log.LogWarning(
-                null,
-                "CCG0006",
-                string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
+            Log.CcgWarning(
+                6,
                 ProjectFile,
-                0,
-                0,
-                0,
-                0,
-                $"No '{FileName}' found in folder-structure. Usage of '{FileName}' is strongly recommended.");
+                $"No '{FileName}' found in folder-structure. Usage of '{FileName}' is strongly recommended.",
+                NoWarn,
+                WarningsAsErrors);
             return true;
         }
     }

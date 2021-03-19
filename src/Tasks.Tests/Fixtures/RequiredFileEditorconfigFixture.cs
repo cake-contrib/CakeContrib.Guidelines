@@ -18,6 +18,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             omittedFiles = new List<ITaskItem>();
             fileSearcher = new Mock<IFileSearcher>();
             Task.FileSearcher = fileSearcher.Object;
+            Task.ProjectType = CakeProjectType.Addin.ToString();
         }
 
         public void WithExistingEditorconfig()
@@ -44,6 +45,21 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public void WithProjectFile(string fileName)
         {
             Task.ProjectFile = fileName;
+        }
+
+        public void WithProjectTypeRecipe()
+        {
+            Task.ProjectType = "Recipe";
+        }
+
+        public void WithNoWarn(params string[] rules)
+        {
+            Task.NoWarn = rules;
+        }
+
+        public void WithWarningsAsErrors(params string[] rules)
+        {
+            Task.WarningsAsErrors = rules;
         }
     }
 }

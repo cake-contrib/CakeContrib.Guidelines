@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).RecommendedTags"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+
+    <Target Name="_checkRecommendedTags"
+            AfterTargets="BeforeBuild"
+            BeforeTargets="CoreBuild"
+            DependsOnTargets="EnsureProjectTypeIsSet"
+            Condition="$(IsPackable) != 'false'">
+        <ItemGroup>
+            <RecommendedTag Include="cake" />
+            <RecommendedTag Include="build" />
+            <RecommendedTag Include="cake-build" />
+            <RecommendedTag Include="script" />
+        </ItemGroup>
+        <ItemGroup Condition="$(CakeContribGuidelinesProjectType) == 'addin'">
+            <RecommendedTag Include="addin" />
+            <RecommendedTag Include="cake-addin" />
+        </ItemGroup>
+        <ItemGroup Condition="$(CakeContribGuidelinesProjectType) == 'module'">
+            <RecommendedTag Include="module" />
+            <RecommendedTag Include="cake-module" />
+        </ItemGroup>
+        <ItemGroup Condition="$(CakeContribGuidelinesProjectType) == 'recipe'">
+            <RecommendedTag Include="recipe" />
+            <RecommendedTag Include="cake-recipe" />
+        </ItemGroup>
+        <RecommendedTags
+            ProjectFile="$(MSBuildProjectFullPath)"
+            CakeContribTags="@(RecommendedTag)"
+            Tags="$(PackageTags)"
+            Omitted="@(CakeContribGuidelinesOmitRecommendedTag)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)" />
+    </Target>
+</Project>

@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 
+using CakeContrib.Guidelines.Tasks.Extensions;
+
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -12,6 +14,12 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RequiredFileStylecopJson : Task
     {
+#if DEBUG
+        private const MessageImportance LogLevel = MessageImportance.High;
+#else
+        private const MessageImportance LogLevel = MessageImportance.Low;
+#endif
+
         private const string SettingsFileName = "stylecop.json";
         private const string AltSettingsFileName = ".stylecop.json";
 
@@ -32,16 +40,41 @@ namespace CakeContrib.Guidelines.Tasks
         [Required]
         public ITaskItem[] OmitFiles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ProjectType.
+        /// </summary>
+        [Required]
+        public string ProjectType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that are suppressed.
+        /// </summary>
+        public string[] NoWarn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the warnings that should be raised as errors.
+        /// </summary>
+        public string[] WarningsAsErrors { get; set; }
+
         /// <inheritdoc />
         public override bool Execute()
         {
+            if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
+            {
+                // not for recipes!
+                Log.LogMessage(
+                    LogLevel,
+                    $"stylecop.json not required for {ProjectType} projects.");
+                return true;
+            }
+
             if (OmitFiles
                 .Select(x => x.GetMetadata("Identity"))
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Any(x => x.Equals(SettingsFileName, StringComparison.OrdinalIgnoreCase) ||
                     x.Equals(AltSettingsFileName, StringComparison.OrdinalIgnoreCase)))
             {
-                Log.LogMessage(MessageImportance.Low, $"Recommended file '{SettingsFileName}' is set to omit.");
+                Log.LogMessage(LogLevel, $"Recommended file '{SettingsFileName}' is set to omit.");
                 return true;
             }
 
@@ -61,16 +94,12 @@ namespace CakeContrib.Guidelines.Tasks
                 }
             }
 
-            Log.LogWarning(
-                null,
-                "CCG0006",
-                string.Empty, // TODO: Can we get HelpLink like in roslyn analysers?
-                ProjectFile ?? string.Empty,
-                0,
-                0,
-                0,
-                0,
-                $"No reference to '{SettingsFileName}' found. Usage of '{SettingsFileName}' is strongly recommended.");
+            Log.CcgWarning(
+                6,
+                ProjectFile,
+                $"No reference to '{SettingsFileName}' found. Usage of '{SettingsFileName}' is strongly recommended.",
+                NoWarn,
+                WarningsAsErrors);
 
             return true;
         }

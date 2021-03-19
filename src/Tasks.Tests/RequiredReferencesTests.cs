@@ -59,5 +59,70 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // then
             fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
         }
+
+        [Fact]
+        public void Should_Log_Correct_SourceFile_On_Warning_With_Given_ProjectFile()
+        {
+            // given
+            const string projectFileName = "some.project.csproj";
+            var fixture = new RequiredReferencesFixture();
+            fixture.WithReferencedPackage("Cool.Ref.Project");
+            fixture.WithRequiredReferences("Some.Analyser");
+            fixture.WithProjectFile(projectFileName);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents
+                .Should().HaveCount(1)
+                .And.Contain(x => x.File == projectFileName);
+        }
+
+        [Fact]
+        public void RequiredStylecopJson_Should_Not_Warn_If_ProjectType_Is_Recipe()
+        {
+            // given
+            var fixture = new RequiredReferencesFixture();
+            fixture.WithReferencedPackage("Cool.Ref.Project");
+            fixture.WithRequiredReferences("Some.Analyser");
+            fixture.WithProjectTypeRecipe();
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Not_Log_If_NoWarn_Is_Set()
+        {
+            // given
+            var fixture = new RequiredReferencesFixture();
+            fixture.WithRequiredReferences("Some.Analyser");
+            fixture.WithNoWarn("ccg0005");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void Should_Log_Error_If_WarnAsError_Is_Set()
+        {
+            // given
+            var fixture = new RequiredReferencesFixture();
+            fixture.WithRequiredReferences("Some.Analyser");
+            fixture.WithWarningsAsErrors("ccg0005");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+        }
     }
 }

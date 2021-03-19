@@ -1,5 +1,4 @@
 ---
-Order: 4
 Title: Target Frameworks
 ---
 
@@ -18,22 +17,35 @@ Title: Target Frameworks
 
 ## Goals
 
-As .NET Framework < 4.7.2 has issues with running .NET Standard assemblies, and Cake itself can run on .NET Framework 4.6.1 it is suggested to multi-target addins to `netstandard2.0` and `net461` to have the maximum compatibility.
+Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are 
+suggested, depending on the Cake.Core version that is being referenced. 
 
 ### Required / Suggested versions
 
-Depending on the referenced `Cake.Core`-version different target versions are required and/or suggested.
+Depending on the package type and the referenced `Cake.Core`-version different target versions are required and/or suggested.
 Missing a required target version will raise [CCG0007](../rules/ccg0007) as an error
 while missing a suggested target version will raise [CCG0007](../rules/ccg0007) as a warning.
 
-* Cake.Core <= 0.33.0
+* Package type: addin
+  * Cake.Core < 1.0.0
+    * Required: `netstandard2.0`
+    * Suggested: `net461`
+      * alternative: `net46`
+  * Cake.Core >= 1.0.0
+    * Required: `netstandard2.0`
+    * Suggested: `net461`
+      * alternative: `net46`
+    * Suggested: `net5.0`
+* Package type: module
   * Required: `netstandard2.0`
-  * Suggested: `net461`
-    * alternative: `net46`
+
+For package type recipe no framework reference is required or suggested.
 
 ## Related rules
 
  * [CCG0007](../rules/ccg0007)
+
+These rules are only applied for [project types](../settings#projecttype) `addin` and `module`.
 
 ## Usage
 
@@ -43,13 +55,4 @@ Using this package automatically enables this guideline.
 
 ### Opt-Out
 
-It it possible to opt-out of the check for target framework using the following setting:
-
-(*Keep in mind, though that it is not recommended to opt-out of this feature*)
-
-```xml
-<ItemGroup>
-    <CakeContribGuidelinesOmitTargetFramework Include="netstandard2.0" />
-    <CakeContribGuidelinesOmitTargetFramework Include="net461" />
-</ItemGroup>
-```
+<?! Include "../settings/fragments/OmitTargetFramework.md" /?>

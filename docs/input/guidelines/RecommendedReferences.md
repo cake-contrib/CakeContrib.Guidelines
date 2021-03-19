@@ -1,5 +1,4 @@
 ---
-Order: 3
 Title: Recommended References
 ---
 
@@ -17,7 +16,7 @@ Title: Recommended References
 
 ## Goals
 
-To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers). Additionally code-style anlysis using StyleCopy (and code generation in the IDE) should be properly configured using a `stylecop.json`-file as well as `.editorconfig`-file, respectively.
+To have consistency in code-style among the different tools/plugins the use of Analysers is recommended, especially the use of [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers). Additionally code-style analysis using StyleCopy (and code generation in the IDE) should be properly configured using a `stylecop.json`-file as well as `.editorconfig`-file, respectively.
 
 Example-Files can be found at:
 
@@ -29,6 +28,8 @@ Example-Files can be found at:
  * [CCG0005](../rules/ccg0005)
  * [CCG0006](../rules/ccg0006)
 
+These rules are only applied for [project types](../settings#projecttype) `addin` and `module`.
+
 ## Usage
 
 Using this package automatically enables this guideline.
@@ -37,21 +38,6 @@ Using this package automatically enables this guideline.
 
 ### Opt-Out
 
-It it possible to opt-out of the check for StyleCop using the following setting:
+<?! Include "../settings/fragments/OmitRecommendedReference.md" /?>
 
-(*Keep in mind, though that it is not recommended to opt-out of this feature*)
-
-```xml
-<ItemGroup>
-    <CakeContribGuidelinesOmitRecommendedReference Include="StyleCop.Analyzers" />
-</ItemGroup>
-```
-
-It is also possible to opt-out of the check for configuration-files (`stylecop.json` as well as `.editorconfig`)
-using the following settings:
-```xml
-<ItemGroup>
-    <CakeContribGuidelinesOmitRecommendedConfigFile Include="stylecop.json" />
-    <CakeContribGuidelinesOmitRecommendedConfigFile Include=".editorconfig" />
-</ItemGroup>
-```
+<?! Include "../settings/fragments/OmitRecommendedConfigFile.md" /?>
