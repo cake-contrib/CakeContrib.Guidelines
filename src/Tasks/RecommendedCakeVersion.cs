@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Extensions;
@@ -13,12 +14,6 @@ namespace CakeContrib.Guidelines.Tasks
     /// </summary>
     public class RecommendedCakeVersion : Task
     {
-#if DEBUG
-        private const MessageImportance LogLevel = MessageImportance.High;
-#else
-        private const MessageImportance LogLevel = MessageImportance.Low;
-#endif
-
         /// <summary>
         /// Gets or sets the Recommended Version.
         /// </summary>
@@ -64,20 +59,18 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         public string[] WarningsAsErrors { get; set; }
 
-
         /// <inheritdoc />
         public override bool Execute()
         {
             if (!CakeProjectType.IsOneOf(ProjectType, CakeProjectType.Addin, CakeProjectType.Module))
             {
-                Log.LogMessage(
-                    LogLevel,
-                    $"No Cake reference required for {ProjectType} projects.");
+                Log.CcgTrace($"No Cake reference required for {ProjectType} projects.");
                 return true;
             }
 
             var omitted = Omitted.Select(x => x.ToString()).ToArray();
             var toCheck = ReferencesToCheck.Select(x => x.ToString()).ToArray();
+            var referencedVersions = new HashSet<string>();
             foreach (var r in References)
             {
                 var package = r.ToString();
@@ -88,13 +81,14 @@ namespace CakeContrib.Guidelines.Tasks
                     continue;
                 }
 
+                referencedVersions.Add(version);
                 if (omitted.Any(x => x.Equals(package, StringComparison.OrdinalIgnoreCase)))
                 {
-                    Log.LogMessage(LogLevel, $"Package '{package}' is set to omit.");
+                    Log.CcgTrace($"Package '{package}' is set to omit.");
                     continue;
                 }
 
-                Log.LogMessage(LogLevel, $"Checking {package} version {version} against recommended version of {RecommendedVersion}");
+                Log.CcgTrace($"Checking {package} version {version} against recommended version of {RecommendedVersion}");
 
                 if (!RecommendedVersion.Equals(version, StringComparison.OrdinalIgnoreCase))
                 {
@@ -105,6 +99,14 @@ namespace CakeContrib.Guidelines.Tasks
                         NoWarn,
                         WarningsAsErrors);
                 }
+            }
+
+            if (referencedVersions.Count > 1)
+            {
+                Log.CcgSuggestion(
+                    9,
+                    ProjectFile,
+                    $"{referencedVersions.Count} different versions of Cake were referenced. It is suggested to reference the same version for all Cake references.");
             }
 
             return true;

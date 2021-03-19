@@ -34,6 +34,32 @@ namespace CakeContrib.Guidelines.Tasks.Extensions
         }
 
         /// <summary>
+        /// Writes a suggestion. (Shows up as "message" in Visual Studio)
+        /// This is a convenience-Method that wraps some always identical parameters.
+        /// </summary>
+        /// <param name="log">The <see cref="TaskLoggingHelper"/> instance.</param>
+        /// <param name="ccgRuleId">The CCG Rule.</param>
+        /// <param name="projectFile">The project file. May be null.</param>
+        /// <param name="message">The message to show.</param>
+        internal static void CcgSuggestion(this TaskLoggingHelper log, int ccgRuleId, string projectFile, string message)
+        {
+            var ccgRule = GetRule(ccgRuleId);
+            var helpLink = GetHelpLink(ccgRuleId);
+            message = $"{message} (see {helpLink})";
+
+            log.LogCriticalMessage(
+                null,
+                ccgRule,
+                string.Empty, // not usable anyway. See https://github.com/MicrosoftDocs/visualstudio-docs/issues/5894
+                projectFile ?? string.Empty,
+                0,
+                0,
+                0,
+                0,
+                message);
+        }
+
+        /// <summary>
         /// Writes a warning.
         /// This is a convenience-Method that wraps some always identical parameters.
         /// </summary>
