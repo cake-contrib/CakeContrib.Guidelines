@@ -10,12 +10,22 @@
 
     <Target Name="_EnsureCakeContribGuidelinesIcon"
             AfterTargets="BeforeBuild"
-            BeforeTargets="CoreBuild;SetNuspecProperties;GenerateNuspec;_GetPackageFiles">
+            BeforeTargets="CoreBuild;SetNuspecProperties;GenerateNuspec;_GetPackageFiles"
+            DependsOnTargets="EnsureProjectTypeIsSet">
+        <PropertyGroup>
+            <CakeContribIconPath>$(MSBuildThisFileDirectory)/../images/cake-contrib-community-medium.png</CakeContribIconPath>
+            <CakeContribIconPath
+                Condition="$(CakeContribGuidelinesProjectType) == 'addin'">$(MSBuildThisFileDirectory)/../images/cake-contrib-addin-medium.png</CakeContribIconPath>
+            <CakeContribIconPath
+                Condition="$(CakeContribGuidelinesProjectType) == 'module'">$(MSBuildThisFileDirectory)/../images/cake-contrib-module-medium.png</CakeContribIconPath>
+            <CakeContribIconPath
+                Condition="$(CakeContribGuidelinesProjectType) == 'recipe'">$(MSBuildThisFileDirectory)/../images/cake-contrib-recipe-medium.png</CakeContribIconPath>
+        </PropertyGroup>
         <EnsureCakeContribIcon
             ProjectFile="$(MSBuildProjectFullPath)"
             PackageIcon="$(PackageIcon)"
             NoneReferences="@(None)"
-            CakeContribIconPath="$(MSBuildThisFileDirectory)/../images/icon.png"
+            CakeContribIconPath="$(CakeContribIconPath)"
             OmitIconImport="$(CakeContribGuidelinesIconOmitImport)"
             NoWarn="$(NoWarn)"
             WarningsAsErrors="$(WarningsAsErrors)">
@@ -38,11 +48,20 @@
                 ItemName="None" />
         </CreateItem>
 
+        <PropertyGroup>
+            <CakeContribIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/community/cake-contrib-community-medium.png</CakeContribIconUrl>
+            <CakeContribIconUrl
+                Condition="$(CakeContribGuidelinesProjectType) == 'addin'">https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/addin/cake-contrib-addin-medium.png</CakeContribIconUrl>
+            <CakeContribIconUrl
+                Condition="$(CakeContribGuidelinesProjectType) == 'module'">https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/module/cake-contrib-module-medium.png</CakeContribIconUrl>
+            <CakeContribIconUrl
+                Condition="$(CakeContribGuidelinesProjectType) == 'recipe'">https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/recipe/cake-contrib-recipe-medium.png</CakeContribIconUrl>
+        </PropertyGroup>
         <EnsureCakeContribIconUrl
             ProjectFile="$(MSBuildProjectFullPath)"
             PackageIconUrl="$(PackageIconUrl)"
             OmitIconImport="$(CakeContribGuidelinesIconOmitImport)"
-            CakeContribIconUrl="https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png"
+            CakeContribIconUrl="$(CakeContribIconUrl)"
             NoWarn="$(NoWarn)"
             WarningsAsErrors="$(WarningsAsErrors)">
             <Output PropertyName="TempPackageIconUrl" TaskParameter="PackageIconUrlOutput" />

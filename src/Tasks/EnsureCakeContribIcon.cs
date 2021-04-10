@@ -97,7 +97,7 @@ namespace CakeContrib.Guidelines.Tasks
                     return false;
                 }
 
-                PackageIconOutput = Path.GetFileName(CakeContribIconPath.NormalizePathSeparators());
+                PackageIconOutput = "icon" + Path.GetExtension(CakeContribIconPath.NormalizePathSeparators());
                 Log.CcgTrace($"PackageIcon was not set. Setting it to {PackageIconOutput}.");
             }
 
