@@ -23,7 +23,7 @@
         <PackageTags>cake, build, automation, guideline, addin</PackageTags>
         <RepositoryUrl>https://github.com/cake-contrib/CakeContrib.Guidelines.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageIcon>images/icon.png</PackageIcon>
+        <PackageIcon>images/cake-contrib-community-medium.png</PackageIcon>
         <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
         <MinClientVersion>2.8</MinClientVersion>
         <DevelopmentDependency>true</DevelopmentDependency>

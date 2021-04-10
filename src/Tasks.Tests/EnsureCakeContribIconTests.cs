@@ -58,7 +58,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new EnsureCakeContribIconFixture();
-            fixture.WithIconFileReference("temp\\logo.png", "");
+            fixture.WithIconFileReference("temp\\icon.png", "");
 
             // when
             fixture.Execute();
