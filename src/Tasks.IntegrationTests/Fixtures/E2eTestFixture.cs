@@ -341,5 +341,10 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         {
             hasDefaultCakeReference = false;
         }
+
+        public void WithAssemblyName(string name)
+        {
+            assemblyName = name;
+        }
     }
 }

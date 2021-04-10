@@ -347,11 +347,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void ProjectType_When_Assembly_Is_Module_Is_Module()
         {
             // given
+            fixture.WithAssemblyName("Cake.Buildsystems.Module");
             fixture.WithCustomContent(@"
-<PropertyGroup>
-  <AssemblyName>Cake.Buildsystems.Module</AssemblyName>
-</PropertyGroup>
-
 <Target Name=""ForTest""
   AfterTargets=""BeforeBuild""
   BeforeTargets=""CoreBuild""
@@ -403,11 +400,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void ProjectType_When_Assembly_Is_Not_Module_Is_Addin()
         {
             // given
+            fixture.WithAssemblyName("Cake.7zip");
             fixture.WithCustomContent(@"
-<PropertyGroup>
-  <AssemblyName>Cake.7zip</AssemblyName>
-</PropertyGroup>
-
 <Target Name=""ForTest""
   AfterTargets=""BeforeBuild""
   BeforeTargets=""CoreBuild""
@@ -482,16 +476,56 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
                 .First(x => x.IndexOf("icon.png", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
             output.Should().Contain("Pack:True");
-            output.Should().Contain("Link:icon.png");
+            output.Should().Contain("Link:cake-contrib-addin-medium.png");
             output.Should().Contain("PackagePath:");
         }
 
-        [Fact]
-        public void Packaging_Should_Add_The_IconUrl_To_Properties()
+        [Theory]
+        [InlineData("Cake.7zip", "/../images/cake-contrib-addin-medium.png")]
+        [InlineData("Cake.Recipe", "/../images/cake-contrib-recipe-medium.png")]
+        [InlineData("Cake.Buildsystems.Module", "/../images/cake-contrib-module-medium.png")]
+        [InlineData("Polly", "/../images/cake-contrib-community-medium.png")]
+        public void Packaging_Different_Types_Should_Add_The_Correct_Icon(string assemblyName, string expectedFileName)
         {
             // given
             fixture.WithoutPackageIcon();
             fixture.WithoutPackageIconUrl();
+            fixture.WithAssemblyName(assemblyName);
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
+
+<Target Name=""ForTest""
+  BeforeTargets=""SetNuspecProperties;GenerateNuspec""
+  DependsOnTargets=""_EnsureCakeContribGuidelinesIcon"">
+
+  <Warning Text=""!FOR-TEST!:%(None.Identity) Pack:%(None.Pack) Link:%(None.Link) PackagePath:%(None.PackagePath)"" />
+</Target>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.Should().BeFalse();
+            var output = result.WarningLines
+                .Where(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1)
+                .First(x => x.IndexOf("icon.png", StringComparison.OrdinalIgnoreCase) > -1);
+            output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
+            output.Should().Contain(expectedFileName);
+        }
+
+        [Theory]
+        [InlineData("Cake.7zip", "cake-contrib/graphics/png/addin/cake-contrib-addin-medium.png")]
+        [InlineData("Cake.Recipe", "cake-contrib/graphics/png/recipe/cake-contrib-recipe-medium.png")]
+        [InlineData("Cake.Buildsystems.Module", "cake-contrib/graphics/png/module/cake-contrib-module-medium.png")]
+        [InlineData("Polly", "cake-contrib/graphics/png/community/cake-contrib-community-medium.png")]
+        public void Packaging_Different_Types_Should_Add_The_Correct_IconUrl_To_Properties(string assemblyName, string expectedUrl)
+        {
+            // given
+            fixture.WithoutPackageIcon();
+            fixture.WithoutPackageIconUrl();
+            fixture.WithAssemblyName(assemblyName);
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -512,7 +546,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .Single(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Contain("cake-contrib/graphics/png/cake-contrib-medium.png");
+            output.Should().Contain(expectedUrl);
         }
 
         [Fact]

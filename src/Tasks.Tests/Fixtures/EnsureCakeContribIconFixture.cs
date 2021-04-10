@@ -18,7 +18,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         {
             fileFacadeMock = new Mock<IFileFacade>();
             noneReferences = new List<ITaskItem>();
-            cakeContribDefaultIcon = "C:\\users\\someUser\\.dotnet\\whatever\\CakeContrib-Guidelines\\data\\logo.png";
+            cakeContribDefaultIcon = "C:\\users\\someUser\\.dotnet\\whatever\\CakeContrib-Guidelines\\data\\icon.png";
         }
 
         public string PackageIconOutput { get; private set; }
