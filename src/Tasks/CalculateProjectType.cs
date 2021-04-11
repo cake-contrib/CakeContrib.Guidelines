@@ -82,27 +82,6 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
-            var requiredCakeReferences = CakeRequiredReference
-                .Select(x => x.ToString())
-                .Where(x => !string.IsNullOrEmpty(x))
-                .Select(x => x.ToLowerInvariant())
-                .ToList();
-
-            var references = References
-                .Select(x => x.ToString())
-                .Where(x => !string.IsNullOrEmpty(x))
-                .Select(x => x.ToLowerInvariant())
-                .ToList();
-
-            if (!references.Any(x => requiredCakeReferences.Contains(x)))
-            {
-                Output = CakeProjectType.Other.ToString();
-                Log.LogMessage(
-                    LogLevel,
-                    $"No reference to Cake found. Setting output to '{Output}'.");
-                return true;
-            }
-
             var names = ProjectNames
                 .Select(x => x.ToString())
                 .Where(x => !string.IsNullOrEmpty(x))
@@ -139,6 +118,37 @@ namespace CakeContrib.Guidelines.Tasks
                 Log.LogMessage(
                     LogLevel,
                     $"The name '{match}' suggest a {Output} project. Setting output to '{Output}'.");
+                break;
+            }
+
+            // Recipes are special, as they probably never have a reference to Cake..
+            if (Output == CakeProjectType.Recipe.ToString())
+            {
+                return true;
+            }
+
+            var requiredCakeReferences = CakeRequiredReference
+                .Select(x => x.ToString())
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
+
+            var references = References
+                .Select(x => x.ToString())
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
+
+            if (!references.Any(x => requiredCakeReferences.Contains(x)))
+            {
+                Output = CakeProjectType.Other.ToString();
+                Log.LogMessage(
+                    LogLevel,
+                    $"No reference to Cake found. Setting output to '{Output}'.");
+            }
+
+            if (!string.IsNullOrEmpty(Output))
+            {
                 return true;
             }
 
