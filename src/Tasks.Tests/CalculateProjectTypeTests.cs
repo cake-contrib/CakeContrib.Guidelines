@@ -88,7 +88,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new CalculateProjectTypeFixture();
-            fixture.WithProjectNames("Cake.7zip","Cake.Buildsystems.Module","Cake.Recipe","foo");
+            fixture.WithProjectNames("Cake.7zip","Cake.Buildsystems.Module","foo");
             fixture.WithoutCakeReference();
 
             // when
@@ -96,6 +96,21 @@ namespace CakeContrib.Guidelines.Tasks.Tests
 
             // then
             fixture.Output.Should().BeEquivalentTo(ExpectedTypeOther);
+        }
+
+        [Fact]
+        public void Should_Return_Recipe_For_Recipes_Even_If_Cake_Is_Not_Referenced()
+        {
+            // given
+            var fixture = new CalculateProjectTypeFixture();
+            fixture.WithProjectNames("Cake.Recipe");
+            fixture.WithoutCakeReference();
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.Output.Should().BeEquivalentTo(ExpectedTypeRecipe);
         }
     }
 }
