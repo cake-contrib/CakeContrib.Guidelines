@@ -1,6 +1,6 @@
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -25,7 +25,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(existingType);
+            fixture.Output.ShouldBeEquivalentTo(existingType);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(ExpectedTypeOther);
+            fixture.Output.ShouldBeEquivalentTo(ExpectedTypeOther);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(ExpectedTypeAddin);
+            fixture.Output.ShouldBeEquivalentTo(ExpectedTypeAddin);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(ExpectedTypeModule);
+            fixture.Output.ShouldBeEquivalentTo(ExpectedTypeModule);
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(ExpectedTypeRecipe);
+            fixture.Output.ShouldBeEquivalentTo(ExpectedTypeRecipe);
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(ExpectedTypeOther);
+            fixture.Output.ShouldBeEquivalentTo(ExpectedTypeOther);
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.Output.Should().BeEquivalentTo(ExpectedTypeRecipe);
+            fixture.Output.ShouldBeEquivalentTo(ExpectedTypeRecipe);
         }
     }
 }

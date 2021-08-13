@@ -4,7 +4,7 @@ using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 using Xunit.Abstractions;
@@ -56,11 +56,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("icon.png");
+            output.ShouldBe("icon.png");
         }
 
         [Fact]
@@ -79,8 +79,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0002", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0002", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -93,8 +93,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeTrue();
-            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeTrue();
+            result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -112,8 +112,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0003", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -127,8 +127,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.ErrorLines.Should().BeEmpty();
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.ErrorLines.ShouldBeEmpty();
         }
 
         [Fact]
@@ -142,8 +142,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeTrue();
-            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0004", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeTrue();
+            result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0004", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -156,8 +156,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0005", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0005", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -174,8 +174,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().BeEmpty();
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldBeEmpty();
         }
 
         [Fact]
@@ -188,9 +188,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0006", StringComparison.Ordinal) > -1);
-            result.WarningLines.Should().Contain(l => l.IndexOf("stylecop.json", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0006", StringComparison.Ordinal) > -1);
+            result.WarningLines.ShouldContain(l => l.IndexOf("stylecop.json", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -203,9 +203,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0006", StringComparison.Ordinal) > -1);
-            result.WarningLines.Should().Contain(l => l.IndexOf(".editorconfig", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0006", StringComparison.Ordinal) > -1);
+            result.WarningLines.ShouldContain(l => l.IndexOf(".editorconfig", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -218,9 +218,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeTrue();
-            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-            result.ErrorLines.Should().Contain(l => l.IndexOf("netstandard2.0", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeTrue();
+            result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.ErrorLines.ShouldContain(l => l.IndexOf("netstandard2.0", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -233,9 +233,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-            result.WarningLines.Should().Contain(l => l.IndexOf("net461", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.WarningLines.ShouldContain(l => l.IndexOf("net461", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -250,9 +250,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-            result.WarningLines.Should().Contain(l => l.IndexOf("net5.0", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.WarningLines.ShouldContain(l => l.IndexOf("net5.0", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -267,8 +267,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().BeEmpty();
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldBeEmpty();
         }
 
         [Fact]
@@ -287,8 +287,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().BeEmpty();
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldBeEmpty();
         }
 
         [Fact]
@@ -308,11 +308,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().BeEquivalentTo("Addin");
+            output.ShouldBeEquivalentTo("Addin");
         }
 
         [Fact]
@@ -336,11 +336,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("MyCustomProjectType");
+            output.ShouldBe("MyCustomProjectType");
         }
 
         [Fact]
@@ -361,11 +361,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().BeEquivalentTo("Module");
+            output.ShouldBeEquivalentTo("Module");
         }
 
         [Fact]
@@ -389,11 +389,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().BeEquivalentTo("Module");
+            output.ShouldBeEquivalentTo("Module");
         }
 
         [Fact]
@@ -414,11 +414,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().BeEquivalentTo("Addin");
+            output.ShouldBeEquivalentTo("Addin");
         }
 
         [Fact]
@@ -441,11 +441,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Be("icon.png");
+            output.ShouldBe("icon.png");
         }
 
         [Fact]
@@ -470,14 +470,14 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .Where(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1)
                 .First(x => x.IndexOf("icon.png", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Contain("Pack:True");
-            output.Should().Contain("Link:cake-contrib-addin-medium.png");
-            output.Should().Contain("PackagePath:");
+            output.ShouldContain("Pack:True");
+            output.ShouldContain("Link:cake-contrib-addin-medium.png");
+            output.ShouldContain("PackagePath:");
         }
 
         [Theory]
@@ -507,12 +507,12 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .Where(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1)
                 .First(x => x.IndexOf("icon.png", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Contain(expectedFileName);
+            output.ShouldContain(expectedFileName);
         }
 
         [Theory]
@@ -542,11 +542,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             var output = result.WarningLines
                 .Single(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.Should().Contain(expectedUrl);
+            output.ShouldContain(expectedUrl);
         }
 
         [Fact]
@@ -559,12 +559,12 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines
-                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
-                .And.Contain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1)
-                .And.NotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1)
-                .And.NotContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldSatisfyAllConditions(
+                    x => x.ShouldContain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1),
+                    x => x.ShouldContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1),
+                    x => x.ShouldNotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1),
+                    x => x.ShouldNotContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1));
         }
 
         [Fact]
@@ -581,12 +581,12 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines
-                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
-                .And.Contain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1)
-                .And.NotContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1)
-                .And.NotContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldSatisfyAllConditions(
+                x => x.ShouldContain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1),
+                x => x.ShouldContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1),
+                x => x.ShouldNotContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1),
+                x => x.ShouldNotContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1));
         }
 
         [Fact]
@@ -603,12 +603,12 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines
-                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
-                .And.Contain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1)
-                .And.NotContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1)
-                .And.NotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldSatisfyAllConditions(
+                    x => x.ShouldContain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1),
+                    x => x.ShouldContain(l => l.IndexOf("cake-recipe", StringComparison.Ordinal) > -1),
+                    x => x.ShouldNotContain(l => l.IndexOf("cake-addin", StringComparison.Ordinal) > -1),
+                    x => x.ShouldNotContain(l => l.IndexOf("cake-module", StringComparison.Ordinal) > -1));
         }
 
         [Fact]
@@ -625,10 +625,10 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
+            result.IsErrorExitCode.ShouldBeFalse();
             result.WarningLines
-                .Should().Contain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1)
-                .And.Contain(l => l.IndexOf("comma", StringComparison.Ordinal) > -1);
+                .ShouldContain(l => l.IndexOf("CCG0008", StringComparison.Ordinal) > -1);
+            result.WarningLines.ShouldContain(l => l.IndexOf("comma", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -642,11 +642,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should()
-                .Contain(l => l.IndexOf("CCG0009", StringComparison.Ordinal) > -1)
-                .And
-                .Contain(l => l.IndexOf("cake.core", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0009", StringComparison.Ordinal) > -1);
+            result.WarningLines.ShouldContain(l => l.IndexOf("cake.core", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -664,8 +662,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().BeEmpty();
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldBeEmpty();
         }
 
         [Fact]
@@ -682,8 +680,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().NotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldNotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -700,9 +698,9 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.Should().BeFalse();
-            result.WarningLines.Should().NotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-            result.ErrorLines.Should().Contain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldNotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
         }
 
     }

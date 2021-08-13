@@ -3,8 +3,6 @@ using System.Linq;
 
 using Microsoft.Build.Framework;
 
-using Moq;
-
 namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
 {
     public class RecommendedTagsFixture : BaseBuildFixture<RecommendedTags>
