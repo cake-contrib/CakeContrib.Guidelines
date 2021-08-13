@@ -52,7 +52,6 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         public string[] WarningsAsErrors { get; set; }
 
-
         /// <inheritdoc />
         public override bool Execute()
         {

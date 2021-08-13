@@ -2,7 +2,7 @@ using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -22,7 +22,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeTrue();
+            actual.ShouldBeTrue();
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeTrue();
+            actual.ShouldBeTrue();
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeFalse();
+            actual.ShouldBeFalse();
         }
 
         [Fact]
@@ -67,9 +67,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
             var theEvent = fixture.BuildEngine.ErrorEvents.Single();
-            theEvent.Code.Should().Be("CCG0004");
+            theEvent.Code.ShouldBe("CCG0004");
         }
 
         [Fact]
@@ -86,9 +86,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
             var theEvent = fixture.BuildEngine.ErrorEvents.Single();
-            theEvent.File.Should().Be(projectFileName);
+            theEvent.File.ShouldBe(projectFileName);
         }
     }
 }

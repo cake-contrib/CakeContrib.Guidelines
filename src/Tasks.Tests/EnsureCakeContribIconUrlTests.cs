@@ -2,7 +2,7 @@ using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -21,7 +21,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.PackageIconUrlOutput.Should().NotBeEmpty();
+            fixture.PackageIconUrlOutput.ShouldNotBeEmpty();
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.PackageIconUrlOutput.Should().BeEmpty();
+            fixture.PackageIconUrlOutput.ShouldBeEmpty();
         }
 
         [Fact]
@@ -50,8 +50,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.PackageIconUrlOutput.Should().BeEmpty();
-            fixture.BuildEngine.WarningEvents.Should().Contain(x => x.Code == "CCG0002");
+            fixture.PackageIconUrlOutput.ShouldBeEmpty();
+            fixture.BuildEngine.WarningEvents.ShouldContain(x => x.Code == "CCG0002");
         }
 
         [Fact]
@@ -68,9 +68,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(1);
             var theEvent = fixture.BuildEngine.WarningEvents.Single();
-            theEvent.File.Should().Be(projectFileName);
+            theEvent.File.ShouldBe(projectFileName);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(0);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count().ShouldBe(1);
         }
     }
 }

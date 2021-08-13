@@ -3,7 +3,7 @@ using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -22,7 +22,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.PackageIconOutput.Should().NotBeEmpty();
+            fixture.PackageIconOutput.ShouldNotBeEmpty();
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.PackageIconOutput.Should().Be(iconPath);
+            fixture.PackageIconOutput.ShouldBe(iconPath);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().NotBeNull();
+            fixture.AdditionalNoneRefOutput.ShouldNotBeNull();
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().BeNull();
+            fixture.AdditionalNoneRefOutput.ShouldBeNull();
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().NotBeNull();
+            fixture.AdditionalNoneRefOutput.ShouldNotBeNull();
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().NotBeNull();
+            fixture.AdditionalNoneRefOutput.ShouldNotBeNull();
         }
 
         [Fact]
@@ -109,7 +109,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().NotBeNull();
+            fixture.AdditionalNoneRefOutput.ShouldNotBeNull();
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().NotBeNull();
+            fixture.AdditionalNoneRefOutput.ShouldNotBeNull();
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.AdditionalNoneRefOutput.Should().BeNull();
+            fixture.AdditionalNoneRefOutput.ShouldBeNull();
         }
 
         [Fact]
@@ -185,8 +185,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeFalse();
-            fixture.BuildEngine.ErrorEvents.Should().Contain(x => x.Code == "CCG0003");
+            actual.ShouldBeFalse();
+            fixture.BuildEngine.ErrorEvents.ShouldContain(x => x.Code == "CCG0003");
         }
 
         [Fact]
@@ -201,8 +201,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeTrue();
-            fixture.BuildEngine.WarningEvents.Should().Contain(x => x.Code == "CCG0003");
+            actual.ShouldBeTrue();
+            fixture.BuildEngine.WarningEvents.ShouldContain(x => x.Code == "CCG0003");
         }
 
         [Fact]
@@ -217,8 +217,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeFalse();
-            fixture.BuildEngine.ErrorEvents.Should().Contain(x => x.Code == "CCG0001");
+            actual.ShouldBeFalse();
+            fixture.BuildEngine.ErrorEvents.ShouldContain(x => x.Code == "CCG0001");
         }
 
         [Fact]
@@ -233,9 +233,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             var actual = fixture.Execute();
 
             // then
-            actual.Should().BeTrue();
-            fixture.BuildEngine.ErrorEvents.Should().BeEmpty();
-            fixture.BuildEngine.WarningEvents.Should().BeEmpty();
+            actual.ShouldBeTrue();
+            fixture.BuildEngine.ErrorEvents.ShouldBeEmpty();
+            fixture.BuildEngine.WarningEvents.ShouldBeEmpty();
         }
 
         [Fact]
@@ -252,9 +252,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count().ShouldBe(1);
             var theEvent = fixture.BuildEngine.ErrorEvents.Single();
-            theEvent.File.Should().Be(projectFileName);
+            theEvent.File.ShouldBe(projectFileName);
         }
 
         [Fact]
@@ -271,8 +271,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
-            fixture.BuildEngine.WarningEvents.Should().Contain(x => x.Code == "CCG0003");
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.ShouldContain(x => x.Code == "CCG0003");
         }
 
         [Fact]
@@ -288,7 +288,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(0);
         }
 
         [Fact]
@@ -304,7 +304,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count().ShouldBe(1);
         }
     }
 }
