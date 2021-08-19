@@ -15,7 +15,7 @@
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
-        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.10.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
         <PackageReference Include="Microsoft.Build.Framework" Version="16.11.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="All" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
           <PrivateAssets>all</PrivateAssets>
