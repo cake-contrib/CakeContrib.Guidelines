@@ -39,6 +39,8 @@ or add the `PackageReference` manually
 
 See [NuGet](https://www.nuget.org/packages/CakeContrib.Guidelines/) for the current version.
 
+CakeContrib.Guidelines requires the use of `msbuild` version 16.8.0 or later.
+
 ## Guidelines
 
 All [guidelines](https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines) and [rules](https://cake-contrib.github.io/CakeContrib.Guidelines/rules) are documented at <https://cake-contrib.github.io/CakeContrib.Guidelines/>

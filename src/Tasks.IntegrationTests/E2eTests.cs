@@ -312,7 +312,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBeEquivalentTo("Addin");
+            output.ShouldBe("Addin", StringCompareShould.IgnoreCase);
         }
 
         [Fact]
@@ -365,7 +365,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBeEquivalentTo("Module");
+            output.ShouldBe("Module", StringCompareShould.IgnoreCase);
         }
 
         [Fact]
@@ -393,7 +393,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBeEquivalentTo("Module");
+            output.ShouldBe("Module", StringCompareShould.IgnoreCase);
         }
 
         [Fact]
@@ -418,7 +418,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBeEquivalentTo("Addin");
+            output.ShouldBe("Addin", StringCompareShould.IgnoreCase);
         }
 
         [Fact]
@@ -698,7 +698,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.ShouldBeFalse();
+            result.IsErrorExitCode.ShouldBeTrue();
             result.WarningLines.ShouldNotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
             result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
         }
