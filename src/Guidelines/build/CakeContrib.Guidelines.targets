@@ -41,4 +41,11 @@
         </CreateProperty>
     </Target>
 
+    <Target Name="EnsureCorrectMsBuildVersion">
+        <PropertyGroup>
+            <RequiredMinimumVersion>16.8.0</RequiredMinimumVersion>
+        </PropertyGroup>
+        <Error Condition="$(MSBuildVersion) &lt; $(RequiredMinimumVersion)"
+               Text='CakeContrib.Guidelines needs at least MSBuild version $(RequiredMinimumVersion). (Current version: $(MSBuildVersion))' />
+    </Target>
 </Project>

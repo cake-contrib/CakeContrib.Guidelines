@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using CakeContrib.Guidelines.Tasks.Extensions;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -15,7 +15,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Extensions
         [MemberData(nameof(GetGreaterEqualData))]
         public void GreaterEqualTheory(Version lhs, Version rhs, bool expected)
         {
-            lhs.GreaterEqual(rhs).Should().Be(expected);
+            lhs.GreaterEqual(rhs).ShouldBe(expected);
         }
 
         public static IEnumerable<object[]> GetGreaterEqualData()
@@ -29,7 +29,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Extensions
         [MemberData(nameof(GetLessEqualData))]
         public void LessEqualTheory(Version lhs, Version rhs, bool expected)
         {
-            lhs.LessEqual(rhs).Should().Be(expected);
+            lhs.LessEqual(rhs).ShouldBe(expected);
         }
 
         public static IEnumerable<object[]> GetLessEqualData()
@@ -43,7 +43,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Extensions
         [MemberData(nameof(GetGreaterThanData))]
         public void GreaterThanTheory(Version lhs, Version rhs, bool expected)
         {
-            lhs.GreaterThan(rhs).Should().Be(expected);
+            lhs.GreaterThan(rhs).ShouldBe(expected);
         }
 
         public static IEnumerable<object[]> GetGreaterThanData()
@@ -57,7 +57,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Extensions
         [MemberData(nameof(GetLessThanData))]
         public void LessThanTheory(Version lhs, Version rhs, bool expected)
         {
-            lhs.LessThan(rhs).Should().Be(expected);
+            lhs.LessThan(rhs).ShouldBe(expected);
         }
 
         public static IEnumerable<object[]> GetLessThanData()

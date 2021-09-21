@@ -31,7 +31,7 @@ namespace CakeContrib.Guidelines.Tasks
         public static CakeProjectType Recipe { get; } = new CakeProjectType("recipe");
 
         /// <summary>
-        /// Type: Other
+        /// Type: Other.
         /// </summary>
         public static CakeProjectType Other { get; } = new CakeProjectType("other");
 

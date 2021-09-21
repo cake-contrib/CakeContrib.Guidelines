@@ -8,7 +8,8 @@
     <Target
         Name="_CheckPrivateAssets"
         AfterTargets="BeforeBuild"
-        BeforeTargets="CoreBuild">
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="EnsureCorrectMsBuildVersion">
         <ItemGroup>
             <CakeContribGuidelinesPrivateReference Include="Cake.Core" />
             <CakeContribGuidelinesPrivateReference Include="Cake.Common" />

@@ -9,7 +9,7 @@
         Name="_CheckTargetFrameworkVersions"
         AfterTargets="BeforeBuild"
         BeforeTargets="CoreBuild"
-        DependsOnTargets="EnsureProjectTypeIsSet">
+        DependsOnTargets="EnsureProjectTypeIsSet;EnsureCorrectMsBuildVersion">
 
         <!-- All other rules have some "configuration" here, this rules required/suggested targets are hard-coded in the task. Sadly. -->
 

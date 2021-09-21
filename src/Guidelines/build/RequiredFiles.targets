@@ -12,7 +12,7 @@
         Name="_CheckRequiredFiles"
         AfterTargets="BeforeBuild"
         BeforeTargets="CoreBuild"
-        DependsOnTargets="EnsureProjectTypeIsSet">
+        DependsOnTargets="EnsureProjectTypeIsSet;EnsureCorrectMsBuildVersion">
 
         <RequiredFileEditorconfig
             OmitFiles="@(CakeContribGuidelinesOmitRecommendedConfigFile)"

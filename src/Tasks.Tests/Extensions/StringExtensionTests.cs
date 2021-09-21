@@ -5,7 +5,7 @@ using System.IO;
 
 using CakeContrib.Guidelines.Tasks.Extensions;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -19,7 +19,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Extensions
         {
             // This is not a good tests, as the outcome
             // will be different on different OS.
-            actual.NormalizePathSeparators().Should().Be(expected);
+            actual.NormalizePathSeparators().ShouldBe(expected);
         }
 
         public static IEnumerable<object[]> NormalizePathSeparatorsData()

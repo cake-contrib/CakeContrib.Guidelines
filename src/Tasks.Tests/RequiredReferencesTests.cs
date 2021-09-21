@@ -2,7 +2,7 @@ using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -23,7 +23,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(0);
         }
 
         [Fact]
@@ -38,9 +38,9 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(1);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(1);
             var theEvent = fixture.BuildEngine.WarningEvents.Single();
-            theEvent.Code.Should().Be("CCG0005");
+            theEvent.Code.ShouldBe("CCG0005");
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(0);
         }
 
         [Fact]
@@ -74,9 +74,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents
-                .Should().HaveCount(1)
-                .And.Contain(x => x.File == projectFileName);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.ShouldContain(x => x.File == projectFileName);
         }
 
         [Fact]
@@ -92,7 +91,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(0);
         }
 
         [Fact]
@@ -107,7 +106,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count().ShouldBe(0);
         }
 
         [Fact]
@@ -122,7 +121,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count().ShouldBe(1);
         }
     }
 }

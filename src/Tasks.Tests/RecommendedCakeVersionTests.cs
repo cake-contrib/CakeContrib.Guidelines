@@ -2,7 +2,7 @@ using System;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
-using FluentAssertions;
+using Shouldly;
 
 using Xunit;
 
@@ -24,12 +24,10 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should()
-                .HaveCount(1)
-                .And
-                .Contain(x => x.Code == "CCG0009")
-                .And
-                .Contain(x => x.Message.IndexOf("cake.core", StringComparison.InvariantCulture) > -1);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.ShouldContain(x => x.Code == "CCG0009");
+            fixture.BuildEngine.WarningEvents.ShouldContain(x =>
+                x.Message.IndexOf("cake.core", StringComparison.InvariantCulture) > -1);
         }
 
         [Fact]
@@ -47,8 +45,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should()
-                .HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(0);
         }
 
         [Fact]
@@ -64,8 +61,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should()
-                .HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(0);
         }
 
 
@@ -84,10 +80,8 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should()
-                .HaveCount(1)
-                .And
-                .Contain(x => x.File == projectFileName);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.ShouldContain(x => x.File == projectFileName);
         }
 
         [Fact]
@@ -104,7 +98,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(0);
         }
 
         [Fact]
@@ -122,7 +116,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.WarningEvents.Should().HaveCount(0);
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(0);
         }
 
         [Fact]
@@ -140,7 +134,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Should().HaveCount(1);
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
         }
 
         [Fact]
@@ -158,8 +152,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.MessageEvents.Should()
-                .Contain(x =>
+            fixture.BuildEngine.MessageEvents.ShouldContain(x =>
                     x.Code != null
                     && x.Code.Equals("CCG0009", StringComparison.OrdinalIgnoreCase)
                     && x.Message.StartsWith("2 different"));
