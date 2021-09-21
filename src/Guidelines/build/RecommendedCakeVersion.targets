@@ -8,7 +8,7 @@
     <Target Name="_checkRecommendedCakeVersion"
             AfterTargets="BeforeBuild"
             BeforeTargets="CoreBuild"
-            DependsOnTargets="EnsureProjectTypeIsSet">
+            DependsOnTargets="EnsureProjectTypeIsSet;EnsureCorrectMsBuildVersion">
         <ItemGroup>
             <CakeReferenceToCheck Include="cake.core" />
             <CakeReferenceToCheck Include="cake.common" />

@@ -11,7 +11,7 @@
     <Target Name="_EnsureCakeContribGuidelinesIcon"
             AfterTargets="BeforeBuild"
             BeforeTargets="CoreBuild;SetNuspecProperties;GenerateNuspec;_GetPackageFiles"
-            DependsOnTargets="EnsureProjectTypeIsSet">
+            DependsOnTargets="EnsureProjectTypeIsSet;EnsureCorrectMsBuildVersion">
         <PropertyGroup>
             <CakeContribIconPath>$(MSBuildThisFileDirectory)/../images/cake-contrib-community-medium.png</CakeContribIconPath>
             <CakeContribIconPath

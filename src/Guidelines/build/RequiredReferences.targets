@@ -9,7 +9,7 @@
         Name="_CheckRequiredReferences"
         AfterTargets="BeforeBuild"
         BeforeTargets="CoreBuild"
-        DependsOnTargets="EnsureProjectTypeIsSet">
+        DependsOnTargets="EnsureProjectTypeIsSet;EnsureCorrectMsBuildVersion">
         <ItemGroup>
             <CakeContribGuidelinesRequiredReference Include="StyleCop.Analyzers" />
         </ItemGroup>

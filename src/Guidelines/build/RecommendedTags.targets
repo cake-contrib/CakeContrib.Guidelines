@@ -8,7 +8,7 @@
     <Target Name="_checkRecommendedTags"
             AfterTargets="BeforeBuild"
             BeforeTargets="CoreBuild"
-            DependsOnTargets="EnsureProjectTypeIsSet"
+            DependsOnTargets="EnsureProjectTypeIsSet;EnsureCorrectMsBuildVersion"
             Condition="$(IsPackable) != 'false'">
         <ItemGroup>
             <RecommendedTag Include="cake" />
