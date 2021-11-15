@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
@@ -13,19 +15,22 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         private const string NetStandard20 = "netstandard2.0";
         private const string Net46 = "net46";
         private const string Net461 = "net461";
+        private const string NetCore31 = "netcoreapp3.1";
         private const string Net50 = "net5.0";
+        private const string Net60 = "net6.0";
 
         [Fact]
         public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted()
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
 
             // when
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Count().ShouldBe(1);
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
             fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(NetStandard20);
         }
 
@@ -34,13 +39,14 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         {
             // given
             var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(1);
             fixture.WithOmittedTargetFramework(NetStandard20);
 
             // when
             fixture.Execute();
 
             // then
-            fixture.BuildEngine.ErrorEvents.Count().ShouldBe(0);
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(0);
         }
 
         [Fact]
@@ -100,7 +106,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             const string brokenVersion = "1.2.3.4.5.6.7.8.9";
             var fixture = new TargetFrameworkVersionsFixture();
             fixture.WithCakeCoreReference(brokenVersion);
-            fixture.WithTargetFrameworks(NetStandard20, Net461, Net50);
+            fixture.WithTargetFrameworksMatchingDefault();
 
             // when
             fixture.Execute();
@@ -254,6 +260,54 @@ namespace CakeContrib.Guidelines.Tasks.Tests
 
             // then
             fixture.BuildEngine.ErrorEvents.Count().ShouldBe(1);
+        }
+
+        [Theory]
+        [MemberData(nameof(Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_2_Data))]
+        public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_2(string[] targetFrameworks, bool expectedError, string missingTargetFramework)
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(2);
+            fixture.WithTargetFrameworks(targetFrameworks);
+
+            // when
+            fixture.Execute();
+
+            // then
+            if (expectedError)
+            {
+                fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
+                fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(missingTargetFramework);
+            }
+            else
+            {
+                fixture.BuildEngine.ErrorEvents.Count.ShouldBe(0);
+            }
+        }
+
+        public static IEnumerable<object[]> Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_2_Data()
+        {
+            yield return new object[] { Array.Empty<string>(), true, NetCore31 };
+            yield return new object[] { new[]{ NetCore31 }, true, Net50 };
+            yield return new object[] { new[]{ NetCore31, Net50 }, true, Net60 };
+            yield return new object[] { new[]{ NetCore31, Net50, Net60 }, false, string.Empty };
+        }
+
+        [Fact]
+        public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_2_Module()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithProjectType("module");
+            fixture.WithCakeCoreReference("2.0.0-rc0001");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(NetCore31);
         }
     }
 }

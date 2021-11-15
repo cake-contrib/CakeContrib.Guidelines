@@ -165,7 +165,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithoutStylecopReference();
-            fixture.WithCustomContent($@"
+            fixture.OmitRecommendedCakeVersion();
+            fixture.WithCustomContent(@"
 <ItemGroup>
       <CakeContribGuidelinesOmitRecommendedReference Include=""StyleCop.Analyzers"" />
 </ItemGroup>");
@@ -262,6 +263,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0;net461;net5.0");
+            fixture.OmitRecommendedCakeVersion();
 
             // when
             var result = fixture.Run();
@@ -278,6 +280,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.OmitRecommendedCakeVersion();
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <PackageId>Cake.Buildsystems.Module</PackageId>
