@@ -17,7 +17,8 @@ BuildParameters.SetParameters(
     testFilePattern: "/**/*.Tests.csproj", // omit integration-tests in CI-Build 
     repositoryOwner: "cake-contrib",
     gitterMessage: "@/all " + standardNotificationMessage,
-    twitterMessage: standardNotificationMessage);
+    twitterMessage: standardNotificationMessage,
+    preferredBuildProviderType: BuildProviderType.GitHubActions);
 
 BuildParameters.PrintParameters(Context);
 

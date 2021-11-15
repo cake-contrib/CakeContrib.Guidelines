@@ -27,6 +27,7 @@
         <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
         <MinClientVersion>2.8</MinClientVersion>
         <DevelopmentDependency>true</DevelopmentDependency>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,5 +36,6 @@
         <None Include="content/*" PackagePath="/" Pack="true" />
         <None Include="images/*" PackagePath="images/" Pack="true" />
         <None Include="tasks/**/*.*" PackagePath="tasks/" Pack="true" Exclude=".gitignore" />
+        <None Include="$(ProjectDir)../../README.md" Link="README.md" PackagePath="" Pack="true" />
     </ItemGroup>
 </Project>
