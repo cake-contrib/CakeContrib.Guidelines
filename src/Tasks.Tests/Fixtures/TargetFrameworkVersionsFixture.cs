@@ -73,6 +73,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             Task.ProjectType = projectType;
         }
 
+        public void WithExplicitCakeVersion(string version)
+        {
+            Task.CakeVersion = version;
+        }
+
         public void WithProjectFile(string fileName)
         {
             Task.ProjectFile = fileName;

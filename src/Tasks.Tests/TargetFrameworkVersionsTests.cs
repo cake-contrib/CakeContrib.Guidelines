@@ -309,5 +309,21 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
             fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(NetCore31);
         }
+
+        [Fact]
+        public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Module_Explicit_Version()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithProjectType("module");
+            fixture.WithExplicitCakeVersion("1.0.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(NetStandard20);
+        }
     }
 }
