@@ -137,6 +137,11 @@ namespace CakeContrib.Guidelines.Tasks
         public string ProjectFile { get; set; }
 
         /// <summary>
+        /// Gets or sets an explicit Cake version instead of doing Cake.Core detection.
+        /// </summary>
+        public string CakeVersion { get; set; }
+
+        /// <summary>
         /// Gets or sets the warnings that are suppressed.
         /// </summary>
         public string[] NoWarn { get; set; }
@@ -157,32 +162,39 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
-            // find cake.core version
-            var cakeCore =
-                References?.FirstOrDefault(x => x.ToString().Equals("Cake.Core", StringComparison.OrdinalIgnoreCase));
-            if (cakeCore == null)
+            if (string.IsNullOrEmpty(CakeVersion))
             {
-                Log.LogMessage(
-                    LogLevel,
-                    "Could not find Cake.Core reference. Using default TargetVersions.");
-                return Execute(DefaultTarget);
+                // find cake.core version
+                var cakeCore =
+                    References?.FirstOrDefault(x => x.ToString().Equals("Cake.Core", StringComparison.OrdinalIgnoreCase));
+                if (cakeCore == null)
+                {
+                    Log.LogMessage(
+                        LogLevel,
+                        "Could not find Cake.Core reference. Using default TargetVersions.");
+                    return Execute(DefaultTarget);
+                }
+
+                CakeVersion = cakeCore.GetMetadata("version");
+                var prereleaseIndex = CakeVersion.IndexOf("-", StringComparison.Ordinal);
+                if (prereleaseIndex > -1)
+                {
+                    var prerelease = CakeVersion;
+                    CakeVersion = CakeVersion.Substring(0, prereleaseIndex);
+                    Log.CcgTrace($"Cake.Core has a version of {prerelease}. Assuming a prerelease and correcting version to {CakeVersion}.");
+                }
+            }
+            else
+            {
+                Log.CcgTrace($"Cake version explicitly set to {CakeVersion}.");
             }
 
-            var versionString = cakeCore.GetMetadata("version");
-            var prereleaseIndex = versionString.IndexOf("-", StringComparison.Ordinal);
-            if (prereleaseIndex > -1)
-            {
-                var prerelease = versionString;
-                versionString = versionString.Substring(0, prereleaseIndex);
-                Log.CcgTrace($"Cake.Core has a version of {prerelease}. Assuming a prerelease and correcting version to {versionString}.");
-            }
-
-            if (!Version.TryParse(versionString, out Version version))
+            if (!Version.TryParse(CakeVersion, out Version version))
             {
                 Log.CcgWarning(
                     7,
                     ProjectFile,
-                    $"Cake.Core has a version of {versionString} which is not a valid version. Using default TargetVersions.",
+                    $"Cake version was {CakeVersion} which is not a valid version. Using default TargetVersions.",
                     NoWarn,
                     WarningsAsErrors);
                 return Execute(DefaultTarget);
@@ -190,7 +202,7 @@ namespace CakeContrib.Guidelines.Tasks
 
             Log.LogMessage(
                 LogLevel,
-                $"Cake.Core reference version is {version}");
+                $"Cake reference version is {version}");
 
             foreach (var targetsDefinition in SpecificTargets)
             {
@@ -210,7 +222,7 @@ namespace CakeContrib.Guidelines.Tasks
 
             Log.LogMessage(
                 LogLevel,
-                $"Could not find a specific TargetVersions-setting for Cake.Core version {version}. Using default TargetVersions.");
+                $"Could not find a specific TargetVersions-setting for Cake version {version}. Using default TargetVersions.");
             return Execute(DefaultTarget);
         }
 

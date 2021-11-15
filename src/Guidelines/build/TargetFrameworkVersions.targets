@@ -20,6 +20,7 @@
             TargetFrameworks="$(TargetFrameworks)"
             Omitted="@(CakeContribGuidelinesOmitTargetFramework)"
             ProjectType="$(CakeContribGuidelinesProjectType)"
+            CakeVersion="$(CakeContribGuidelinesOverrideTargetFrameworkCakeVersion)"
             NoWarn="$(NoWarn)"
             WarningsAsErrors="$(WarningsAsErrors)" />
     </Target>
