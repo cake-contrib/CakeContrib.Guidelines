@@ -38,6 +38,12 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             targetFramework = GetMockTaskItem(packageName).Object;
         }
 
+        public void WithTargetFrameworksMatchingDefault()
+        {
+            targetFrameworks.Clear();
+            WithTargetFrameworks("netcoreapp3.1", "net5.0", "net6.0"); // matches the "Default" of CakeContrib.Guidelines.Tasks.TargetFrameworkVersions
+        }
+
         public void WithTargetFrameworks(params string[] packageNames)
         {
             targetFrameworks.AddRange(packageNames.Select(n => GetMockTaskItem(n).Object));
@@ -65,6 +71,11 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public void WithProjectType(string projectType)
         {
             Task.ProjectType = projectType;
+        }
+
+        public void WithExplicitCakeVersion(string version)
+        {
+            Task.CakeVersion = version;
         }
 
         public void WithProjectFile(string fileName)

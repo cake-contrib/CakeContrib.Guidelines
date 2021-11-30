@@ -20,6 +20,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private bool hasStylecopJson = true;
         private bool hasStylecopReference = true;
         private bool hasEditorConfig = true;
+        private bool omitRecommendedCakeVersion = false;
         private bool hasDefaultCakeReference = true;
         private readonly List<string> customContent = new List<string>();
         private string targetFrameworks = "netstandard2.0;net461;net5.0";
@@ -105,6 +106,16 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
             {
                 WithPackageReference("cake.core","1.0.0", "all");
             }
+
+            if (omitRecommendedCakeVersion)
+            {
+                WithCustomContent(@"
+<ItemGroup>
+    <CakeContribGuidelinesOmitRecommendedCakeVersion Include=""Cake.Common"" />
+    <CakeContribGuidelinesOmitRecommendedCakeVersion Include=""Cake.Core"" />
+</ItemGroup>");
+            }
+
             items.AddRange(references);
 
             File.WriteAllText(csproj, string.Format(template,
@@ -137,6 +148,11 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         internal void WithCustomContent(string content)
         {
             customContent.Add(content);
+        }
+
+        internal void OmitRecommendedCakeVersion()
+        {
+            omitRecommendedCakeVersion = true;
         }
 
         internal void WithPackageReference(

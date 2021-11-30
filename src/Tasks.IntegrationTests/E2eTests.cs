@@ -165,7 +165,8 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithoutStylecopReference();
-            fixture.WithCustomContent($@"
+            fixture.OmitRecommendedCakeVersion();
+            fixture.WithCustomContent(@"
 <ItemGroup>
       <CakeContribGuidelinesOmitRecommendedReference Include=""StyleCop.Analyzers"" />
 </ItemGroup>");
@@ -262,6 +263,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0;net461;net5.0");
+            fixture.OmitRecommendedCakeVersion();
 
             // when
             var result = fixture.Run();
@@ -278,6 +280,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.OmitRecommendedCakeVersion();
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <PackageId>Cake.Buildsystems.Module</PackageId>
@@ -703,5 +706,26 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
         }
 
+        [Fact]
+        public void Missing_Required_Target_results_in_CCG0007_error_if_Cake_Version_Is_Set_Explicitly()
+        {
+            // given
+            fixture.WithTargetFrameworks("net5.0");
+            fixture.WithoutDefaultCakeReference();
+            fixture.WithCustomContent(@"
+<PropertyGroup>
+  <CakeContribGuidelinesProjectType>module</CakeContribGuidelinesProjectType>
+  <CakeContribGuidelinesOverrideTargetFrameworkCakeVersion>1.2.3</CakeContribGuidelinesOverrideTargetFrameworkCakeVersion>
+</PropertyGroup>");
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.ShouldBeTrue();
+            var err = result.ErrorLines.FirstOrDefault(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            err.ShouldNotBeNull();
+            err.ShouldContain("netstandard2.0");
+        }
     }
 }

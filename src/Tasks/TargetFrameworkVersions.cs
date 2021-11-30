@@ -24,31 +24,43 @@ namespace CakeContrib.Guidelines.Tasks
         private const string NetStandard20 = "netstandard2.0";
         private const string Net46 = "net46";
         private const string Net461 = "net461";
+        private const string NetCore31 = "netcoreapp3.1";
         private const string Net50 = "net5.0";
+        private const string Net60 = "net6.0";
 
         private static readonly Version Vo26 = new Version(0, 26, 0);
         private static readonly Version V1 = new Version(1, 0, 0);
+        private static readonly Version V2 = new Version(2, 0, 0);
 
         private static readonly TargetsDefinitions DefaultTarget = new TargetsDefinitions
         {
             Name = "Default",
-            RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
-            SuggestedTargets = new[]
+            RequiredTargets = new[]
             {
-                TargetsDefinition.From(Net461, Net46),
+                TargetsDefinition.From(NetCore31),
                 TargetsDefinition.From(Net50),
+                TargetsDefinition.From(Net60),
             },
+            SuggestedTargets = Array.Empty<TargetsDefinition>(),
         };
 
         private static readonly Dictionary<Predicate<Differentiator>, TargetsDefinitions> SpecificTargets =
             new Dictionary<Predicate<Differentiator>, TargetsDefinitions>
             {
                 {
-                    d => d.IsModuleProject,
+                    d => d.IsModuleProject && d.Version.LessThan(V2),
                     new TargetsDefinitions
                     {
                         Name = "Module",
                         RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
+                    }
+                },
+                {
+                    d => d.IsModuleProject && d.Version.GreaterEqual(V2),
+                    new TargetsDefinitions
+                    {
+                        Name = "Module",
+                        RequiredTargets = new[] { TargetsDefinition.From(NetCore31) },
                     }
                 },
                 {
@@ -61,16 +73,30 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(V1),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(V1) && d.Version.LessThan(V2),
                     new TargetsDefinitions
                     {
-                        Name = "x >= 1.0.0",
+                        Name = "1.0.0 <= x < 2.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
                         SuggestedTargets = new[]
                         {
                             TargetsDefinition.From(Net461, Net46),
                             TargetsDefinition.From(Net50),
                         },
+                    }
+                },
+                {
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(V2),
+                    new TargetsDefinitions
+                    {
+                        Name = "x >= 2.0.0",
+                        RequiredTargets = new[]
+                        {
+                            TargetsDefinition.From(NetCore31),
+                            TargetsDefinition.From(Net50),
+                            TargetsDefinition.From(Net60),
+                        },
+                        SuggestedTargets = Array.Empty<TargetsDefinition>(),
                     }
                 },
             };
@@ -111,6 +137,11 @@ namespace CakeContrib.Guidelines.Tasks
         public string ProjectFile { get; set; }
 
         /// <summary>
+        /// Gets or sets an explicit Cake version instead of doing Cake.Core detection.
+        /// </summary>
+        public string CakeVersion { get; set; }
+
+        /// <summary>
         /// Gets or sets the warnings that are suppressed.
         /// </summary>
         public string[] NoWarn { get; set; }
@@ -131,23 +162,39 @@ namespace CakeContrib.Guidelines.Tasks
                 return true;
             }
 
-            // find cake.core version
-            var cakeCore =
-                References?.FirstOrDefault(x => x.ToString().Equals("Cake.Core", StringComparison.OrdinalIgnoreCase));
-            if (cakeCore == null)
+            if (string.IsNullOrEmpty(CakeVersion))
             {
-                Log.LogMessage(
-                    LogLevel,
-                    "Could not find Cake.Core reference. Using default TargetVersions.");
-                return Execute(DefaultTarget);
+                // find cake.core version
+                var cakeCore =
+                    References?.FirstOrDefault(x => x.ToString().Equals("Cake.Core", StringComparison.OrdinalIgnoreCase));
+                if (cakeCore == null)
+                {
+                    Log.LogMessage(
+                        LogLevel,
+                        "Could not find Cake.Core reference. Using default TargetVersions.");
+                    return Execute(DefaultTarget);
+                }
+
+                CakeVersion = cakeCore.GetMetadata("version");
+                var prereleaseIndex = CakeVersion.IndexOf("-", StringComparison.Ordinal);
+                if (prereleaseIndex > -1)
+                {
+                    var prerelease = CakeVersion;
+                    CakeVersion = CakeVersion.Substring(0, prereleaseIndex);
+                    Log.CcgTrace($"Cake.Core has a version of {prerelease}. Assuming a prerelease and correcting version to {CakeVersion}.");
+                }
+            }
+            else
+            {
+                Log.CcgTrace($"Cake version explicitly set to {CakeVersion}.");
             }
 
-            if (!Version.TryParse(cakeCore.GetMetadata("version"), out Version version))
+            if (!Version.TryParse(CakeVersion, out Version version))
             {
                 Log.CcgWarning(
                     7,
                     ProjectFile,
-                    $"Cake.Core has a version of {cakeCore.GetMetadata("version")} which is not a valid version. Using default TargetVersions.",
+                    $"Cake version was {CakeVersion} which is not a valid version. Using default TargetVersions.",
                     NoWarn,
                     WarningsAsErrors);
                 return Execute(DefaultTarget);
@@ -155,7 +202,7 @@ namespace CakeContrib.Guidelines.Tasks
 
             Log.LogMessage(
                 LogLevel,
-                $"Cake.Core reference version is {version}");
+                $"Cake reference version is {version}");
 
             foreach (var targetsDefinition in SpecificTargets)
             {
@@ -175,7 +222,7 @@ namespace CakeContrib.Guidelines.Tasks
 
             Log.LogMessage(
                 LogLevel,
-                $"Could not find a specific TargetVersions-setting for Cake.Core version {version}. Using default TargetVersions.");
+                $"Could not find a specific TargetVersions-setting for Cake version {version}. Using default TargetVersions.");
             return Execute(DefaultTarget);
         }
 
