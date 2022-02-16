@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
-        <PackageReference Include="Microsoft.VisualStudio.Setup.Configuration.Interop" Version="3.0.4496" CopyLocal="false" Publish="false" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.VisualStudio.Setup.Configuration.Interop" Version="3.1.2196" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
