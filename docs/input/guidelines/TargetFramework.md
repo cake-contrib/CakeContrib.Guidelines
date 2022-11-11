@@ -36,8 +36,20 @@ while missing a suggested target version will raise [CCG0007](../rules/ccg0007) 
     * Suggested: `net461`
       * alternative: `net46`
     * Suggested: `net5.0`
+  * Cake.Core >= 2.0.0
+    * Required: `netcoreapp3.1`
+    * Required: `net5.0`
+    * Required: `net6.0`
+  * Cake.Core >= 3.0.0
+    * Required: `net6.0`
+    * Required: `net7.0`
 * Package type: module
-  * Required: `netstandard2.0`
+  * Cake.Core < 2.0.0
+    * Required: `netstandard2.0`
+  * Cake.Core >= 2.0.0
+    * Required: `netcoreapp3.1`
+  * Cake.Core >= 3.0.0
+    * Required: `net6.0`
 
 For package type recipe no framework reference is required or suggested.
 
