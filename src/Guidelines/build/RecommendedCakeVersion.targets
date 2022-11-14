@@ -15,7 +15,7 @@
             <CakeReferenceToCheck Include="cake.testing" />
         </ItemGroup>
         <PropertyGroup>
-            <RecommendedCakeVersion>2.0.0</RecommendedCakeVersion>
+            <RecommendedCakeVersion>3.0.0</RecommendedCakeVersion>
         </PropertyGroup>
 
         <RecommendedCakeVersion

@@ -27,19 +27,20 @@ namespace CakeContrib.Guidelines.Tasks
         private const string NetCore31 = "netcoreapp3.1";
         private const string Net50 = "net5.0";
         private const string Net60 = "net6.0";
+        private const string Net70 = "net7.0";
 
         private static readonly Version Vo26 = new Version(0, 26, 0);
         private static readonly Version V1 = new Version(1, 0, 0);
         private static readonly Version V2 = new Version(2, 0, 0);
+        private static readonly Version V3 = new Version(3, 0, 0);
 
         private static readonly TargetsDefinitions DefaultTarget = new TargetsDefinitions
         {
             Name = "Default",
             RequiredTargets = new[]
             {
-                TargetsDefinition.From(NetCore31),
-                TargetsDefinition.From(Net50),
                 TargetsDefinition.From(Net60),
+                TargetsDefinition.From(Net70),
             },
             SuggestedTargets = Array.Empty<TargetsDefinition>(),
         };
@@ -56,11 +57,19 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => d.IsModuleProject && d.Version.GreaterEqual(V2),
+                    d => d.IsModuleProject && d.Version.GreaterEqual(V2) && d.Version.LessThan(V3),
                     new TargetsDefinitions
                     {
                         Name = "Module",
                         RequiredTargets = new[] { TargetsDefinition.From(NetCore31) },
+                    }
+                },
+                {
+                    d => d.IsModuleProject && d.Version.GreaterEqual(V3),
+                    new TargetsDefinitions
+                    {
+                        Name = "Module",
+                        RequiredTargets = new[] { TargetsDefinition.From(Net60) },
                     }
                 },
                 {
@@ -86,15 +95,28 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(V2),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(V2) && d.Version.LessThan(V3),
                     new TargetsDefinitions
                     {
-                        Name = "x >= 2.0.0",
+                        Name = "2.0.0 <= x < 3.0.0",
                         RequiredTargets = new[]
                         {
                             TargetsDefinition.From(NetCore31),
                             TargetsDefinition.From(Net50),
                             TargetsDefinition.From(Net60),
+                        },
+                        SuggestedTargets = Array.Empty<TargetsDefinition>(),
+                    }
+                },
+                {
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(V3),
+                    new TargetsDefinitions
+                    {
+                        Name = "x >= 3.0.0",
+                        RequiredTargets = new[]
+                        {
+                            TargetsDefinition.From(Net60),
+                            TargetsDefinition.From(Net70),
                         },
                         SuggestedTargets = Array.Empty<TargetsDefinition>(),
                     }
