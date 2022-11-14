@@ -41,7 +41,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public void WithTargetFrameworksMatchingDefault()
         {
             targetFrameworks.Clear();
-            WithTargetFrameworks("netcoreapp3.1", "net5.0", "net6.0"); // matches the "Default" of CakeContrib.Guidelines.Tasks.TargetFrameworkVersions
+            WithTargetFrameworks("net6.0", "net7.0"); // matches the "Default" of CakeContrib.Guidelines.Tasks.TargetFrameworkVersions
         }
 
         public void WithTargetFrameworks(params string[] packageNames)
