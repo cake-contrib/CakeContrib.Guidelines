@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;</TargetFrameworks>
+        <TargetFrameworks>net6.0;net7.0;</TargetFrameworks>
         <TargetFrameworks Condition="'$(OS)'!='Unix'">$(TargetFrameworks);net472</TargetFrameworks>
         <AssemblyName>CakeContrib.Guidelines.Tasks.IntegrationTests</AssemblyName>
         <RootNamespace>CakeContrib.Guidelines.Tasks.IntegrationTests</RootNamespace>
