@@ -29,11 +29,6 @@ namespace CakeContrib.Guidelines.Tasks
         private const string Net60 = "net6.0";
         private const string Net70 = "net7.0";
 
-        private static readonly Version Vo26 = new Version(0, 26, 0);
-        private static readonly Version V1 = new Version(1, 0, 0);
-        private static readonly Version V2 = new Version(2, 0, 0);
-        private static readonly Version V3 = new Version(3, 0, 0);
-
         private static readonly TargetsDefinitions DefaultTarget = new TargetsDefinitions
         {
             Name = "Default",
@@ -49,7 +44,7 @@ namespace CakeContrib.Guidelines.Tasks
             new Dictionary<Predicate<Differentiator>, TargetsDefinitions>
             {
                 {
-                    d => d.IsModuleProject && d.Version.LessThan(V2),
+                    d => d.IsModuleProject && d.Version.LessThan(CakeVersions.V2),
                     new TargetsDefinitions
                     {
                         Name = "Module",
@@ -57,7 +52,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => d.IsModuleProject && d.Version.GreaterEqual(V2) && d.Version.LessThan(V3),
+                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V2) && d.Version.LessThan(CakeVersions.V3),
                     new TargetsDefinitions
                     {
                         Name = "Module",
@@ -65,7 +60,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => d.IsModuleProject && d.Version.GreaterEqual(V3),
+                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V3),
                     new TargetsDefinitions
                     {
                         Name = "Module",
@@ -73,7 +68,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(Vo26) && d.Version.LessThan(V1),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.Vo26) && d.Version.LessThan(CakeVersions.V1),
                     new TargetsDefinitions
                     {
                         Name = "0.26.0 <= x < 1.0.0",
@@ -82,7 +77,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(V1) && d.Version.LessThan(V2),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V1) && d.Version.LessThan(CakeVersions.V2),
                     new TargetsDefinitions
                     {
                         Name = "1.0.0 <= x < 2.0.0",
@@ -95,7 +90,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(V2) && d.Version.LessThan(V3),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V2) && d.Version.LessThan(CakeVersions.V3),
                     new TargetsDefinitions
                     {
                         Name = "2.0.0 <= x < 3.0.0",
@@ -109,7 +104,7 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(V3),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V3),
                     new TargetsDefinitions
                     {
                         Name = "x >= 3.0.0",
