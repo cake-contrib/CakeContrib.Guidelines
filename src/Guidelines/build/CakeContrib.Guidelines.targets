@@ -12,6 +12,7 @@
     <Import Project="$(MSBuildThisFileDirectory)RecommendedCakeVersion.targets" />
     <Import Project="$(MSBuildThisFileDirectory)RecommendedTags.targets" />
     <Import Project="$(MSBuildThisFileDirectory)TargetFrameworkVersions.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)CakeInternalReferences.targets" />
 
     <UsingTask
         TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CalculateProjectType"

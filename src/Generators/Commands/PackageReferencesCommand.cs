@@ -191,17 +191,17 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
     {
         if (gitTag != null)
         {
-            console.MarkupLineInterpolated($"[bold white]{gitTag}[/]");
+            console.WriteLine($"#### Cake {gitTag}");
         }
         var t = new Table()
             .AddColumn("Reference")
-            .AddColumn("Version");
+            .AddColumn("Version")
+            .Border(TableBorder.Markdown);
         foreach ((string name, string? version) in refs)
         {
             t.AddRow(name, version ?? string.Empty);
         }
 
-        console.WriteLine();
         console.Write(t);
     }
 
