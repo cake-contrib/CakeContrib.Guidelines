@@ -5,7 +5,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-The cake-contrib icon will be automatically included in the project, unless 
+The cake-contrib icon will be automatically included in the project, unless
 `CakeContribGuidelinesIconOmitImport` is set to `True`.
 
 To to use a "custom" import the following could be used:
@@ -17,5 +17,5 @@ To to use a "custom" import the following could be used:
 </PropertyGroup>
 <ItemGroup>
     <None Include="icons/logo.png" Pack="True" PackagePath="" />
-</ItemGroup> 
+</ItemGroup>
 ```
