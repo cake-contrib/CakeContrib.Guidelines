@@ -8,8 +8,10 @@ NoSidebar: true
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [General](#general)
   - [ProjectType](#projecttype)
+  - [Cake version](#cake-version)
 - [Icons](#icons)
   - [IconOmitImport](#iconomitimport)
 - [Opt-Out](#opt-out)
@@ -25,7 +27,7 @@ NoSidebar: true
 ## General
 
 ### ProjectType
-A project can be one of different types: `addin`, `module`, `recipe` or `other`. 
+A project can be one of different types: `addin`, `module`, `recipe` or `other`.
 Some rules have different behavior for different project types.
 The project type is automatically detected but can be overridden.
 
@@ -48,6 +50,10 @@ To override auto-detection use the following:
 Though you can technically set `CakeContribGuidelinesProjectType` to anything you want, setting it to
 different values than `addin`, `module` or `recipe` might yield unexpected results.
 :::
+
+### Cake version
+Some guidelines (Currently only [Target Frameworks](../guidelines/TargetFramework)) have different characteristics, depending on the Cake version that was used.
+The Cake version will be auto detected from the referenced
 
 ## Icons
 
@@ -73,3 +79,8 @@ different values than `addin`, `module` or `recipe` might yield unexpected resul
 
 ### OmitTargetFramework
 <?! Include "./fragments/OmitTargetFramework.md" /?>
+
+## Override
+
+### OverrideTargetFrameworkCakeVersion
+<?! Include "./fragments/OverrideCakeVersion.md" /?>

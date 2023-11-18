@@ -6,6 +6,7 @@ Title: Recommended Cake Version
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Goals](#goals)
 - [Related rules](#related-rules)
 - [Usage](#usage)
