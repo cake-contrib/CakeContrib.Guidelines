@@ -3,7 +3,7 @@
 [![standard-readme compliant][]][standard-readme]
 [![All Contributors][all-contributors-badge]](#contributors)
 [![Contributor Covenant][contrib-covenantimg]][contrib-covenant]
-[![Appveyor build][appveyorimage]][appveyor]
+[![Build][build-badge]][build]
 [![NuGet package][nugetimage]][nuget]
 
 Adds common guidelines to cake-contrib projects
@@ -12,13 +12,15 @@ Adds common guidelines to cake-contrib projects
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Install](#install)
-- [Guidelines](#guidelines)
-- [Discussion](#discussion)
-- [Maintainer](#maintainer)
-- [Contributing](#contributing)
-  - [Contributors](#contributors)
-- [License](#license)
+- [CakeContrib.Guidelines](#cakecontribguidelines)
+  - [Table of Contents](#table-of-contents)
+  - [Install](#install)
+  - [Guidelines](#guidelines)
+  - [Discussion](#discussion)
+  - [Maintainer](#maintainer)
+  - [Contributing](#contributing)
+    - [Contributors](#contributors)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -98,8 +100,8 @@ Thanks goes to these wonderful people ([emoji key][emoji-key]):
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [all-contributors-badge]: https://img.shields.io/github/all-contributors/cake-contrib/CakeContrib.Guidelines/develop?&style=flat-square
-[appveyor]: https://ci.appveyor.com/project/cakecontrib/cakecontrib-guidelines
-[appveyorimage]: https://img.shields.io/appveyor/ci/cakecontrib/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
+[build]: https://github.com/cake-contrib/CakeContrib.Guidelines/actions/workflows/build.yml
+[build-badge]: https://github.com/cake-contrib/CakeContrib.Guidelines/actions/workflows/build.yml/badge.svg
 [contrib-covenant]: https://www.contributor-covenant.org/version/2/0/code_of_conduct/
 [contrib-covenantimg]: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
 [contributing]: CONTRIBUTING.md
