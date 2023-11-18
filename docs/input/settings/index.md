@@ -8,7 +8,6 @@ NoSidebar: true
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [General](#general)
   - [ProjectType](#projecttype)
   - [Cake version](#cake-version)
@@ -21,6 +20,8 @@ NoSidebar: true
   - [OmitRecommendedTag](#omitrecommendedtag)
   - [OmitPrivateCheck](#omitprivatecheck)
   - [OmitTargetFramework](#omittargetframework)
+- [Override](#override)
+  - [OverrideTargetFrameworkCakeVersion](#overridetargetframeworkcakeversion)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

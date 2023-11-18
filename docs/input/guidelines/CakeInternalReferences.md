@@ -8,6 +8,9 @@ Title: Target Frameworks
 
 - [Goals](#goals)
   - [Provided packages](#provided-packages)
+    - [Cake v1.0](#cake-v10)
+    - [Cake v2.0.0](#cake-v200)
+    - [Cake v3.0.0](#cake-v300)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 
