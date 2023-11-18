@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - Omitrecommendedreference</title>
+        <title>CakeContrib.Guidelines - Overridecakeversion</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -74,7 +74,7 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/settings/fragments/OmitRecommendedReference.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/settings/fragments/OverrideCakeVersion.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -93,10 +93,10 @@
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitPrivateCheck">Omitprivatecheck</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedCakeVersion">Omitrecommendedcakeversion</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedConfigFile">Omitrecommendedconfigfile</a></li>
-                <li class="selected"><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedTag">Omitrecommendedtag</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitTargetFramework">Omittargetframework</a></li>
-                <li><a href="/CakeContrib.Guidelines/settings/fragments/OverrideCakeVersion">Overridecakeversion</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/settings/fragments/OverrideCakeVersion">Overridecakeversion</a></li>
 
                     </ul>
                 </li>
@@ -113,18 +113,17 @@
 
 
 		<section class="content-header">
-			<h1>Omitrecommendedreference</h1>
+			<h1>Overridecakeversion</h1>
 		</section>
 	<section class="content">
 		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It it possible to opt-out of the check for recommended references by using the <code>CakeContribGuidelinesOmitRecommendedReference</code> setting
-and setting it's <code>Include</code> to the reference that should not be checked.</p>
-<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
-<pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;CakeContribGuidelinesOmitRecommendedReference Include=&quot;StyleCop.Analyzers&quot; /&gt;
-&lt;/ItemGroup&gt;
+<p>It it possible to override the detected Cake version using the <code>CakeContribGuidelinesOverrideTargetFrameworkCakeVersion</code> setting:</p>
+<p>(<em>Keep in mind, though, that it is not recommended override the detected version.</em>)</p>
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;2.0.0&lt;/CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;
+&lt;/PropertyGroup&gt;
 </code></pre>
 
 	</section>

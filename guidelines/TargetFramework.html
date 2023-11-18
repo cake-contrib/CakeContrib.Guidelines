@@ -121,6 +121,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
 <li><a href="#goals">Goals</a>
 <ul>
 <li><a href="#required--suggested-versions">Required / Suggested versions</a></li>
@@ -130,6 +131,7 @@
 <li><a href="#usage">Usage</a></li>
 <li><a href="#settings">Settings</a>
 <ul>
+<li><a href="#cake-version">Cake Version</a></li>
 <li><a href="#opt-out">Opt-Out</a></li>
 </ul>
 </li>
@@ -210,13 +212,23 @@ while missing a suggested target version will raise <a href="../rules/ccg0007">C
 <h2 id="usage">Usage</h2>
 <p>Using this package automatically enables this guideline.</p>
 <h2 id="settings">Settings</h2>
+<h3 id="cake-version">Cake Version</h3>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>It it possible to override the detected Cake version using the <code>CakeContribGuidelinesOverrideTargetFrameworkCakeVersion</code> setting:</p>
+<p>(<em>Keep in mind, though, that it is not recommended override the detected version.</em>)</p>
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;2.0.0&lt;/CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
 <h3 id="opt-out">Opt-Out</h3>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for target framework(s) by using the <code>CakeContribGuidelinesOmitTargetFramework</code> setting
 and setting it's <code>Include</code> to the target framework that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;netstandard2.0&quot; /&gt;
     &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;net461&quot; /&gt;

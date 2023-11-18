@@ -92,6 +92,7 @@
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedReference">Omitrecommendedreference</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitRecommendedTag">Omitrecommendedtag</a></li>
                 <li><a href="/CakeContrib.Guidelines/settings/fragments/OmitTargetFramework">Omittargetframework</a></li>
+                <li><a href="/CakeContrib.Guidelines/settings/fragments/OverrideCakeVersion">Overridecakeversion</a></li>
 
                     </ul>
                 </li>
@@ -115,9 +116,11 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
 <li><a href="#general">General</a>
 <ul>
 <li><a href="#projecttype">ProjectType</a></li>
+<li><a href="#cake-version">Cake version</a></li>
 </ul>
 </li>
 <li><a href="#icons">Icons</a>
@@ -158,6 +161,9 @@ The project type is automatically detected but can be overridden.</p>
 <div class="alert alert-info"><p>Though you can technically set <code>CakeContribGuidelinesProjectType</code> to anything you want, setting it to
 different values than <code>addin</code>, <code>module</code> or <code>recipe</code> might yield unexpected results.</p>
 </div>
+<h3 id="cake-version">Cake version</h3>
+<p>Some guidelines (Currently only <a href="../guidelines/TargetFramework">Target Frameworks</a>) have different characteristics, depending on the Cake version that was used.
+The Cake version will be auto detected from the referenced</p>
 <h2 id="icons">Icons</h2>
 <h3 id="iconomitimport">IconOmitImport</h3>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -172,7 +178,7 @@ different values than <code>addin</code>, <code>module</code> or <code>recipe</c
 &lt;/PropertyGroup&gt;
 &lt;ItemGroup&gt;
     &lt;None Include=&quot;icons/logo.png&quot; Pack=&quot;True&quot; PackagePath=&quot;&quot; /&gt;
-&lt;/ItemGroup&gt; 
+&lt;/ItemGroup&gt;
 </code></pre>
 <h2 id="opt-out">Opt-Out</h2>
 <h3 id="omitrecommendedcakeversion">OmitRecommendedCakeVersion</h3>
@@ -181,7 +187,7 @@ different values than <code>addin</code>, <code>module</code> or <code>recipe</c
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for recommended Cake version using the <code>CakeContribGuidelinesOmitRecommendedCakeVersion</code> setting
 and setting it's <code>Include</code> to the reference that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;CakeContribGuidelinesOmitRecommendedCakeVersion Include=&quot;Cake.Common&quot; /&gt;
     &lt;CakeContribGuidelinesOmitRecommendedCakeVersion Include=&quot;Cake.Core&quot; /&gt;
@@ -204,7 +210,7 @@ and setting it's <code>Include</code> to the file name that should not be checke
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for recommended references by using the <code>CakeContribGuidelinesOmitRecommendedReference</code> setting
 and setting it's <code>Include</code> to the reference that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;CakeContribGuidelinesOmitRecommendedReference Include=&quot;StyleCop.Analyzers&quot; /&gt;
 &lt;/ItemGroup&gt;
@@ -215,7 +221,7 @@ and setting it's <code>Include</code> to the reference that should not be checke
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for recommended tags by using the <code>CakeContribGuidelinesOmitRecommendedTag</code> setting
 and setting it's <code>Include</code> to the tag that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;CakeContribGuidelinesOmitRecommendedTag Include=&quot;script&quot; /&gt;
     &lt;CakeContribGuidelinesOmitRecommendedTag Include=&quot;build&quot; /&gt;
@@ -226,7 +232,7 @@ and setting it's <code>Include</code> to the tag that should not be checked.</p>
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for <code>PrivateAssets</code> using the <code>CakeContribGuidelinesCakeReferenceOmitPrivateCheck</code> setting:</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;PropertyGroup&gt;
     &lt;CakeContribGuidelinesCakeReferenceOmitPrivateCheck&gt;1&lt;/CakeContribGuidelinesCakeReferenceOmitPrivateCheck&gt;
 &lt;/PropertyGroup&gt;
@@ -237,11 +243,22 @@ and setting it's <code>Include</code> to the tag that should not be checked.</p>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>It it possible to opt-out of the check for target framework(s) by using the <code>CakeContribGuidelinesOmitTargetFramework</code> setting
 and setting it's <code>Include</code> to the target framework that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
+<p>(<em>Keep in mind, though, that it is not recommended to opt-out of this feature</em>)</p>
 <pre><code class="language-xml">&lt;ItemGroup&gt;
     &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;netstandard2.0&quot; /&gt;
     &lt;CakeContribGuidelinesOmitTargetFramework Include=&quot;net461&quot; /&gt;
 &lt;/ItemGroup&gt;
+</code></pre>
+<h2 id="override">Override</h2>
+<h3 id="overridetargetframeworkcakeversion">OverrideTargetFrameworkCakeVersion</h3>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>It it possible to override the detected Cake version using the <code>CakeContribGuidelinesOverrideTargetFrameworkCakeVersion</code> setting:</p>
+<p>(<em>Keep in mind, though, that it is not recommended override the detected version.</em>)</p>
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;2.0.0&lt;/CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;
+&lt;/PropertyGroup&gt;
 </code></pre>
 
 	</section>
