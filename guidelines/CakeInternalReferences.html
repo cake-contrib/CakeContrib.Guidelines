@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/CakeContrib.Guidelines/assets/img/favicon.ico" type="image/x-icon">
-        <title>CakeContrib.Guidelines - Recommended Tags</title>
+        <title>CakeContrib.Guidelines - Target Frameworks</title>
         <link href="/CakeContrib.Guidelines/assets/css/highlight.css" rel="stylesheet">
         <link href="/CakeContrib.Guidelines/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/CakeContrib.Guidelines/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -74,7 +74,7 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/guidelines/RecommendedTags.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+        <div><p><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/tree/develop/docs/input/guidelines/CakeInternalReferences.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
@@ -98,9 +98,9 @@
                 <li><a href="/CakeContrib.Guidelines/guidelines/PrivateAssets">PrivateAssets in references</a></li>
                 <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedCakeVersion">Recommended Cake Version</a></li>
                 <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedReferences">Recommended References</a></li>
-                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/RecommendedTags">Recommended Tags</a></li>
+                <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedTags">Recommended Tags</a></li>
                 <li><a href="/CakeContrib.Guidelines/guidelines/TargetFramework">Target Frameworks</a></li>
-                <li><a href="/CakeContrib.Guidelines/guidelines/CakeInternalReferences">Target Frameworks</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/CakeInternalReferences">Target Frameworks</a></li>
 
                     </ul>
                             
@@ -114,7 +114,7 @@
 
 
 		<section class="content-header">
-			<h1>Recommended Tags</h1>
+			<h1>Target Frameworks</h1>
 		</section>
 	<section class="content">
 		<!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -123,80 +123,258 @@
 <ul>
 <li><a href="#goals">Goals</a>
 <ul>
-<li><a href="#recommended-tags">Recommended tags</a></li>
-<li><a href="#tag-delimiter">Tag delimiter</a></li>
+<li><a href="#provided-packages">Provided packages</a></li>
 </ul>
 </li>
 <li><a href="#related-rules">Related rules</a></li>
 <li><a href="#usage">Usage</a></li>
-<li><a href="#settings">Settings</a>
-<ul>
-<li><a href="#opt-out">Opt-Out</a></li>
-</ul>
-</li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="goals">Goals</h2>
-<p>To have consistency and better discoverability, also to have the correct installation instructions
-displayed in the NuGet Gallery (compare this <a href="https://github.com/NuGet/NuGetGallery/issues/8381">NuGet proposal</a>) some tags are recommended for a NuGet package.</p>
-<!-- TODO: We should link the cakebuild.net - blog post, when that feature is released!! -->
-<h3 id="recommended-tags">Recommended tags</h3>
-<p>Depending on the package type, different tags are suggested:</p>
-<ul>
-<li>for every package:
-<ul>
-<li><code>cake</code></li>
-<li><code>script</code></li>
-<li><code>build</code></li>
-<li><code>cake-build</code></li>
-</ul>
-</li>
-<li>additionally, for an <code>addin</code>:
-<ul>
-<li><code>addin</code></li>
-<li><code>cake-addin</code></li>
-</ul>
-</li>
-<li>additionally, for a <code>module</code>:
-<ul>
-<li><code>module</code></li>
-<li><code>cake-module</code></li>
-</ul>
-</li>
-<li>additionally, for a <code>recipe</code>:
-<ul>
-<li><code>recipe</code></li>
-<li><code>cake-recipe</code></li>
-</ul>
-</li>
-</ul>
-<p>Additionally, for addins, it is always advised to include an additional tag to describe the
-addin further. (E.g. add <code>twitter</code> tag to the <code>Cake.Twitter</code> addin.)</p>
-<h3 id="tag-delimiter">Tag delimiter</h3>
-<p>NuGet specifications require the delimiter of tags to be a space. MsBuild supports the semicolon <code>;</code>
-as an additional delimiter (effectively converting all semicolons to spaces during packaging.)</p>
-<p>While having comma (<code>,</code>) as a delimiter currently seems to work in the NuGet Gallery, it is not
-a supported delimiter for tags.</p>
+<p>When an addin/module references a package that is also provided by Cake at runtime,
+the version the addin/module references should match the version provided by Cake.
+Also, the reference of the package in the addin/module should be set as private assets.</p>
+<h3 id="provided-packages">Provided packages</h3>
+<h4 id="cake-v1.0">Cake v1.0</h4>
+<table class="table">
+<thead>
+<tr>
+<th>Reference</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autofac</td>
+<td>6.1.0</td>
+</tr>
+<tr>
+<td>Microsoft.CodeAnalysis.CSharp.Scripting</td>
+<td>3.9.0-1.final</td>
+</tr>
+<tr>
+<td>Microsoft.CSharp</td>
+<td>4.7.0</td>
+</tr>
+<tr>
+<td>Microsoft.DotNet.PlatformAbstractions</td>
+<td>3.1.6</td>
+</tr>
+<tr>
+<td>Microsoft.Extensions.DependencyInjection</td>
+<td>5.0.1</td>
+</tr>
+<tr>
+<td>Microsoft.NETCore.Platforms</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>Microsoft.Win32.Registry</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>Newtonsoft.Json</td>
+<td>12.0.3</td>
+</tr>
+<tr>
+<td>NuGet.Common</td>
+<td>5.8.0</td>
+</tr>
+<tr>
+<td>NuGet.Frameworks</td>
+<td>5.8.0</td>
+</tr>
+<tr>
+<td>NuGet.Packaging</td>
+<td>5.8.0</td>
+</tr>
+<tr>
+<td>NuGet.Protocol</td>
+<td>5.8.0</td>
+</tr>
+<tr>
+<td>NuGet.Resolver</td>
+<td>5.8.0</td>
+</tr>
+<tr>
+<td>NuGet.Versioning</td>
+<td>5.8.0</td>
+</tr>
+<tr>
+<td>System.Collections.Immutable</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>System.Reflection.Metadata</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>xunit</td>
+<td>2.4.1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cake-v2.0.0">Cake v2.0.0</h4>
+<table class="table">
+<thead>
+<tr>
+<th>Reference</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autofac</td>
+<td>6.3.0</td>
+</tr>
+<tr>
+<td>Microsoft.CodeAnalysis.CSharp.Scripting</td>
+<td>4.0.1</td>
+</tr>
+<tr>
+<td>Microsoft.CSharp</td>
+<td>4.7.0</td>
+</tr>
+<tr>
+<td>Microsoft.DotNet.PlatformAbstractions</td>
+<td>3.1.6</td>
+</tr>
+<tr>
+<td>Microsoft.Extensions.DependencyInjection</td>
+<td>6.0.0</td>
+</tr>
+<tr>
+<td>Microsoft.NETCore.Platforms</td>
+<td>6.0.0</td>
+</tr>
+<tr>
+<td>Microsoft.Win32.Registry</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>Newtonsoft.Json</td>
+<td>13.0.1</td>
+</tr>
+<tr>
+<td>NuGet.Common</td>
+<td>5.11.0</td>
+</tr>
+<tr>
+<td>NuGet.Frameworks</td>
+<td>5.11.0</td>
+</tr>
+<tr>
+<td>NuGet.Packaging</td>
+<td>5.11.0</td>
+</tr>
+<tr>
+<td>NuGet.Protocol</td>
+<td>5.11.0</td>
+</tr>
+<tr>
+<td>NuGet.Resolver</td>
+<td>5.11.0</td>
+</tr>
+<tr>
+<td>NuGet.Versioning</td>
+<td>5.11.0</td>
+</tr>
+<tr>
+<td>System.Collections.Immutable</td>
+<td>6.0.0</td>
+</tr>
+<tr>
+<td>System.Reflection.Metadata</td>
+<td>6.0.0</td>
+</tr>
+<tr>
+<td>xunit</td>
+<td>2.4.1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cake-v3.0.0">Cake v3.0.0</h4>
+<table class="table">
+<thead>
+<tr>
+<th>Reference</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autofac</td>
+<td>6.4.0</td>
+</tr>
+<tr>
+<td>Microsoft.CodeAnalysis.CSharp.Scripting</td>
+<td>4.4.0-4.final</td>
+</tr>
+<tr>
+<td>Microsoft.CSharp</td>
+<td>4.7.0</td>
+</tr>
+<tr>
+<td>Microsoft.Extensions.DependencyInjection</td>
+<td>7.0.0</td>
+</tr>
+<tr>
+<td>Microsoft.NETCore.Platforms</td>
+<td>7.0.0</td>
+</tr>
+<tr>
+<td>Microsoft.Win32.Registry</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>Newtonsoft.Json</td>
+<td>13.0.1</td>
+</tr>
+<tr>
+<td>NuGet.Common</td>
+<td>6.3.1</td>
+</tr>
+<tr>
+<td>NuGet.Frameworks</td>
+<td>6.3.1</td>
+</tr>
+<tr>
+<td>NuGet.Packaging</td>
+<td>6.3.1</td>
+</tr>
+<tr>
+<td>NuGet.Protocol</td>
+<td>6.3.1</td>
+</tr>
+<tr>
+<td>NuGet.Resolver</td>
+<td>6.3.1</td>
+</tr>
+<tr>
+<td>NuGet.Versioning</td>
+<td>6.3.1</td>
+</tr>
+<tr>
+<td>System.Collections.Immutable</td>
+<td>7.0.0</td>
+</tr>
+<tr>
+<td>System.Reflection.Metadata</td>
+<td>7.0.0</td>
+</tr>
+<tr>
+<td>xunit</td>
+<td>2.4.2</td>
+</tr>
+</tbody>
+</table>
 <h2 id="related-rules">Related rules</h2>
 <ul>
-<li><a href="../rules/ccg0008">CCG0008</a></li>
+<li><a href="../rules/ccg0010">CCG0010</a></li>
 </ul>
-<p>These rules are only applied for <a href="../settings#projecttype">project types</a> <code>addin</code>, <code>module</code> and <code>recipe</code>.</p>
+<p>These rules are only applied for <a href="../settings#projecttype">project types</a> <code>addin</code> and <code>module</code>.</p>
 <h2 id="usage">Usage</h2>
 <p>Using this package automatically enables this guideline.</p>
-<h2 id="settings">Settings</h2>
-<h3 id="opt-out">Opt-Out</h3>
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<p>It it possible to opt-out of the check for recommended tags by using the <code>CakeContribGuidelinesOmitRecommendedTag</code> setting
-and setting it's <code>Include</code> to the tag that should not be checked.</p>
-<p>(<em>Keep in mind, though that it is not recommended to opt-out of this feature</em>)</p>
-<pre><code class="language-xml">&lt;ItemGroup&gt;
-    &lt;CakeContribGuidelinesOmitRecommendedTag Include=&quot;script&quot; /&gt;
-    &lt;CakeContribGuidelinesOmitRecommendedTag Include=&quot;build&quot; /&gt;
-&lt;/ItemGroup&gt;
-</code></pre>
 
 	</section>
                 
