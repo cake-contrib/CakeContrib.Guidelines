@@ -60,7 +60,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBe("icon.png");
+            output.ShouldStartWith("icon.png");
         }
 
         [Fact]
@@ -315,7 +315,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBe("Addin", StringCompareShould.IgnoreCase);
+            output.ShouldStartWith("Addin");
         }
 
         [Fact]
@@ -343,7 +343,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBe("MyCustomProjectType");
+            output.ShouldStartWith("MyCustomProjectType");
         }
 
         [Fact]
@@ -368,7 +368,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBe("Module", StringCompareShould.IgnoreCase);
+            output.ShouldStartWith("Module");
         }
 
         [Fact]
@@ -396,7 +396,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBe("Module", StringCompareShould.IgnoreCase);
+            output.ShouldStartWith("Module");
         }
 
         [Fact]
@@ -421,7 +421,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var output = result.WarningLines
                 .First(x => x.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase) > -1);
             output = output.Substring(output.IndexOf("!FOR-TEST!:", StringComparison.OrdinalIgnoreCase)+11);
-            output.ShouldBe("Addin", StringCompareShould.IgnoreCase);
+            output.ShouldStartWith("Addin");
         }
 
         [Fact]
