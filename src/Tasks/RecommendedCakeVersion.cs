@@ -10,7 +10,7 @@ using Microsoft.Build.Utilities;
 namespace CakeContrib.Guidelines.Tasks
 {
     /// <summary>
-    /// The Task to check for References for the guideline <see href="https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines/RecommendedTags"/>.
+    /// The Task to check for the recommended Cake Version <see href="https://cake-contrib.github.io/CakeContrib.Guidelines/guidelines/RecommendedCakeVersion"/>.
     /// </summary>
     public class RecommendedCakeVersion : Task
     {
