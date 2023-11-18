@@ -6,19 +6,21 @@ Title: Target Frameworks
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Goals](#goals)
   - [Required / Suggested versions](#required--suggested-versions)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
+  - [Cake Version](#cake-version)
   - [Opt-Out](#opt-out)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Goals
 
-Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are 
-suggested, depending on the Cake.Core version that is being referenced. 
+Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are
+suggested, depending on the Cake.Core version that is being referenced.
 
 ### Required / Suggested versions
 
@@ -64,6 +66,10 @@ These rules are only applied for [project types](../settings#projecttype) `addin
 Using this package automatically enables this guideline.
 
 ## Settings
+
+### Cake Version
+
+<?! Include "../settings/fragments/OverrideCakeVersion.md" /?>
 
 ### Opt-Out
 
