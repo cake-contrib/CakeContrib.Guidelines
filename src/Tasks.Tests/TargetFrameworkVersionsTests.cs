@@ -382,5 +382,22 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
             fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(NetStandard20);
         }
+
+        [Fact]
+        public void Should_Error_If_Additional_TargetFrameworks_Are_Supplied_For_Module()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithProjectType("module");
+            fixture.WithCakeCoreReference("3.0.0");
+            fixture.WithTargetFrameworks("net6.0", "net7.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(Net70);
+        }
     }
 }
