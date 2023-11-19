@@ -47,31 +47,34 @@ namespace CakeContrib.Guidelines.Tasks
                     d => d.IsModuleProject && d.Version.LessThan(CakeVersions.V2),
                     new TargetsDefinitions
                     {
-                        Name = "Module",
+                        Name = "module and CakeVersion < 2.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
+                        AllowAdditionalTargets = false,
                     }
                 },
                 {
                     d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V2) && d.Version.LessThan(CakeVersions.V3),
                     new TargetsDefinitions
                     {
-                        Name = "Module",
+                        Name = "Module and 2.0.0 <= CakeVersion < 3.0.0 ",
                         RequiredTargets = new[] { TargetsDefinition.From(NetCore31) },
+                        AllowAdditionalTargets = false,
                     }
                 },
                 {
                     d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V3),
                     new TargetsDefinitions
                     {
-                        Name = "Module",
+                        Name = "Module and CakeVersion >= 3.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(Net60) },
+                        AllowAdditionalTargets = false,
                     }
                 },
                 {
                     d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.Vo26) && d.Version.LessThan(CakeVersions.V1),
                     new TargetsDefinitions
                     {
-                        Name = "0.26.0 <= x < 1.0.0",
+                        Name = "not module and 0.26.0 <= CakeVersion < 1.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
                         SuggestedTargets = new[] { TargetsDefinition.From(Net461, Net46) },
                     }
@@ -80,7 +83,7 @@ namespace CakeContrib.Guidelines.Tasks
                     d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V1) && d.Version.LessThan(CakeVersions.V2),
                     new TargetsDefinitions
                     {
-                        Name = "1.0.0 <= x < 2.0.0",
+                        Name = "not module and 1.0.0 <= CakeVersion < 2.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(NetStandard20) },
                         SuggestedTargets = new[]
                         {
@@ -93,7 +96,7 @@ namespace CakeContrib.Guidelines.Tasks
                     d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V2) && d.Version.LessThan(CakeVersions.V3),
                     new TargetsDefinitions
                     {
-                        Name = "2.0.0 <= x < 3.0.0",
+                        Name = "not module and 2.0.0 <= CakeVersion < 3.0.0",
                         RequiredTargets = new[]
                         {
                             TargetsDefinition.From(NetCore31),
@@ -107,7 +110,7 @@ namespace CakeContrib.Guidelines.Tasks
                     d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V3),
                     new TargetsDefinitions
                     {
-                        Name = "x >= 3.0.0",
+                        Name = "not module and CakeVersion >= 3.0.0",
                         RequiredTargets = new[]
                         {
                             TargetsDefinition.From(Net60),
@@ -259,12 +262,14 @@ namespace CakeContrib.Guidelines.Tasks
                 allTargets.AddRange(TargetFrameworks.Select(x => x.ToString()));
             }
 
+            var usedTargetsRequiredOrSuggested = new List<string>();
             allTargets = allTargets.Distinct().ToList();
 
             // first, check required targets
             Log.LogMessage(
                 LogLevel,
                 $"Comparing TargetFramework[s] ({string.Join(";", allTargets)}) to required: {string.Join(",", targets.RequiredTargets.Select(x => x.Name))}.");
+            var ignoreCaseComparer = new IgnoreCaseComparer();
 
             foreach (var requiredTarget in targets.RequiredTargets)
             {
@@ -278,12 +283,16 @@ namespace CakeContrib.Guidelines.Tasks
 
                 if (allTargets.Any(x => x.Equals(requiredTarget.Name, StringComparison.OrdinalIgnoreCase)))
                 {
+                    usedTargetsRequiredOrSuggested.Add(requiredTarget.Name);
                     continue;
                 }
 
-                var found = requiredTarget.Alternatives?.Any(alternative => allTargets.Contains(alternative));
-                if (found.GetValueOrDefault(false))
+                var alternatives = requiredTarget.Alternatives?
+                    .Where(alternative => allTargets.Contains(alternative, ignoreCaseComparer))
+                    .ToArray() ?? Array.Empty<string>();
+                if (alternatives.Length > 0)
                 {
+                    usedTargetsRequiredOrSuggested.AddRange(alternatives);
                     continue;
                 }
 
@@ -311,12 +320,16 @@ namespace CakeContrib.Guidelines.Tasks
 
                 if (allTargets.Any(x => x.Equals(suggestedTarget.Name, StringComparison.OrdinalIgnoreCase)))
                 {
+                    usedTargetsRequiredOrSuggested.Add(suggestedTarget.Name);
                     continue;
                 }
 
-                var found = suggestedTarget.Alternatives?.Any(alternative => allTargets.Contains(alternative));
-                if (found.GetValueOrDefault(false))
+                var alternatives = suggestedTarget.Alternatives?
+                    .Where(alternative => allTargets.Contains(alternative, ignoreCaseComparer))
+                    .ToArray() ?? Array.Empty<string>();
+                if (alternatives.Length > 0)
                 {
+                    usedTargetsRequiredOrSuggested.AddRange(alternatives);
                     continue;
                 }
 
@@ -328,7 +341,30 @@ namespace CakeContrib.Guidelines.Tasks
                     WarningsAsErrors);
             }
 
-            return true;
+            // are more TFMs, than the required or suggested allowed?
+            if (targets.AllowAdditionalTargets)
+            {
+                return true;
+            }
+
+            Log.LogMessage(
+                LogLevel,
+                "No additional TargetFrameworks are allowed.");
+
+            var additionalTargets = allTargets
+                .Except(usedTargetsRequiredOrSuggested, ignoreCaseComparer)
+                .ToArray();
+
+            if (additionalTargets.Length <= 0)
+            {
+                return true;
+            }
+
+            Log.CcgError(
+                7,
+                ProjectFile,
+                "No additional targets are allowed. However, the following additional targets were found: " + string.Join(", ", additionalTargets));
+            return false;
         }
 
         private class TargetsDefinitions
@@ -344,6 +380,8 @@ namespace CakeContrib.Guidelines.Tasks
             public TargetsDefinition[] RequiredTargets { get; set; }
 
             public TargetsDefinition[] SuggestedTargets { get; set; }
+
+            public bool AllowAdditionalTargets { get; set; } = true;
         }
 
         private class TargetsDefinition
@@ -363,6 +401,29 @@ namespace CakeContrib.Guidelines.Tasks
             internal Version Version { get; set; }
 
             internal bool IsModuleProject { get; set; }
+        }
+
+        public class IgnoreCaseComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y)
+            {
+                if (ReferenceEquals(x, y))
+                {
+                    return true;
+                }
+
+                if (x == null)
+                {
+                    return false;
+                }
+
+                return x.Equals(y, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public int GetHashCode(string obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }

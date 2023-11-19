@@ -351,6 +351,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithAssemblyName("Cake.Buildsystems.Module");
+            fixture.WithTargetFrameworks("netstandard2.0");
             fixture.WithCustomContent(@"
 <Target Name=""ForTest""
   AfterTargets=""BeforeBuild""
@@ -375,6 +376,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void ProjectType_When_PackageId_Is_Module_Is_Module()
         {
             // given
+            fixture.WithTargetFrameworks("netstandard2.0");
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <PackageId>Cake.Buildsystems.Module</PackageId>
@@ -486,14 +488,18 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         [Theory]
         [InlineData("Cake.7zip", "/../images/cake-contrib-addin-medium.png")]
         [InlineData("Cake.Recipe", "/../images/cake-contrib-recipe-medium.png")]
-        [InlineData("Cake.Buildsystems.Module", "/../images/cake-contrib-module-medium.png")]
+        [InlineData("Cake.Buildsystems.Module", "/../images/cake-contrib-module-medium.png", true)]
         [InlineData("Polly", "/../images/cake-contrib-community-medium.png")]
-        public void Packaging_Different_Types_Should_Add_The_Correct_Icon(string assemblyName, string expectedFileName)
+        public void Packaging_Different_Types_Should_Add_The_Correct_Icon(string assemblyName, string expectedFileName, bool isModule = false)
         {
             // given
             fixture.WithoutPackageIcon();
             fixture.WithoutPackageIconUrl();
             fixture.WithAssemblyName(assemblyName);
+            if (isModule)
+            {
+                fixture.WithTargetFrameworks("netstandard2.0");
+            }
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -521,14 +527,18 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         [Theory]
         [InlineData("Cake.7zip", "cake-contrib/graphics/png/addin/cake-contrib-addin-medium.png")]
         [InlineData("Cake.Recipe", "cake-contrib/graphics/png/recipe/cake-contrib-recipe-medium.png")]
-        [InlineData("Cake.Buildsystems.Module", "cake-contrib/graphics/png/module/cake-contrib-module-medium.png")]
+        [InlineData("Cake.Buildsystems.Module", "cake-contrib/graphics/png/module/cake-contrib-module-medium.png", true)]
         [InlineData("Polly", "cake-contrib/graphics/png/community/cake-contrib-community-medium.png")]
-        public void Packaging_Different_Types_Should_Add_The_Correct_IconUrl_To_Properties(string assemblyName, string expectedUrl)
+        public void Packaging_Different_Types_Should_Add_The_Correct_IconUrl_To_Properties(string assemblyName, string expectedUrl, bool isModule = false)
         {
             // given
             fixture.WithoutPackageIcon();
             fixture.WithoutPackageIconUrl();
             fixture.WithAssemblyName(assemblyName);
+            if (isModule)
+            {
+                fixture.WithTargetFrameworks("netstandard2.0");
+            }
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -579,6 +589,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
   <PackageId>Cake.Buildsystems.Module</PackageId>
 </PropertyGroup>");
             fixture.WithTags("cake build cake-build script");
+            fixture.WithTargetFrameworks("netstandard2.0");
 
             // when
             var result = fixture.Run();
