@@ -6,7 +6,6 @@ Title: Target Frameworks
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [Goals](#goals)
   - [Required / Suggested versions](#required--suggested-versions)
 - [Related rules](#related-rules)

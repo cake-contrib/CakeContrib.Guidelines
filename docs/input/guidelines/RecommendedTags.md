@@ -6,7 +6,6 @@ Title: Recommended Tags
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [Goals](#goals)
   - [Recommended tags](#recommended-tags)
   - [Tag delimiter](#tag-delimiter)

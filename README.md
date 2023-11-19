@@ -12,15 +12,13 @@ Adds common guidelines to cake-contrib projects
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [CakeContrib.Guidelines](#cakecontribguidelines)
-  - [Table of Contents](#table-of-contents)
-  - [Install](#install)
-  - [Guidelines](#guidelines)
-  - [Discussion](#discussion)
-  - [Maintainer](#maintainer)
-  - [Contributing](#contributing)
-    - [Contributors](#contributors)
-  - [License](#license)
+- [Install](#install)
+- [Guidelines](#guidelines)
+- [Discussion](#discussion)
+- [Maintainer](#maintainer)
+- [Contributing](#contributing)
+  - [Contributors](#contributors)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
