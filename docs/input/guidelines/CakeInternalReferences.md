@@ -13,6 +13,8 @@ Title: Target Frameworks
     - [Cake v3.0.0](#cake-v300)
 - [Related rules](#related-rules)
 - [Usage](#usage)
+- [Settings](#settings)
+  - [Cake Version](#cake-version)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -89,6 +91,27 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Reflection.Metadata               | 7.0.0         |
 | xunit                                    | 2.4.2         |
 
+#### Cake v4.0
+
+| Reference                                | Version       |
+| ---------------------------------------- | ------------- |
+| Autofac                                  | 7.1.0         |
+| Microsoft.CodeAnalysis.CSharp.Scripting  | 4.8.0-3.final |
+| Microsoft.CSharp                         | 4.7.0         |
+| Microsoft.Extensions.DependencyInjection | 8.0.0         |
+| Microsoft.NETCore.Platforms              | 7.0.4         |
+| Microsoft.Win32.Registry                 | 5.0.0         |
+| Newtonsoft.Json                          | 13.0.3        |
+| NuGet.Common                             | 6.7.0         |
+| NuGet.Frameworks                         | 6.7.0         |
+| NuGet.Packaging                          | 6.7.0         |
+| NuGet.Protocol                           | 6.7.0         |
+| NuGet.Resolver                           | 6.7.0         |
+| NuGet.Versioning                         | 6.7.0         |
+| System.Collections.Immutable             | 8.0.0         |
+| System.Reflection.Metadata               | 8.0.0         |
+| xunit                                    | 2.6.1         |
+
 ## Related rules
 
  * [CCG0010](../rules/ccg0010)
@@ -98,3 +121,9 @@ These rules are only applied for [project types](../settings#projecttype) `addin
 ## Usage
 
 Using this package automatically enables this guideline.
+
+## Settings
+
+### Cake Version
+
+<?! Include "../settings/fragments/OverrideCakeVersion.md" /?>
