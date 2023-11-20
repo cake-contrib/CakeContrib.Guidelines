@@ -44,6 +44,10 @@ while missing a suggested target version will raise [CCG0007](../rules/ccg0007) 
   * Cake.Core >= 3.0.0
     * Required: `net6.0`
     * Required: `net7.0`
+  * Cake.Core >= 4.0.0
+    * Required: `net6.0`
+    * Required: `net7.0`
+    * Required: `net8.0`
 * Package type: module
   * Cake.Core < 2.0.0
     * Required: `netstandard2.0`
@@ -52,6 +56,9 @@ while missing a suggested target version will raise [CCG0007](../rules/ccg0007) 
     * Required: `netcoreapp3.1`
     * No additional targets are allowed.
   * Cake.Core >= 3.0.0
+    * Required: `net6.0`
+    * No additional targets are allowed.
+  * Cake.Core >= 4.0.0
     * Required: `net6.0`
     * No additional targets are allowed.
 

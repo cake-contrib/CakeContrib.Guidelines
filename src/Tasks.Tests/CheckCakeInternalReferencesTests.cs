@@ -154,5 +154,23 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             fixture.BuildEngine.WarningEvents.First().Message.ShouldNotContain("6.3.1");
             fixture.BuildEngine.WarningEvents.First().Message.ShouldContain("no matching list of Cake provided references could be found");
         }
+
+        [Fact]
+        public void Should_Warn_If_Newtonsoft_Is_Wrong_For_Cake_4()
+        {
+            // given
+            var fixture = new CheckCakeInternalReferencesFixture();
+            fixture.WithReference("Newtonsoft.Json", "13.0.1");
+            fixture.WithReference("Cake.Core", "4.0.0");
+            fixture.WithCakeVersion(string.Empty);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.First().Code.ShouldBe(CcgRule10);
+            fixture.BuildEngine.WarningEvents.First().Message.ShouldContain("13.0.3"); // the required version for NuGet.Common
+        }
     }
 }
