@@ -99,8 +99,8 @@
                 <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedCakeVersion">Recommended Cake Version</a></li>
                 <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedReferences">Recommended References</a></li>
                 <li><a href="/CakeContrib.Guidelines/guidelines/RecommendedTags">Recommended Tags</a></li>
-                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/CakeInternalReferences">Target Frameworks</a></li>
                 <li><a href="/CakeContrib.Guidelines/guidelines/TargetFramework">Target Frameworks</a></li>
+                <li class="selected"><a href="/CakeContrib.Guidelines/guidelines/CakeInternalReferences">Target Frameworks</a></li>
 
                     </ul>
                             
@@ -134,6 +134,11 @@
 </li>
 <li><a href="#related-rules">Related rules</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#settings">Settings</a>
+<ul>
+<li><a href="#cake-version">Cake Version</a></li>
+</ul>
+</li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="goals">Goals</h2>
@@ -374,6 +379,81 @@ Also, the reference of the package in the addin/module should be set as private 
 </tr>
 </tbody>
 </table>
+<h4 id="cake-v4.0">Cake v4.0</h4>
+<table class="table">
+<thead>
+<tr>
+<th>Reference</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autofac</td>
+<td>7.1.0</td>
+</tr>
+<tr>
+<td>Microsoft.CodeAnalysis.CSharp.Scripting</td>
+<td>4.8.0-3.final</td>
+</tr>
+<tr>
+<td>Microsoft.CSharp</td>
+<td>4.7.0</td>
+</tr>
+<tr>
+<td>Microsoft.Extensions.DependencyInjection</td>
+<td>8.0.0</td>
+</tr>
+<tr>
+<td>Microsoft.NETCore.Platforms</td>
+<td>7.0.4</td>
+</tr>
+<tr>
+<td>Microsoft.Win32.Registry</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>Newtonsoft.Json</td>
+<td>13.0.3</td>
+</tr>
+<tr>
+<td>NuGet.Common</td>
+<td>6.7.0</td>
+</tr>
+<tr>
+<td>NuGet.Frameworks</td>
+<td>6.7.0</td>
+</tr>
+<tr>
+<td>NuGet.Packaging</td>
+<td>6.7.0</td>
+</tr>
+<tr>
+<td>NuGet.Protocol</td>
+<td>6.7.0</td>
+</tr>
+<tr>
+<td>NuGet.Resolver</td>
+<td>6.7.0</td>
+</tr>
+<tr>
+<td>NuGet.Versioning</td>
+<td>6.7.0</td>
+</tr>
+<tr>
+<td>System.Collections.Immutable</td>
+<td>8.0.0</td>
+</tr>
+<tr>
+<td>System.Reflection.Metadata</td>
+<td>8.0.0</td>
+</tr>
+<tr>
+<td>xunit</td>
+<td>2.6.1</td>
+</tr>
+</tbody>
+</table>
 <h2 id="related-rules">Related rules</h2>
 <ul>
 <li><a href="../rules/ccg0010">CCG0010</a></li>
@@ -381,6 +461,17 @@ Also, the reference of the package in the addin/module should be set as private 
 <p>These rules are only applied for <a href="../settings#projecttype">project types</a> <code>addin</code> and <code>module</code>.</p>
 <h2 id="usage">Usage</h2>
 <p>Using this package automatically enables this guideline.</p>
+<h2 id="settings">Settings</h2>
+<h3 id="cake-version">Cake Version</h3>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<p>It it possible to override the detected Cake version using the <code>CakeContribGuidelinesOverrideTargetFrameworkCakeVersion</code> setting:</p>
+<p>(<em>Keep in mind, though, that it is not recommended override the detected version.</em>)</p>
+<pre><code class="language-xml">&lt;PropertyGroup&gt;
+    &lt;CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;2.0.0&lt;/CakeContribGuidelinesOverrideTargetFrameworkCakeVersion&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
 
 	</section>
                 
