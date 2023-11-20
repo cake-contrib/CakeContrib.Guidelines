@@ -53,6 +53,24 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "squid-box",
+      "name": "Joel Ahlgren",
+      "avatar_url": "https://avatars.githubusercontent.com/u/864820?v=4",
+      "profile": "https://www.ahlgren.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "devlead",
+      "name": "Mattias Karlsson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1647294?v=4",
+      "profile": "https://www.devlead.se",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -60,5 +78,6 @@
   "projectOwner": "cake-contrib",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }

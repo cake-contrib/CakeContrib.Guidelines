@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask
+        TaskName="$(CakeContribGuidelinesCustomTasksNamespace).CheckCakeInternalReferences"
+        AssemblyFile="$(CakeContribGuidelinesCustomTasksAssembly)" />
+
+    <Target
+        Name="_CheckInternalReferences"
+        AfterTargets="BeforeBuild"
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="EnsureCorrectMsBuildVersion">
+
+        <CheckCakeInternalReferences
+            ProjectFile="$(MSBuildProjectFullPath)"
+            ProjectType="$(CakeContribGuidelinesProjectType)"
+            CakeVersion="$(CakeContribGuidelinesOverrideTargetFrameworkCakeVersion)"
+            References="@(PackageReference)"
+            NoWarn="$(NoWarn)"
+            WarningsAsErrors="$(WarningsAsErrors)"
+        />
+    </Target>
+</Project>

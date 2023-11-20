@@ -11,14 +11,15 @@ Title: Target Frameworks
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
+  - [Cake Version](#cake-version)
   - [Opt-Out](#opt-out)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Goals
 
-Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are 
-suggested, depending on the Cake.Core version that is being referenced. 
+Each addin/module should have maximum compatibility when being used. Toward that end some Framework versions are required and some others are
+suggested, depending on the Cake.Core version that is being referenced.
 
 ### Required / Suggested versions
 
@@ -43,13 +44,23 @@ while missing a suggested target version will raise [CCG0007](../rules/ccg0007) 
   * Cake.Core >= 3.0.0
     * Required: `net6.0`
     * Required: `net7.0`
+  * Cake.Core >= 4.0.0
+    * Required: `net6.0`
+    * Required: `net7.0`
+    * Required: `net8.0`
 * Package type: module
   * Cake.Core < 2.0.0
     * Required: `netstandard2.0`
+    * No additional targets are allowed.
   * Cake.Core >= 2.0.0
     * Required: `netcoreapp3.1`
+    * No additional targets are allowed.
   * Cake.Core >= 3.0.0
     * Required: `net6.0`
+    * No additional targets are allowed.
+  * Cake.Core >= 4.0.0
+    * Required: `net6.0`
+    * No additional targets are allowed.
 
 For package type recipe no framework reference is required or suggested.
 
@@ -64,6 +75,10 @@ These rules are only applied for [project types](../settings#projecttype) `addin
 Using this package automatically enables this guideline.
 
 ## Settings
+
+### Cake Version
+
+<?! Include "../settings/fragments/OverrideCakeVersion.md" /?>
 
 ### Opt-Out
 

@@ -3,7 +3,7 @@
 [![standard-readme compliant][]][standard-readme]
 [![All Contributors][all-contributors-badge]](#contributors)
 [![Contributor Covenant][contrib-covenantimg]][contrib-covenant]
-[![Appveyor build][appveyorimage]][appveyor]
+[![Build][build-badge]][build]
 [![NuGet package][nugetimage]][nuget]
 
 Adds common guidelines to cake-contrib projects
@@ -74,13 +74,17 @@ Thanks goes to these wonderful people ([emoji key][emoji-key]):
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/AdmiringWorm"><img src="https://avatars.githubusercontent.com/u/1474648?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kim J. Nordmo</b></sub></a><br /><a href="#question-AdmiringWorm" title="Answering Questions">💬</a> <a href="#ideas-AdmiringWorm" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/Jericho"><img src="https://avatars.githubusercontent.com/u/112710?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jericho</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/issues?q=author%3AJericho" title="Bug reports">🐛</a> <a href="#ideas-Jericho" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/nils-a"><img src="https://avatars.githubusercontent.com/u/349188?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nils Andresen</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/commits?author=nils-a" title="Code">💻</a> <a href="#maintenance-nils-a" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://augustoproiete.net"><img src="https://avatars.githubusercontent.com/u/177608?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C. Augusto Proiete</b></sub></a><br /><a href="#ideas-augustoproiete" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/cake-contrib/CakeContrib.Guidelines/pulls?q=is%3Apr+reviewed-by%3Aaugustoproiete" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/DiDoHH"><img src="https://avatars.githubusercontent.com/u/45682415?v=4?s=100" width="100px;" alt=""/><br /><sub><b>DiDoHH</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/commits?author=DiDoHH" title="Documentation">📖</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/AdmiringWorm"><img src="https://avatars.githubusercontent.com/u/1474648?v=4?s=100" width="100px;" alt="Kim J. Nordmo"/><br /><sub><b>Kim J. Nordmo</b></sub></a><br /><a href="#question-AdmiringWorm" title="Answering Questions">💬</a> <a href="#ideas-AdmiringWorm" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/Jericho"><img src="https://avatars.githubusercontent.com/u/112710?v=4?s=100" width="100px;" alt="Jericho"/><br /><sub><b>Jericho</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/issues?q=author%3AJericho" title="Bug reports">🐛</a> <a href="#ideas-Jericho" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/nils-a"><img src="https://avatars.githubusercontent.com/u/349188?v=4?s=100" width="100px;" alt="Nils Andresen"/><br /><sub><b>Nils Andresen</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/commits?author=nils-a" title="Code">💻</a> <a href="#maintenance-nils-a" title="Maintenance">🚧</a></td>
+      <td align="center"><a href="https://augustoproiete.net"><img src="https://avatars.githubusercontent.com/u/177608?v=4?s=100" width="100px;" alt="C. Augusto Proiete"/><br /><sub><b>C. Augusto Proiete</b></sub></a><br /><a href="#ideas-augustoproiete" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/cake-contrib/CakeContrib.Guidelines/pulls?q=is%3Apr+reviewed-by%3Aaugustoproiete" title="Reviewed Pull Requests">👀</a></td>
+      <td align="center"><a href="https://github.com/DiDoHH"><img src="https://avatars.githubusercontent.com/u/45682415?v=4?s=100" width="100px;" alt="DiDoHH"/><br /><sub><b>DiDoHH</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/commits?author=DiDoHH" title="Documentation">📖</a></td>
+      <td align="center"><a href="https://www.ahlgren.io"><img src="https://avatars.githubusercontent.com/u/864820?v=4?s=100" width="100px;" alt="Joel Ahlgren"/><br /><sub><b>Joel Ahlgren</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/commits?author=squid-box" title="Code">💻</a></td>
+      <td align="center"><a href="https://www.devlead.se"><img src="https://avatars.githubusercontent.com/u/1647294?v=4?s=100" width="100px;" alt="Mattias Karlsson"/><br /><sub><b>Mattias Karlsson</b></sub></a><br /><a href="https://github.com/cake-contrib/CakeContrib.Guidelines/issues?q=author%3Adevlead" title="Bug reports">🐛</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
@@ -94,8 +98,8 @@ Thanks goes to these wonderful people ([emoji key][emoji-key]):
 
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [all-contributors-badge]: https://img.shields.io/github/all-contributors/cake-contrib/CakeContrib.Guidelines/develop?&style=flat-square
-[appveyor]: https://ci.appveyor.com/project/cakecontrib/cakecontrib-guidelines
-[appveyorimage]: https://img.shields.io/appveyor/ci/cakecontrib/cakecontrib-guidelines.svg?logo=appveyor&style=flat-square
+[build]: https://github.com/cake-contrib/CakeContrib.Guidelines/actions/workflows/build.yml
+[build-badge]: https://github.com/cake-contrib/CakeContrib.Guidelines/actions/workflows/build.yml/badge.svg
 [contrib-covenant]: https://www.contributor-covenant.org/version/2/0/code_of_conduct/
 [contrib-covenantimg]: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
 [contributing]: CONTRIBUTING.md

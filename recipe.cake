@@ -1,4 +1,4 @@
-#load nuget:?package=Cake.Recipe&version=3.0.1
+#load nuget:?package=Cake.Recipe&version=3.1.1
 
 Environment.SetVariableNames();
 
@@ -12,7 +12,7 @@ BuildParameters.SetParameters(
     title: "CakeContrib.Guidelines",
     shouldRunDotNetCorePack: true,
     shouldDocumentSourceFiles: false,
-    testFilePattern: "/**/*.Tests.csproj", // omit integration-tests in CI-Build 
+    testFilePattern: "/**/*.Tests.csproj", // omit integration-tests in CI-Build
     repositoryOwner: "cake-contrib",
     gitterMessage: "@/all " + standardNotificationMessage,
     twitterMessage: standardNotificationMessage,
@@ -21,5 +21,7 @@ BuildParameters.SetParameters(
 BuildParameters.PrintParameters(Context);
 
 ToolSettings.SetToolSettings(context: Context);
+ToolSettings.SetToolPreprocessorDirectives(
+    reSharperTools: "#tool nuget:?package=JetBrains.ReSharper.CommandLineTools&version=2022.2.4");
 
 Build.RunDotNetCore();
