@@ -11,6 +11,7 @@ Title: Target Frameworks
     - [Cake v1.0](#cake-v10)
     - [Cake v2.0.0](#cake-v200)
     - [Cake v3.0.0](#cake-v300)
+    - [Cake v4.0](#cake-v40)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
