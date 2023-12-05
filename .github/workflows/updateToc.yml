@@ -6,6 +6,8 @@ on:
       - develop
       - main
   pull_request:
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
 
 jobs:
   generateTOCs:
