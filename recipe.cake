@@ -16,6 +16,7 @@ BuildParameters.SetParameters(
     repositoryOwner: "cake-contrib",
     gitterMessage: "@/all " + standardNotificationMessage,
     twitterMessage: standardNotificationMessage,
+    shouldRunCodecov: false,
     preferredBuildProviderType: BuildProviderType.GitHubActions);
 
 BuildParameters.PrintParameters(Context);
