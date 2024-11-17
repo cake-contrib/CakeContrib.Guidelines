@@ -128,6 +128,31 @@ namespace CakeContrib.Guidelines.Tasks
             { "xunit", "2.6.1" },
         };
 
+        // parsed from Cake: v5.0
+        private static readonly Dictionary<string, string> CakeV50 = new Dictionary<string, string>
+        {
+            { "Autofac", "8.1.1" },
+            { "Microsoft.CodeAnalysis.CSharp.Scripting", "4.12.0-3.final" },
+            { "Microsoft.CSharp", "4.7.0" },
+            { "Microsoft.Extensions.DependencyInjection", "9.0.0" },
+            { "Microsoft.IdentityModel.JsonWebTokens", "8.2.0" },
+            { "Microsoft.NETCore.Platforms", "7.0.4" },
+            { "Microsoft.SourceLink.GitHub", "8.0.0" },
+            { "Microsoft.Win32.Registry", "5.0.0" },
+            { "Newtonsoft.Json", "13.0.3" },
+            { "NuGet.Common", "6.11.1" },
+            { "NuGet.Frameworks", "6.11.1" },
+            { "NuGet.Packaging", "6.11.1" },
+            { "NuGet.Protocol", "6.11.1" },
+            { "NuGet.Resolver", "6.11.1" },
+            { "NuGet.Versioning", "6.11.1" },
+            { "StyleCop.Analyzers", "1.1.118" },
+            { "System.Collections.Immutable", "9.0.0" },
+            { "System.Reflection.Metadata", "9.0.0" },
+            { "System.Security.Cryptography.Pkcs", "9.0.0" },
+            { "xunit", "2.9.2" },
+        };
+
         private readonly Dictionary<Predicate<Version>, Dictionary<string, string>> allInternalReferences =
             new Dictionary<Predicate<Version>, Dictionary<string, string>>
             {
@@ -148,8 +173,12 @@ namespace CakeContrib.Guidelines.Tasks
                     CakeV30
                 },
                 {
-                    x => x.GreaterEqual(CakeVersions.V4) && x.LessThan(CakeVersions.VNext),
+                    x => x.GreaterEqual(CakeVersions.V4) && x.LessThan(CakeVersions.V5),
                     CakeV40
+                },
+                {
+                    x => x.GreaterEqual(CakeVersions.V5) && x.LessThan(CakeVersions.VNext),
+                    CakeV50
                 },
             };
 
