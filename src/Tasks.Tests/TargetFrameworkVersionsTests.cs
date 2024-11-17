@@ -20,6 +20,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests
         private const string Net60 = "net6.0";
         private const string Net70 = "net7.0";
         private const string Net80 = "net8.0";
+        private const string Net90 = "net9.0";
 
         [Fact]
         public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted()
@@ -369,6 +370,38 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             yield return new object[] { new[] { Net60, Net70, Net80 }, false, string.Empty };
         }
 
+        [Theory]
+        [MemberData(nameof(Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_5_Data))]
+        public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_5(string[] targetFrameworks, bool expectedError, string missingTargetFramework)
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithCakeCoreReference(5);
+            fixture.WithTargetFrameworks(targetFrameworks);
+
+            // when
+            fixture.Execute();
+
+            // then
+            if (expectedError)
+            {
+                fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
+                fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(missingTargetFramework);
+            }
+            else
+            {
+                fixture.BuildEngine.ErrorEvents.Count.ShouldBe(0);
+            }
+        }
+
+        public static IEnumerable<object[]> Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_5_Data()
+        {
+            yield return new object[] { Array.Empty<string>(), true, Net80 };
+            yield return new object[] { new[] { Net80 }, true, Net90 };
+            yield return new object[] { new[] { Net90 }, true, Net80 };
+            yield return new object[] { new[] { Net80, Net90 }, false, string.Empty };
+        }
+
         [Fact]
         public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_2_Module()
         {
@@ -415,6 +448,22 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // then
             fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
             fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(Net60);
+        }
+
+        [Fact]
+        public void Should_Error_If_RequiredTargetFramework_Is_Not_Targeted_Cake_5_Module()
+        {
+            // given
+            var fixture = new TargetFrameworkVersionsFixture();
+            fixture.WithProjectType("module");
+            fixture.WithCakeCoreReference("5.0.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.ErrorEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.ErrorEvents.First().Message.ShouldContain(Net80);
         }
 
         [Fact]

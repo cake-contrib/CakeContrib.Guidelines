@@ -170,7 +170,25 @@ namespace CakeContrib.Guidelines.Tasks.Tests
             // then
             fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
             fixture.BuildEngine.WarningEvents.First().Code.ShouldBe(CcgRule10);
-            fixture.BuildEngine.WarningEvents.First().Message.ShouldContain("13.0.3"); // the required version for NuGet.Common
+            fixture.BuildEngine.WarningEvents.First().Message.ShouldContain("13.0.3"); // the required version for Newtonsoft
+        }
+
+        [Fact]
+        public void Should_Warn_If_NuGet_Is_Wrong_For_Cake_5()
+        {
+            // given
+            var fixture = new CheckCakeInternalReferencesFixture();
+            fixture.WithReference("NuGet.Packaging", "6.7.0");
+            fixture.WithReference("Cake.Core", "5.0.0");
+            fixture.WithCakeVersion(string.Empty);
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.First().Code.ShouldBe(CcgRule10);
+            fixture.BuildEngine.WarningEvents.First().Message.ShouldContain("6.11.1"); // the required version for NuGet.Packaging
         }
     }
 }

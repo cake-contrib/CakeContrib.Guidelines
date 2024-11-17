@@ -29,6 +29,7 @@ namespace CakeContrib.Guidelines.Tasks
         private const string Net60 = "net6.0";
         private const string Net70 = "net7.0";
         private const string Net80 = "net8.0";
+        private const string Net90 = "net9.0";
 
         private static readonly TargetsDefinitions DefaultTarget = new TargetsDefinitions
         {
@@ -72,11 +73,20 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V4),
+                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V4) && d.Version.LessThan(CakeVersions.V5),
                     new TargetsDefinitions
                     {
-                        Name = "Module and CakeVersion >= 4.0.0",
+                        Name = "Module and 3.0.0 <= CakeVersion < 5.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(Net60) },
+                        AllowAdditionalTargets = false,
+                    }
+                },
+                {
+                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V5),
+                    new TargetsDefinitions
+                    {
+                        Name = "Module and CakeVersion >= 5.0.0",
+                        RequiredTargets = new[] { TargetsDefinition.From(Net80) },
                         AllowAdditionalTargets = false,
                     }
                 },
@@ -130,15 +140,28 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V4),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V4) && d.Version.LessThan(CakeVersions.V5),
                     new TargetsDefinitions
                     {
-                        Name = "not module and CakeVersion >= 4.0.0",
+                        Name = "not module and 4.0.0 <= CakeVersion < 5.0.0",
                         RequiredTargets = new[]
                         {
                             TargetsDefinition.From(Net60),
                             TargetsDefinition.From(Net70),
                             TargetsDefinition.From(Net80),
+                        },
+                        SuggestedTargets = Array.Empty<TargetsDefinition>(),
+                    }
+                },
+                {
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V5),
+                    new TargetsDefinitions
+                    {
+                        Name = "not module and CakeVersion >= 5.0.0",
+                        RequiredTargets = new[]
+                        {
+                            TargetsDefinition.From(Net80),
+                            TargetsDefinition.From(Net90),
                         },
                         SuggestedTargets = Array.Empty<TargetsDefinition>(),
                     }
