@@ -42,14 +42,34 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
 
     public override int Execute(CommandContext context, Settings settings)
     {
+        var opts = new EnumerationOptions { RecurseSubdirectories = true, MatchCasing = MatchCasing.CaseInsensitive };
+        var globals = Directory.GetFiles(
+            settings.CakeSourcePath,
+            "Directory.Packages.props",
+            opts);
         var projects = Directory.GetFiles(
             settings.CakeSourcePath,
             "*.csproj",
-            new EnumerationOptions { RecurseSubdirectories = true, MatchCasing = MatchCasing.CaseInsensitive });
+            opts);
 
         console.WriteLine($"Found {projects.Length} projects");
 
         var references = new Dictionary<string, PkgReference[]>();
+
+        var cpm = new CentralPackageManagement();
+        foreach (string global in globals)
+        {
+            var relativePath = Path.GetRelativePath(settings.CakeSourcePath, global);
+            console.MarkupLineInterpolated($"Processing CPM: {relativePath}");
+            var foo = ProcessCentralPackageManagement(global, settings.ReferencesToSkip);
+            if (foo is null)
+            {
+                continue;
+            }
+
+            cpm.GlobalReferences.AddRange(foo.GlobalReferences);
+            cpm.PackageVersions.AddRange(foo.PackageVersions);
+        }
 
         foreach (string proj in projects)
         {
@@ -61,7 +81,7 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
             }
 
             console.MarkupLineInterpolated($"Processing {file}");
-            var refs = ProcessProject(proj, settings.ReferencesToSkip);
+            var refs = ProcessProject(proj, settings.ReferencesToSkip, cpm);
             if (refs.Length > 0)
             {
                 references.Add(file, refs);
@@ -71,7 +91,8 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
         console.MarkupLine("Flattening references");
         var allRefs = references
             .SelectMany(x => x.Value)
-            .DistinctBy(x => $"{x.Name}|{x.Version ?? "0"}")
+            .Where(x => x.Version != null)
+            .DistinctBy(x => $"{x.Name}|{x.Version}")
             .ToLookup(x => x.Name)
             .OrderBy(x => x.Key)
             .ToArray();
@@ -207,7 +228,8 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
 
     private PkgReference[] ProcessProject(
         string fullFile,
-        Predicate<PkgReference>[] referencesToSkip)
+        Predicate<PkgReference>[] referencesToSkip,
+        CentralPackageManagement cpm)
     {
         var project = ProjectRootElement.Open(fullFile);
         if (project == null)
@@ -216,12 +238,12 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
             return Array.Empty<PkgReference>();
         }
 
-        var foo = project.ItemGroups
+        var packageReferences = project.ItemGroups
             .SelectMany(g => g.Children)
             .Where(c => c.ElementName.Equals("PackageReference", StringComparison.OrdinalIgnoreCase))
             .Cast<ProjectItemElement>()
             .ToArray();
-        var references = foo
+        var references = packageReferences
             .Select(x => new PkgReference
             {
                 Name = x.Include,
@@ -231,12 +253,75 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
             .Where(x => !referencesToSkip.Any(p => p(x)))
             .ToArray();
 
-        return references;
+        var fromGlobals = references
+            .Where(x => x.Version == null)
+            .Select(x => cpm.PackageVersions.FirstOrDefault(y => y.Name == x.Name))
+            .Where(x => x != null)
+            .Cast<PkgReference>();
+
+        return references
+            .Where(x => x.Version != null)
+            .Concat(fromGlobals)
+            .Concat(cpm.GlobalReferences)
+            .ToArray();
+    }
+
+    private CentralPackageManagement? ProcessCentralPackageManagement(string filePath, Predicate<PkgReference>[] referencesToSkip)
+    {
+        var project = ProjectRootElement.Open(filePath);
+        if (project == null)
+        {
+            console.MarkupLineInterpolated($"[red]Failed to parse {Path.GetFileName(filePath)}[/]");
+            return null;
+        }
+
+        var globalPackageRefItems = project.ItemGroups
+            .SelectMany(g => g.Children)
+            .Where(c => c.ElementName.Equals("GlobalPackageReference", StringComparison.OrdinalIgnoreCase))
+            .Cast<ProjectItemElement>()
+            .ToArray();
+
+        var packageVersionItems = project.ItemGroups
+            .SelectMany(g => g.Children)
+            .Where(c => c.ElementName.Equals("PackageVersion", StringComparison.OrdinalIgnoreCase))
+            .Cast<ProjectItemElement>()
+            .ToArray();
+
+        var globalPackageRefs = globalPackageRefItems
+            .Select(x => new PkgReference
+            {
+                Name = x.Include,
+                Version = x.Metadata
+                    .FirstOrDefault(y => y.Name.Equals("Version", StringComparison.OrdinalIgnoreCase))?.Value,
+            })
+            .Where(x => !referencesToSkip.Any(p => p(x)))
+            .ToArray();
+        var packageVersions = packageVersionItems
+            .Select(x => new PkgReference
+            {
+                Name = x.Include,
+                Version = x.Metadata
+                    .FirstOrDefault(y => y.Name.Equals("Version", StringComparison.OrdinalIgnoreCase))?.Value,
+            })
+            .Where(x => !referencesToSkip.Any(p => p(x)))
+            .ToArray();
+
+        var ret = new CentralPackageManagement();
+        ret.GlobalReferences.AddRange(globalPackageRefs);
+        ret.PackageVersions.AddRange(packageVersions);
+
+        return ret;
     }
 
     public class PkgReference
     {
         public string Name { get; init; } = string.Empty;
         public string? Version { get; init; }
+    }
+
+    public class CentralPackageManagement
+    {
+        public List<PkgReference> GlobalReferences { get; set; } = new();
+        public List<PkgReference> PackageVersions { get; set; } = new();
     }
 }

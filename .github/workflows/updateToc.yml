@@ -6,6 +6,8 @@ on:
       - develop
       - main
   pull_request:
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
 
 jobs:
   generateTOCs:
@@ -15,7 +17,7 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.ref }}

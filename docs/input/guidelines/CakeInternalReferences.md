@@ -11,6 +11,8 @@ Title: Target Frameworks
     - [Cake v1.0](#cake-v10)
     - [Cake v2.0.0](#cake-v200)
     - [Cake v3.0.0](#cake-v300)
+    - [Cake v4.0](#cake-v40)
+    - [Cake v5.0](#cake-v50)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
@@ -111,6 +113,31 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Collections.Immutable             | 8.0.0         |
 | System.Reflection.Metadata               | 8.0.0         |
 | xunit                                    | 2.6.1         |
+
+#### Cake v5.0
+
+| Reference                                | Version        |
+| ---------------------------------------- | -------------- |
+| Autofac                                  | 8.1.1          |
+| Microsoft.CodeAnalysis.CSharp.Scripting  | 4.12.0-3.final |
+| Microsoft.CSharp                         | 4.7.0          |
+| Microsoft.Extensions.DependencyInjection | 9.0.0          |
+| Microsoft.IdentityModel.JsonWebTokens    | 8.2.0          |
+| Microsoft.NETCore.Platforms              | 7.0.4          |
+| Microsoft.SourceLink.GitHub              | 8.0.0          |
+| Microsoft.Win32.Registry                 | 5.0.0          |
+| Newtonsoft.Json                          | 13.0.3         |
+| NuGet.Common                             | 6.11.1         |
+| NuGet.Frameworks                         | 6.11.1         |
+| NuGet.Packaging                          | 6.11.1         |
+| NuGet.Protocol                           | 6.11.1         |
+| NuGet.Resolver                           | 6.11.1         |
+| NuGet.Versioning                         | 6.11.1         |
+| StyleCop.Analyzers                       | 1.1.118        |
+| System.Collections.Immutable             | 9.0.0          |
+| System.Reflection.Metadata               | 9.0.0          |
+| System.Security.Cryptography.Pkcs        | 9.0.0          |
+| xunit                                    | 2.9.2          |
 
 ## Related rules
 

@@ -19,7 +19,10 @@ namespace CakeContrib.Guidelines.Tasks
         // Cake 4.0.0
         public static readonly Version V4 = new Version(4, 0, 0);
 
+        // Cake 5.0.0
+        public static readonly Version V5 = new Version(5, 0, 0);
+
         // The next, currently non-existing cake version
-        public static Version VNext = new Version(5, 0, 0);
+        public static Version VNext = new Version(6, 0, 0);
     }
 }

@@ -16,12 +16,14 @@ BuildParameters.SetParameters(
     repositoryOwner: "cake-contrib",
     gitterMessage: "@/all " + standardNotificationMessage,
     twitterMessage: standardNotificationMessage,
+    shouldRunCodecov: false,
     preferredBuildProviderType: BuildProviderType.GitHubActions);
 
 BuildParameters.PrintParameters(Context);
 
 ToolSettings.SetToolSettings(context: Context);
 ToolSettings.SetToolPreprocessorDirectives(
+    gitReleaseManagerGlobalTool: "#tool dotnet:?package=GitReleaseManager.Tool&version=0.18.0",
     reSharperTools: "#tool nuget:?package=JetBrains.ReSharper.CommandLineTools&version=2022.2.4");
 
 Build.RunDotNetCore();
