@@ -65,6 +65,10 @@ jobs:
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('recipe.cake') }}
+      - name: try installing libgit
+        if: runner.os != 'Windows'
+        run: |
+          apt-get install -y libgit2-dev
       - name: Build project
         uses: cake-build/cake-action@v1
         with:
