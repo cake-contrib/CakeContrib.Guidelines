@@ -17,7 +17,8 @@ BuildParameters.SetParameters(
     gitterMessage: "@/all " + standardNotificationMessage,
     twitterMessage: standardNotificationMessage,
     shouldRunCodecov: false,
-    preferredBuildProviderType: BuildProviderType.GitHubActions);
+    preferredBuildProviderType: BuildProviderType.GitHubActions,
+    shouldUseTargetFrameworkPath: false);
 
 BuildParameters.PrintParameters(Context);
 

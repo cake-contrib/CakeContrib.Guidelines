@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os:  [ ubuntu-22.04, windows-2022, macos-12 ]
+        os:  [ ubuntu-24.04, windows-2022, macos-14 ]
 
     env:
       AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
@@ -65,6 +65,10 @@ jobs:
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('recipe.cake') }}
+      - name: try installing libgit
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y libgit2-dev libicu
       - name: Build project
         uses: cake-build/cake-action@v1
         with:
