@@ -195,6 +195,12 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem[] References { get; set; }
 
         /// <summary>
+        /// Gets or sets the PackageVersions (For Central Package Management).
+        /// </summary>
+        [Required]
+        public ITaskItem[] PackageVersions { get; set; }
+
+        /// <summary>
         /// Gets or sets the warnings that are suppressed.
         /// </summary>
         public string[] NoWarn { get; set; }
@@ -238,7 +244,7 @@ namespace CakeContrib.Guidelines.Tasks
                     return true;
                 }
 
-                CakeVersion = cakeCore.GetMetadata("version");
+                CakeVersion = cakeCore.GetVersion(PackageVersions, Log);
                 var prereleaseIndex = CakeVersion.IndexOf("-", StringComparison.Ordinal);
                 if (prereleaseIndex > -1)
                 {
@@ -277,7 +283,7 @@ namespace CakeContrib.Guidelines.Tasks
             var referencesInProject = References.Select(x => new
             {
                 Name = x.ToString(),
-                Version = x.GetMetadata("version"),
+                Version = x.GetVersion(PackageVersions, Log),
                 IsPrivate = (x.GetMetadata("PrivateAssets")?.ToLower() ?? string.Empty) == "all",
             }).ToArray();
 

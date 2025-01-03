@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="$(SolutionDir)/stylecop.json" Link="stylecop.json" />
-        <None Include="$(SolutionDir)/.editorconfig" Link=".editorconfig" />
+        <AdditionalFiles Include="$(ProjectDir)../stylecop.json" Link="stylecop.json" />
+        <None Include="$(ProjectDir)../.editorconfig" Link=".editorconfig" />
     </ItemGroup>
 
     <ItemGroup>
@@ -51,7 +51,7 @@
             <Dll Include="$(TargetPath)" />
         </ItemGroup>
         <PropertyGroup>
-            <TasksFolder>$(SolutionDir)/Guidelines/tasks/$(TargetFramework)</TasksFolder>
+            <TasksFolder>$(ProjectDir)../Guidelines/tasks/$(TargetFramework)</TasksFolder>
         </PropertyGroup>
         <Copy SourceFiles="@(Dll)" DestinationFolder="$(TasksFolder)" />
         <Message Importance="high" Text="Copied %(Dll.Identity) to $(TasksFolder)" />

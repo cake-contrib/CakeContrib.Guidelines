@@ -16,6 +16,7 @@
         <TargetFrameworkVersions
             ProjectFile="$(MSBuildProjectFullPath)"
             References="@(PackageReference)"
+            PackageVersions="@(PackageVersion)"
             TargetFramework="$(TargetFramework)"
             TargetFrameworks="$(TargetFrameworks)"
             Omitted="@(CakeContribGuidelinesOmitTargetFramework)"
