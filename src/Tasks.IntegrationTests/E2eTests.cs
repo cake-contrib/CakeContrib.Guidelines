@@ -228,7 +228,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void Missing_Suggested_Target_results_in_CCG0007_warning()
         {
             var missingTfm = fixture.DefaultTargetFrameworksForAddins
-                .Split(";", StringSplitOptions.RemoveEmptyEntries)
+                .Split([";"], StringSplitOptions.RemoveEmptyEntries)
                 .First();
             var allTfmButMissing = fixture.DefaultTargetFrameworksForAddins.Replace(missingTfm, string.Empty);
 
