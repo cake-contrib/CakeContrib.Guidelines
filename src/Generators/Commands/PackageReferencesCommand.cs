@@ -37,6 +37,7 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
         public Predicate<PkgReference>[] ReferencesToSkip => new Predicate<PkgReference>[]
         {
             x => x.Name.StartsWith("Basic.Reference.Assemblies", StringComparison.OrdinalIgnoreCase),
+            x => x.PrivateAssets.Contains(ReferenceAssets.Runtime),
         };
     }
 
@@ -244,12 +245,7 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
             .Cast<ProjectItemElement>()
             .ToArray();
         var references = packageReferences
-            .Select(x => new PkgReference
-            {
-                Name = x.Include,
-                Version = x.Metadata
-                    .FirstOrDefault(y => y.Name.Equals("Version", StringComparison.OrdinalIgnoreCase))?.Value,
-            })
+            .Select(x => new PkgReference(x.Include, x.Metadata))
             .Where(x => !referencesToSkip.Any(p => p(x)))
             .ToArray();
 
@@ -288,21 +284,11 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
             .ToArray();
 
         var globalPackageRefs = globalPackageRefItems
-            .Select(x => new PkgReference
-            {
-                Name = x.Include,
-                Version = x.Metadata
-                    .FirstOrDefault(y => y.Name.Equals("Version", StringComparison.OrdinalIgnoreCase))?.Value,
-            })
+            .Select(x => new PkgReference(x.Include, x.Metadata))
             .Where(x => !referencesToSkip.Any(p => p(x)))
             .ToArray();
         var packageVersions = packageVersionItems
-            .Select(x => new PkgReference
-            {
-                Name = x.Include,
-                Version = x.Metadata
-                    .FirstOrDefault(y => y.Name.Equals("Version", StringComparison.OrdinalIgnoreCase))?.Value,
-            })
+            .Select(x => new PkgReference(x.Include, x.Metadata))
             .Where(x => !referencesToSkip.Any(p => p(x)))
             .ToArray();
 
@@ -313,15 +299,56 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
         return ret;
     }
 
-    public class PkgReference
+    public class PkgReference(string name, ICollection<ProjectMetadataElement> metadata)
     {
-        public string Name { get; init; } = string.Empty;
-        public string? Version { get; init; }
+        public string Name => name;
+
+        public string? Version =>
+                metadata
+                    .FirstOrDefault(y => y.Name.Equals("Version", StringComparison.OrdinalIgnoreCase))?.Value;
+
+        public ReferenceAssets[] PrivateAssets {
+            get
+            {
+                var privateAssets = metadata
+                    .FirstOrDefault(y => y.Name.Equals("PrivateAssets", StringComparison.OrdinalIgnoreCase))?.Value;
+                if (string.IsNullOrEmpty(privateAssets) ||
+                    privateAssets.Equals("none", StringComparison.OrdinalIgnoreCase))
+                {
+                    return [];
+                }
+
+                if (privateAssets.Equals("all", StringComparison.OrdinalIgnoreCase))
+                {
+                    Enum.GetValues<ReferenceAssets>();
+                }
+
+                return privateAssets
+                    .Split(';', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(Enum.Parse<ReferenceAssets>)
+                    .ToArray();
+            }
+        }
     }
 
     public class CentralPackageManagement
     {
         public List<PkgReference> GlobalReferences { get; set; } = new();
         public List<PkgReference> PackageVersions { get; set; } = new();
+    }
+
+    // https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files#controlling-dependency-assets
+    public enum ReferenceAssets
+    {
+        // ReSharper disable UnusedMember.Global
+        Compile,
+        Runtime,
+        ContentFiles,
+        Build,
+        BuildMultiTargeting,
+        BuildTransitive,
+        Analyzers,
+        Native
+        // ReSharper restore UnusedMember.Global
     }
 }
