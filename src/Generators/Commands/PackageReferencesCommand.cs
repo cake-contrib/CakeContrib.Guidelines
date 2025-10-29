@@ -40,7 +40,7 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
         };
     }
 
-    public override int Execute(CommandContext context, Settings settings)
+    public override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
         var opts = new EnumerationOptions { RecurseSubdirectories = true, MatchCasing = MatchCasing.CaseInsensitive };
         var globals = Directory.GetFiles(
