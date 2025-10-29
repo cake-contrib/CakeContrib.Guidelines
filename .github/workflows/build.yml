@@ -71,7 +71,7 @@ jobs:
         with:
           script-path: recipe.cake
           target: CI
-          cake-version: 1.3.0
+          cake-version: tool-manifest
       # currently, Cake.Recipe does not upload artifacts when run on gh-actions
       - name: Upload Issues
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
