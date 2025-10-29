@@ -175,6 +175,12 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem[] References { get; set; }
 
         /// <summary>
+        /// Gets or sets the PackageVersions (For Central Package Management).
+        /// </summary>
+        [Required]
+        public ITaskItem[] PackageVersions { get; set; }
+
+        /// <summary>
         /// Gets or sets the TargetFrameworks.
         /// </summary>
         [Required]
@@ -242,7 +248,7 @@ namespace CakeContrib.Guidelines.Tasks
                     return Execute(DefaultTarget);
                 }
 
-                CakeVersion = cakeCore.GetMetadata("version");
+                CakeVersion = cakeCore.GetVersion(PackageVersions, Log);
                 var prereleaseIndex = CakeVersion.IndexOf("-", StringComparison.Ordinal);
                 if (prereleaseIndex > -1)
                 {

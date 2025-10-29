@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 using CakeContrib.Guidelines.Tasks.Tests.Fixtures;
 
@@ -156,6 +157,76 @@ namespace CakeContrib.Guidelines.Tasks.Tests
                     x.Code != null
                     && x.Code.Equals("CCG0009", StringComparison.OrdinalIgnoreCase)
                     && x.Message.StartsWith("2 different"));
+        }
+
+        [Fact]
+        public void Should_Not_Warn_For_Central_Package_Management_And_Correct_Version()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithCpmPackageVersion("cake.core", "1.0.0");
+            fixture.WithCpmReference("cake.core");
+            fixture.WithReferencesToCheck("cake.core");
+            fixture.WithRecommendedVersion("1.0.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(0);
+        }
+
+        [Fact]
+        public void Should_Warn_For_Central_Package_Management_And_Incorrect_Version()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithCpmPackageVersion("cake.core", "0.38.5");
+            fixture.WithCpmReference("cake.core");
+            fixture.WithReferencesToCheck("cake.core");
+            fixture.WithRecommendedVersion("1.0.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.First().Code.ShouldBe("CCG0009");
+        }
+
+        [Fact]
+        public void Should_Not_Warn_For_Central_Package_Management_And_Correct_Version_Override()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithCpmPackageVersion("cake.core", "0.38.5");
+            fixture.WithCpmReference("cake.core", "1.0.0");
+            fixture.WithReferencesToCheck("cake.core");
+            fixture.WithRecommendedVersion("1.0.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(0);
+        }
+
+        [Fact]
+        public void Should_Warn_For_Central_Package_Management_And_Wrong_Version_Override()
+        {
+            // given
+            var fixture = new RecommendedCakeVersionFixture();
+            fixture.WithCpmPackageVersion("cake.core", "1.0.0");
+            fixture.WithCpmReference("cake.core", "0.38.5");
+            fixture.WithReferencesToCheck("cake.core");
+            fixture.WithRecommendedVersion("1.0.0");
+
+            // when
+            fixture.Execute();
+
+            // then
+            fixture.BuildEngine.WarningEvents.Count.ShouldBe(1);
+            fixture.BuildEngine.WarningEvents.First().Code.ShouldBe("CCG0009");
         }
     }
 }

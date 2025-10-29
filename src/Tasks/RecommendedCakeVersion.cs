@@ -27,6 +27,12 @@ namespace CakeContrib.Guidelines.Tasks
         public ITaskItem[] References { get; set; }
 
         /// <summary>
+        /// Gets or sets the PackageVersions (For Central Package Management).
+        /// </summary>
+        [Required]
+        public ITaskItem[] PackageVersions { get; set; }
+
+        /// <summary>
         /// Gets or sets the references to omit.
         /// </summary>
         [Required]
@@ -74,7 +80,8 @@ namespace CakeContrib.Guidelines.Tasks
             foreach (var r in References)
             {
                 var package = r.ToString();
-                var version = r.GetMetadata("version");
+                var version = r.GetVersion(PackageVersions, Log);
+
                 if (!toCheck.Any(x => x.Equals(package, StringComparison.OrdinalIgnoreCase)))
                 {
                     // not a cake reference

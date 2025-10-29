@@ -22,6 +22,7 @@
             ProjectFile="$(MSBuildProjectFullPath)"
             RecommendedVersion="$(RecommendedCakeVersion)"
             References="@(PackageReference)"
+            PackageVersions="@(PackageVersion)"
             Omitted="@(CakeContribGuidelinesOmitRecommendedCakeVersion)"
             ReferencesToCheck="@(CakeReferenceToCheck)"
             ProjectType="$(CakeContribGuidelinesProjectType)"

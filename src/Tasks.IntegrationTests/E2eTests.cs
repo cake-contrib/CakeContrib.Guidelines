@@ -121,7 +121,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithoutDefaultCakeReference();
-            fixture.WithPackageReference("Cake.Core", "0.38.5", "all");
+            fixture.WithPackageReference("Cake.Core", fixture.DefaultCakeVersion, "all");
 
             // when
             var result = fixture.Run();
@@ -136,7 +136,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithoutDefaultCakeReference();
-            fixture.WithPackageReference("Cake.Core", "0.38.5");
+            fixture.WithPackageReference("Cake.Core", fixture.DefaultCakeVersion);
 
             // when
             var result = fixture.Run();
@@ -221,22 +221,27 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             // then
             result.IsErrorExitCode.ShouldBeTrue();
             result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-            result.ErrorLines.ShouldContain(l => l.IndexOf("netstandard2.0", StringComparison.Ordinal) > -1);
+            result.ErrorLines.ShouldContain(l => l.IndexOf(fixture.DefaultTargetFrameworkForModules, StringComparison.Ordinal) > -1);
         }
 
         [Fact]
         public void Missing_Suggested_Target_results_in_CCG0007_warning()
         {
+            var missingTfm = fixture.DefaultTargetFrameworksForAddins
+                .Split([";"], StringSplitOptions.RemoveEmptyEntries)
+                .First();
+            var allTfmButMissing = fixture.DefaultTargetFrameworksForAddins.Replace(missingTfm, string.Empty);
+
             // given
-            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithTargetFrameworks(allTfmButMissing);
 
             // when
             var result = fixture.Run();
 
             // then
-            result.IsErrorExitCode.ShouldBeFalse();
-            result.WarningLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-            result.WarningLines.ShouldContain(l => l.IndexOf("net461", StringComparison.Ordinal) > -1);
+            result.IsErrorExitCode.ShouldBeTrue();
+            result.ErrorLines.ShouldContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
+            result.ErrorLines.ShouldContain(l => l.IndexOf(missingTfm, StringComparison.Ordinal) > -1);
         }
 
         [Fact]
@@ -246,6 +251,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("Cake.Core", "1.0.0", "all");
             fixture.WithTargetFrameworks("netstandard2.0;net461");
+            fixture.OmitRecommendedCakeVersion();
 
             // when
             var result = fixture.Run();
@@ -351,7 +357,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         {
             // given
             fixture.WithAssemblyName("Cake.Buildsystems.Module");
-            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithTargetFrameworks(fixture.DefaultTargetFrameworkForModules);
             fixture.WithCustomContent(@"
 <Target Name=""ForTest""
   AfterTargets=""BeforeBuild""
@@ -376,7 +382,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         public void ProjectType_When_PackageId_Is_Module_Is_Module()
         {
             // given
-            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithTargetFrameworks(fixture.DefaultTargetFrameworkForModules);
             fixture.WithCustomContent(@"
 <PropertyGroup>
   <PackageId>Cake.Buildsystems.Module</PackageId>
@@ -498,7 +504,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithAssemblyName(assemblyName);
             if (isModule)
             {
-                fixture.WithTargetFrameworks("netstandard2.0");
+                fixture.WithTargetFrameworks(fixture.DefaultTargetFrameworkForModules);
             }
             fixture.WithCustomContent(@"
 <PropertyGroup>
@@ -537,7 +543,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             fixture.WithAssemblyName(assemblyName);
             if (isModule)
             {
-                fixture.WithTargetFrameworks("netstandard2.0");
+                fixture.WithTargetFrameworks(fixture.DefaultTargetFrameworkForModules);
             }
             fixture.WithCustomContent(@"
 <PropertyGroup>
@@ -589,7 +595,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
   <PackageId>Cake.Buildsystems.Module</PackageId>
 </PropertyGroup>");
             fixture.WithTags("cake build cake-build script");
-            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithTargetFrameworks(fixture.DefaultTargetFrameworkForModules);
 
             // when
             var result = fixture.Run();
@@ -651,6 +657,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             // given
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("cake.core", "0.38.5", "All");
+            fixture.WithTargetFrameworks("netstandard2.0;net461;net5.0");
 
             // when
             var result = fixture.Run();
@@ -667,6 +674,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             // given
             fixture.WithoutDefaultCakeReference();
             fixture.WithPackageReference("cake.core", "0.38.5", "All");
+            fixture.WithTargetFrameworks("netstandard2.0;net461;net5.0");
             fixture.WithCustomContent(@"
 <ItemGroup>
     <CakeContribGuidelinesOmitRecommendedCakeVersion Include=""Cake.Core"" />
@@ -681,28 +689,10 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
         }
 
         [Fact]
-        public void Missing_Suggested_Target_results_not_in_CCG0007_warning_if_NoWarn_is_set()
-        {
-            // given
-            fixture.WithTargetFrameworks("netstandard2.0");
-            fixture.WithCustomContent(@"
-<PropertyGroup>
-    <NoWarn>1701;1702;ccg0007</NoWarn>
-</PropertyGroup>");
-
-            // when
-            var result = fixture.Run();
-
-            // then
-            result.IsErrorExitCode.ShouldBeFalse();
-            result.WarningLines.ShouldNotContain(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
-        }
-
-        [Fact]
         public void Missing_Suggested_Target_results_in_CCG0007_error_if_WarningsAsErrors_is_set()
         {
             // given
-            fixture.WithTargetFrameworks("netstandard2.0");
+            fixture.WithTargetFrameworks(fixture.DefaultTargetFrameworkForModules);
             fixture.WithCustomContent(@"
 <PropertyGroup>
     <WarningsAsErrors>NU1605;ccg0007</WarningsAsErrors >
@@ -737,6 +727,22 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests
             var err = result.ErrorLines.FirstOrDefault(l => l.IndexOf("CCG0007", StringComparison.Ordinal) > -1);
             err.ShouldNotBeNull();
             err.ShouldContain("netstandard2.0");
+        }
+
+        [Fact]
+        public void Central_Package_Management_Correct_Cake_Reference_Should_Not_Raise_CCG0009()
+        {
+            // given
+            fixture.WithoutDefaultCakeReference();
+            fixture.WithPackageReference("cake.core", privateAssets: "All");
+            fixture.WithCpmPackageVersion("Cake.Core", fixture.DefaultCakeVersion);
+
+            // when
+            var result = fixture.Run();
+
+            // then
+            result.IsErrorExitCode.ShouldBeFalse();
+            result.WarningLines.ShouldBeEmpty();
         }
     }
 }
