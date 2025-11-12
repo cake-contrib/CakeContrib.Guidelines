@@ -14,7 +14,7 @@ Title: Cake Internal References
     - [Cake v3.0.0](#cake-v300)
     - [Cake v4.0.0](#cake-v400)
     - [Cake v5.0.0](#cake-v500)
-    - [Cake v6.0.0](#cake-v600)
+  - [Cake v6.0.0](#cake-v600)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
