@@ -153,7 +153,7 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Security.Cryptography.Pkcs        | 9.0.0          |
 | xunit                                    | 2.9.2          |
 
-### Cake v6.0.0
+#### Cake v6.0.0
 
 | Reference                                | Version       |
 | ---------------------------------------- | ------------- |
