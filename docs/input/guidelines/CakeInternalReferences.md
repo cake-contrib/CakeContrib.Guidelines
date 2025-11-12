@@ -14,6 +14,7 @@ Title: Cake Internal References
     - [Cake v3.0.0](#cake-v300)
     - [Cake v4.0.0](#cake-v400)
     - [Cake v5.0.0](#cake-v500)
+    - [Cake v6.0.0](#cake-v600)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
@@ -151,6 +152,26 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Reflection.Metadata               | 9.0.0          |
 | System.Security.Cryptography.Pkcs        | 9.0.0          |
 | xunit                                    | 2.9.2          |
+
+### Cake v6.0.0
+
+| Reference                                | Version       |
+| ---------------------------------------- | ------------- |
+| Autofac                                  | 8.4.0         |
+| Microsoft.CodeAnalysis.CSharp.Scripting  | 5.0.0-2.final |
+| Microsoft.Extensions.DependencyInjection | 10.0.0        |
+| Microsoft.IdentityModel.JsonWebTokens    | 8.14.0        |
+| Newtonsoft.Json                          | 13.0.4        |
+| NuGet.Common                             | 6.14.0        |
+| NuGet.Frameworks                         | 6.14.0        |
+| NuGet.Packaging                          | 6.14.0        |
+| NuGet.Protocol                           | 6.14.0        |
+| NuGet.Resolver                           | 6.14.0        |
+| NuGet.Versioning                         | 6.14.0        |
+| System.Security.Cryptography.Pkcs        | 10.0.0        |
+| xunit                                    | 2.9.3         |
+| xunit.v3.assert                          | 3.2.0         |
+| xunit.v3.extensibility.core              | 3.2.0         |
 
 ## Related rules
 

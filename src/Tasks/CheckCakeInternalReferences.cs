@@ -145,6 +145,26 @@ namespace CakeContrib.Guidelines.Tasks
             { "xunit", "2.9.2" },
         };
 
+        // parsed from Cake: v6.0
+        private static readonly Dictionary<string, string> CakeV60 = new Dictionary<string, string>
+        {
+            { "Autofac", "8.4.0" },
+            { "Microsoft.CodeAnalysis.CSharp.Scripting", "5.0.0-2.final" },
+            { "Microsoft.Extensions.DependencyInjection", "10.0.0" },
+            { "Microsoft.IdentityModel.JsonWebTokens", "8.14.0" },
+            { "Newtonsoft.Json", "13.0.4" },
+            { "NuGet.Common", "6.14.0" },
+            { "NuGet.Frameworks", "6.14.0" },
+            { "NuGet.Packaging", "6.14.0" },
+            { "NuGet.Protocol", "6.14.0" },
+            { "NuGet.Resolver", "6.14.0" },
+            { "NuGet.Versioning", "6.14.0" },
+            { "System.Security.Cryptography.Pkcs", "10.0.0" },
+            { "xunit", "2.9.3" },
+            { "xunit.v3.assert", "3.2.0" },
+            { "xunit.v3.extensibility.core", "3.2.0" },
+        };
+
         private readonly Dictionary<Predicate<Version>, Dictionary<string, string>> allInternalReferences =
             new Dictionary<Predicate<Version>, Dictionary<string, string>>
             {
@@ -169,8 +189,12 @@ namespace CakeContrib.Guidelines.Tasks
                     CakeV40
                 },
                 {
-                    x => x.GreaterEqual(CakeVersions.V5) && x.LessThan(CakeVersions.VNext),
+                    x => x.GreaterEqual(CakeVersions.V5) && x.LessThan(CakeVersions.V6),
                     CakeV50
+                },
+                {
+                    x => x.GreaterEqual(CakeVersions.V6) && x.LessThan(CakeVersions.VNext),
+                    CakeV60
                 },
             };
 
