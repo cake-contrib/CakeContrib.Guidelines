@@ -53,7 +53,7 @@ jobs:
           # gitversion needs 5.0
           # cake 1.3 needs 6.0
           # unittests needs 6 & 7
-          # .NET 9 to build
+          # .NET 10 to build
           dotnet-version: |
             2.1
             3.1
@@ -61,6 +61,7 @@ jobs:
             6.0
             7.0
             9.0
+            10.0
       - name: Install mono
         if: runner.os == 'Linux'
         # check https://www.mono-project.com/download/stable/#download-lin
