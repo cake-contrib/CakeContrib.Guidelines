@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "package-references (code)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build Generators",
+            "program": "${workspaceFolder}/src/Generators/bin/Debug/net9.0/Generators.dll",
+            "args": ["package-references", "${workspaceFolder}/../../cake-build/cake"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "package-references (markdown)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build Generators",
+            "program": "${workspaceFolder}/src/Generators/bin/Debug/net9.0/Generators.dll",
+            "args": ["package-references", "${workspaceFolder}/../../cake-build/cake", "--flatList"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+    ]
+}
