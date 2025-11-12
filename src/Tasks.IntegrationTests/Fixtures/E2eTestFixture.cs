@@ -23,14 +23,14 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private bool omitRecommendedCakeVersion = false;
         private bool hasDefaultCakeReference = true;
         private readonly List<string> customContent = new();
-        private string targetFrameworks = "net8.0;net9.0";
+        private string targetFrameworks = "net8.0;net9.0;net10.0";
         private readonly List<string> references = new();
         private readonly Dictionary<string, string> cpmPackageVersions = new();
         private string tags = "cake;cake-build;build;script;addin;cake-addin;module;cake-module;recipe;cake-recipe";
 
-        public string DefaultCakeVersion => "5.0.0";
+        public string DefaultCakeVersion => "6.0.0";
         public string DefaultTargetFrameworkForModules => "net8.0";
-        public string DefaultTargetFrameworksForAddins => "net8.0;net9.0";
+        public string DefaultTargetFrameworksForAddins => "net8.0;net9.0;net10.0";
 
         public E2eTestFixture(string tempFolder, ITestOutputHelper logger)
         {
