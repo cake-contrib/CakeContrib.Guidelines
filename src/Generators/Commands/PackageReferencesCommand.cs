@@ -320,7 +320,7 @@ public class PackageReferencesCommand : Command<PackageReferencesCommand.Setting
 
                 if (privateAssets.Equals("all", StringComparison.OrdinalIgnoreCase))
                 {
-                    Enum.GetValues<ReferenceAssets>();
+                    return Enum.GetValues<ReferenceAssets>();
                 }
 
                 return privateAssets
