@@ -16,6 +16,7 @@
             ProjectType="$(CakeContribGuidelinesProjectType)"
             CakeVersion="$(CakeContribGuidelinesOverrideTargetFrameworkCakeVersion)"
             References="@(PackageReference)"
+            PackageVersions="@(PackageVersion)"
             NoWarn="$(NoWarn)"
             WarningsAsErrors="$(WarningsAsErrors)"
         />

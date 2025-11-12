@@ -8,6 +8,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
     public class RecommendedCakeVersionFixture : BaseBuildFixture<RecommendedCakeVersion>
     {
         private readonly List<ITaskItem> references;
+        private readonly List<ITaskItem> cpmVersions;
         private readonly List<ITaskItem> omitted;
         private readonly List<ITaskItem> referencesToCheck;
 
@@ -16,6 +17,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             references = new List<ITaskItem>();
             omitted = new List<ITaskItem>();
             referencesToCheck = new List<ITaskItem>();
+            cpmVersions = new List<ITaskItem>();
             Task.ProjectType = CakeProjectType.Addin.ToString();
         }
 
@@ -24,6 +26,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
             Task.Omitted = omitted.ToArray();
             Task.References = references.ToArray();
             Task.ReferencesToCheck = referencesToCheck.ToArray();
+            Task.PackageVersions = cpmVersions.ToArray();
             return base.Execute();
         }
 
@@ -67,7 +70,7 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         {
             Task.ProjectType = "Recipe";
         }
-        
+
         public void WithNoWarn(params string[] rules)
         {
             Task.NoWarn = rules;
@@ -76,6 +79,31 @@ namespace CakeContrib.Guidelines.Tasks.Tests.Fixtures
         public void WithWarningsAsErrors(params string[] rules)
         {
             Task.WarningsAsErrors = rules;
+        }
+
+        public void WithCpmReference(string referenceName, string versionOverride = null)
+        {
+            var attributes = new Dictionary<string, string>();
+            if (versionOverride != null)
+            {
+                attributes.Add("VersionOverride", versionOverride);
+            }
+
+            var reference = GetMockTaskItem(
+                referenceName,
+                attributes);
+            references.Add(reference.Object);
+        }
+
+        public void WithCpmPackageVersion(string referenceName, string version)
+        {
+            var reference = GetMockTaskItem(
+                referenceName,
+                new Dictionary<string, string>
+                {
+                    { "version", version }
+                });
+            cpmVersions.Add(reference.Object);
         }
     }
 }

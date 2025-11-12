@@ -9,19 +9,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="$(SolutionDir)/stylecop.json" Link="stylecop.json" />
-        <None Include="$(SolutionDir)/.editorconfig" Link=".editorconfig" />
+        <AdditionalFiles Include="$(ProjectDir)../stylecop.json" Link="stylecop.json" />
+        <None Include="$(ProjectDir)../.editorconfig" Link=".editorconfig" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.8.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="all">
           <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Build.Framework" Version="16.8.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="all">
           <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.100">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -32,11 +32,11 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
-        <PackageReference Include="Microsoft.VisualStudio.Setup.Configuration.Interop" Version="3.12.2149" CopyLocal="false" Publish="false" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.VisualStudio.Setup.Configuration.Interop" Version="3.14.2075" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
     <Target Name="RemoveMicrosoftBuildDllsFromOutput" AfterTargets="ResolveReferences">
         <PropertyGroup>
@@ -51,7 +51,7 @@
             <Dll Include="$(TargetPath)" />
         </ItemGroup>
         <PropertyGroup>
-            <TasksFolder>$(SolutionDir)/Guidelines/tasks/$(TargetFramework)</TasksFolder>
+            <TasksFolder>$(ProjectDir)../Guidelines/tasks/$(TargetFramework)</TasksFolder>
         </PropertyGroup>
         <Copy SourceFiles="@(Dll)" DestinationFolder="$(TasksFolder)" />
         <Message Importance="high" Text="Copied %(Dll.Identity) to $(TasksFolder)" />

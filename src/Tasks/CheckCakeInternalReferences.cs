@@ -30,7 +30,6 @@ namespace CakeContrib.Guidelines.Tasks
             { "Microsoft.CodeAnalysis.CSharp.Scripting", "3.6.0" },
             { "Microsoft.CSharp", "4.5.0" },
             { "Microsoft.DotNet.PlatformAbstractions", "3.1.0" },
-            { "Microsoft.NETCore.Platforms", "3.1.0" },
             { "Microsoft.Win32.Registry", "4.4.0" },
             { "Newtonsoft.Json", "12.0.2" },
             { "NuGet.Common", "5.4.0" },
@@ -50,7 +49,6 @@ namespace CakeContrib.Guidelines.Tasks
             { "Microsoft.CSharp", "4.7.0" },
             { "Microsoft.DotNet.PlatformAbstractions", "3.1.6" },
             { "Microsoft.Extensions.DependencyInjection", "5.0.1" },
-            { "Microsoft.NETCore.Platforms", "5.0.0" },
             { "Microsoft.Win32.Registry", "5.0.0" },
             { "Newtonsoft.Json", "12.0.3" },
             { "NuGet.Common", "5.8.0" },
@@ -72,7 +70,6 @@ namespace CakeContrib.Guidelines.Tasks
             { "Microsoft.CSharp", "4.7.0" },
             { "Microsoft.DotNet.PlatformAbstractions", "3.1.6" },
             { "Microsoft.Extensions.DependencyInjection", "6.0.0" },
-            { "Microsoft.NETCore.Platforms", "6.0.0" },
             { "Microsoft.Win32.Registry", "5.0.0" },
             { "Newtonsoft.Json", "13.0.1" },
             { "NuGet.Common", "5.11.0" },
@@ -93,7 +90,6 @@ namespace CakeContrib.Guidelines.Tasks
             { "Microsoft.CodeAnalysis.CSharp.Scripting", "4.4.0-4.final" },
             { "Microsoft.CSharp", "4.7.0" },
             { "Microsoft.Extensions.DependencyInjection", "7.0.0" },
-            { "Microsoft.NETCore.Platforms", "7.0.0" },
             { "Microsoft.Win32.Registry", "5.0.0" },
             { "Newtonsoft.Json", "13.0.1" },
             { "NuGet.Common", "6.3.1" },
@@ -114,7 +110,6 @@ namespace CakeContrib.Guidelines.Tasks
             { "Microsoft.CodeAnalysis.CSharp.Scripting", "4.8.0-3.final" },
             { "Microsoft.CSharp", "4.7.0" },
             { "Microsoft.Extensions.DependencyInjection", "8.0.0" },
-            { "Microsoft.NETCore.Platforms", "7.0.4" },
             { "Microsoft.Win32.Registry", "5.0.0" },
             { "Newtonsoft.Json", "13.0.3" },
             { "NuGet.Common", "6.7.0" },
@@ -136,8 +131,6 @@ namespace CakeContrib.Guidelines.Tasks
             { "Microsoft.CSharp", "4.7.0" },
             { "Microsoft.Extensions.DependencyInjection", "9.0.0" },
             { "Microsoft.IdentityModel.JsonWebTokens", "8.2.0" },
-            { "Microsoft.NETCore.Platforms", "7.0.4" },
-            { "Microsoft.SourceLink.GitHub", "8.0.0" },
             { "Microsoft.Win32.Registry", "5.0.0" },
             { "Newtonsoft.Json", "13.0.3" },
             { "NuGet.Common", "6.11.1" },
@@ -146,11 +139,30 @@ namespace CakeContrib.Guidelines.Tasks
             { "NuGet.Protocol", "6.11.1" },
             { "NuGet.Resolver", "6.11.1" },
             { "NuGet.Versioning", "6.11.1" },
-            { "StyleCop.Analyzers", "1.1.118" },
             { "System.Collections.Immutable", "9.0.0" },
             { "System.Reflection.Metadata", "9.0.0" },
             { "System.Security.Cryptography.Pkcs", "9.0.0" },
             { "xunit", "2.9.2" },
+        };
+
+        // parsed from Cake: v6.0
+        private static readonly Dictionary<string, string> CakeV60 = new Dictionary<string, string>
+        {
+            { "Autofac", "8.4.0" },
+            { "Microsoft.CodeAnalysis.CSharp.Scripting", "5.0.0-2.final" },
+            { "Microsoft.Extensions.DependencyInjection", "10.0.0" },
+            { "Microsoft.IdentityModel.JsonWebTokens", "8.14.0" },
+            { "Newtonsoft.Json", "13.0.4" },
+            { "NuGet.Common", "6.14.0" },
+            { "NuGet.Frameworks", "6.14.0" },
+            { "NuGet.Packaging", "6.14.0" },
+            { "NuGet.Protocol", "6.14.0" },
+            { "NuGet.Resolver", "6.14.0" },
+            { "NuGet.Versioning", "6.14.0" },
+            { "System.Security.Cryptography.Pkcs", "10.0.0" },
+            { "xunit", "2.9.3" },
+            { "xunit.v3.assert", "3.2.0" },
+            { "xunit.v3.extensibility.core", "3.2.0" },
         };
 
         private readonly Dictionary<Predicate<Version>, Dictionary<string, string>> allInternalReferences =
@@ -177,8 +189,12 @@ namespace CakeContrib.Guidelines.Tasks
                     CakeV40
                 },
                 {
-                    x => x.GreaterEqual(CakeVersions.V5) && x.LessThan(CakeVersions.VNext),
+                    x => x.GreaterEqual(CakeVersions.V5) && x.LessThan(CakeVersions.V6),
                     CakeV50
+                },
+                {
+                    x => x.GreaterEqual(CakeVersions.V6) && x.LessThan(CakeVersions.VNext),
+                    CakeV60
                 },
             };
 
@@ -193,6 +209,12 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         [Required]
         public ITaskItem[] References { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PackageVersions (For Central Package Management).
+        /// </summary>
+        [Required]
+        public ITaskItem[] PackageVersions { get; set; }
 
         /// <summary>
         /// Gets or sets the warnings that are suppressed.
@@ -238,7 +260,7 @@ namespace CakeContrib.Guidelines.Tasks
                     return true;
                 }
 
-                CakeVersion = cakeCore.GetMetadata("version");
+                CakeVersion = cakeCore.GetVersion(PackageVersions, Log);
                 var prereleaseIndex = CakeVersion.IndexOf("-", StringComparison.Ordinal);
                 if (prereleaseIndex > -1)
                 {
@@ -277,7 +299,7 @@ namespace CakeContrib.Guidelines.Tasks
             var referencesInProject = References.Select(x => new
             {
                 Name = x.ToString(),
-                Version = x.GetMetadata("version"),
+                Version = x.GetVersion(PackageVersions, Log),
                 IsPrivate = (x.GetMetadata("PrivateAssets")?.ToLower() ?? string.Empty) == "all",
             }).ToArray();
 

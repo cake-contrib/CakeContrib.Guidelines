@@ -6,6 +6,7 @@
 !.vscode/extensions.json
 !.vscode/settings.json
 !.vscode/tasks.json
+!.vscode/launch.json
 
 # User-specific files in Visual Studio
 *.suo

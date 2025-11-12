@@ -30,6 +30,7 @@ namespace CakeContrib.Guidelines.Tasks
         private const string Net70 = "net7.0";
         private const string Net80 = "net8.0";
         private const string Net90 = "net9.0";
+        private const string Net100 = "net10.0";
 
         private static readonly TargetsDefinitions DefaultTarget = new TargetsDefinitions
         {
@@ -76,16 +77,25 @@ namespace CakeContrib.Guidelines.Tasks
                     d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V4) && d.Version.LessThan(CakeVersions.V5),
                     new TargetsDefinitions
                     {
-                        Name = "Module and 3.0.0 <= CakeVersion < 5.0.0",
+                        Name = "Module and 4.0.0 <= CakeVersion < 5.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(Net60) },
                         AllowAdditionalTargets = false,
                     }
                 },
                 {
-                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V5),
+                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V5) && d.Version.LessThan(CakeVersions.V6),
                     new TargetsDefinitions
                     {
-                        Name = "Module and CakeVersion >= 5.0.0",
+                        Name = "Module and 5.0.0 <= CakeVersion < 6.0.0",
+                        RequiredTargets = new[] { TargetsDefinition.From(Net80) },
+                        AllowAdditionalTargets = false,
+                    }
+                },
+                {
+                    d => d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V6),
+                    new TargetsDefinitions
+                    {
+                        Name = "Module and CakeVersion >= 6.0.0",
                         RequiredTargets = new[] { TargetsDefinition.From(Net80) },
                         AllowAdditionalTargets = false,
                     }
@@ -154,14 +164,28 @@ namespace CakeContrib.Guidelines.Tasks
                     }
                 },
                 {
-                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V5),
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V5) && d.Version.LessThan(CakeVersions.V6),
                     new TargetsDefinitions
                     {
-                        Name = "not module and CakeVersion >= 5.0.0",
+                        Name = "not module and 5.0.0 <= CakeVersion < 6.0.0",
                         RequiredTargets = new[]
                         {
                             TargetsDefinition.From(Net80),
                             TargetsDefinition.From(Net90),
+                        },
+                        SuggestedTargets = Array.Empty<TargetsDefinition>(),
+                    }
+                },
+                {
+                    d => !d.IsModuleProject && d.Version.GreaterEqual(CakeVersions.V6),
+                    new TargetsDefinitions
+                    {
+                        Name = "not module and CakeVersion >= 6.0.0",
+                        RequiredTargets = new[]
+                        {
+                            TargetsDefinition.From(Net80),
+                            TargetsDefinition.From(Net90),
+                            TargetsDefinition.From(Net100),
                         },
                         SuggestedTargets = Array.Empty<TargetsDefinition>(),
                     }
@@ -173,6 +197,12 @@ namespace CakeContrib.Guidelines.Tasks
         /// </summary>
         [Required]
         public ITaskItem[] References { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PackageVersions (For Central Package Management).
+        /// </summary>
+        [Required]
+        public ITaskItem[] PackageVersions { get; set; }
 
         /// <summary>
         /// Gets or sets the TargetFrameworks.
@@ -242,7 +272,7 @@ namespace CakeContrib.Guidelines.Tasks
                     return Execute(DefaultTarget);
                 }
 
-                CakeVersion = cakeCore.GetMetadata("version");
+                CakeVersion = cakeCore.GetVersion(PackageVersions, Log);
                 var prereleaseIndex = CakeVersion.IndexOf("-", StringComparison.Ordinal);
                 if (prereleaseIndex > -1)
                 {

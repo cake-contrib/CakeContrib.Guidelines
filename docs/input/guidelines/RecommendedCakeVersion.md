@@ -18,7 +18,7 @@ Title: Recommended Cake Version
 
 For addins and modules it is recommended to reference the lowest version of Cake with API compatibility to the latest version.
 
-This is currently version 3.0.0.
+This is currently version 6.0.0.
 
 ## Related rules
 

@@ -22,10 +22,15 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private bool hasEditorConfig = true;
         private bool omitRecommendedCakeVersion = false;
         private bool hasDefaultCakeReference = true;
-        private readonly List<string> customContent = new List<string>();
-        private string targetFrameworks = "netstandard2.0;net461;net5.0";
-        private readonly List<string> references = new List<string>();
+        private readonly List<string> customContent = new();
+        private string targetFrameworks = "net8.0;net9.0;net10.0";
+        private readonly List<string> references = new();
+        private readonly Dictionary<string, string> cpmPackageVersions = new();
         private string tags = "cake;cake-build;build;script;addin;cake-addin;module;cake-module;recipe;cake-recipe";
+
+        public string DefaultCakeVersion => "6.0.0";
+        public string DefaultTargetFrameworkForModules => "net8.0";
+        public string DefaultTargetFrameworksForAddins => "net8.0;net9.0;net10.0";
 
         public E2eTestFixture(string tempFolder, ITestOutputHelper logger)
         {
@@ -78,6 +83,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
             {
                 properties.Add($"<PackageTags>{tags}</PackageTags>");
             }
+
             if (hasStylecopJson)
             {
                 var stylecopJson = Path.Combine(tempFolder, "stylecop.json");
@@ -95,8 +101,14 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
             }
             if (hasStylecopReference)
             {
-                items.Add(@"
-<PackageReference Include=""StyleCop.Analyzers"" Version=""1.1.118"">
+                var version = "Version=\"1.1.118\"";
+                if (cpmPackageVersions.Any())
+                {
+                    version = string.Empty;
+                }
+
+                items.Add($@"
+<PackageReference Include=""StyleCop.Analyzers"" {version}>
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     <PrivateAssets>all</PrivateAssets>
 </PackageReference>");
@@ -104,7 +116,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 
             if (hasDefaultCakeReference)
             {
-                WithPackageReference("cake.core","1.0.0", "all");
+                WithPackageReference("cake.core", DefaultCakeVersion, "all");
             }
 
             if (omitRecommendedCakeVersion)
@@ -114,6 +126,32 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
     <CakeContribGuidelinesOmitRecommendedCakeVersion Include=""Cake.Common"" />
     <CakeContribGuidelinesOmitRecommendedCakeVersion Include=""Cake.Core"" />
 </ItemGroup>");
+            }
+
+            if (cpmPackageVersions.Any())
+            {
+                if (hasStylecopReference)
+                {
+                    cpmPackageVersions.Add("StyleCop.Analyzers", "1.1.118");
+                }
+
+                var cpmFile = Path.Combine(tempFolder, "Directory.Packages.props");
+                File.WriteAllText(cpmFile,
+$"""
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    {
+        string.Join(
+            Environment.NewLine,
+            cpmPackageVersions.Select(kvp => $"<PackageVersion Include=\"{kvp.Key}\" Version=\"{kvp.Value}\" />").ToArray()
+        )
+    }
+  </ItemGroup>
+</Project>
+""");
             }
 
             items.AddRange(references);
@@ -157,12 +195,18 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 
         internal void WithPackageReference(
             string packageName,
-            string version,
+            string version = null,
             string privateAssets = null,
             params Tuple<string, string>[] additionalAttributes)
         {
             var reference = new StringBuilder();
-            reference.Append($@"<PackageReference Include=""{packageName}"" Version=""{version}""");
+            reference.Append($@"<PackageReference Include=""{packageName}""");
+
+            if (version != null)
+            {
+                reference.Append($@" Version=""{version}""");
+            }
+
             if (privateAssets != null)
             {
                 reference.Append($@" PrivateAssets=""{privateAssets}""");
@@ -175,6 +219,13 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
 
             reference.Append(" />");
             references.Add(reference.ToString());
+        }
+
+        internal void WithCpmPackageVersion(
+            string packageName,
+            string version)
+        {
+            this.cpmPackageVersions.Add(packageName, version);
         }
 
         internal void WithoutStylecopReference()

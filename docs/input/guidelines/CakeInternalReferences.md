@@ -1,5 +1,5 @@
 ---
-Title: Target Frameworks
+Title: Cake Internal References
 ---
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -8,11 +8,13 @@ Title: Target Frameworks
 
 - [Goals](#goals)
   - [Provided packages](#provided-packages)
-    - [Cake v1.0](#cake-v10)
+    - [Cake v0.38.0](#cake-v0380)
+    - [Cake v1.0.0](#cake-v100)
     - [Cake v2.0.0](#cake-v200)
     - [Cake v3.0.0](#cake-v300)
-    - [Cake v4.0](#cake-v40)
-    - [Cake v5.0](#cake-v50)
+    - [Cake v4.0.0](#cake-v400)
+    - [Cake v5.0.0](#cake-v500)
+    - [Cake v6.0.0](#cake-v600)
 - [Related rules](#related-rules)
 - [Usage](#usage)
 - [Settings](#settings)
@@ -28,7 +30,25 @@ Also, the reference of the package in the addin/module should be set as private 
 
 ### Provided packages
 
-#### Cake v1.0
+#### Cake v0.38.0
+
+| Reference                               | Version |
+| --------------------------------------- | ------- |
+| Autofac                                 | 4.9.4   |
+| Microsoft.CodeAnalysis.CSharp.Scripting | 3.6.0   |
+| Microsoft.CSharp                        | 4.5.0   |
+| Microsoft.DotNet.PlatformAbstractions   | 3.1.0   |
+| Microsoft.Win32.Registry                | 4.4.0   |
+| Newtonsoft.Json                         | 12.0.2  |
+| NuGet.Common                            | 5.4.0   |
+| NuGet.Frameworks                        | 5.4.0   |
+| NuGet.Packaging                         | 5.4.0   |
+| NuGet.Protocol                          | 5.4.0   |
+| NuGet.Resolver                          | 5.4.0   |
+| NuGet.Versioning                        | 5.4.0   |
+| xunit                                   | 2.4.1   |
+
+#### Cake v1.0.0
 
 | Reference                                | Version       |
 | ---------------------------------------- | ------------- |
@@ -37,7 +57,6 @@ Also, the reference of the package in the addin/module should be set as private 
 | Microsoft.CSharp                         | 4.7.0         |
 | Microsoft.DotNet.PlatformAbstractions    | 3.1.6         |
 | Microsoft.Extensions.DependencyInjection | 5.0.1         |
-| Microsoft.NETCore.Platforms              | 5.0.0         |
 | Microsoft.Win32.Registry                 | 5.0.0         |
 | Newtonsoft.Json                          | 12.0.3        |
 | NuGet.Common                             | 5.8.0         |
@@ -59,7 +78,6 @@ Also, the reference of the package in the addin/module should be set as private 
 | Microsoft.CSharp                         | 4.7.0   |
 | Microsoft.DotNet.PlatformAbstractions    | 3.1.6   |
 | Microsoft.Extensions.DependencyInjection | 6.0.0   |
-| Microsoft.NETCore.Platforms              | 6.0.0   |
 | Microsoft.Win32.Registry                 | 5.0.0   |
 | Newtonsoft.Json                          | 13.0.1  |
 | NuGet.Common                             | 5.11.0  |
@@ -72,6 +90,7 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Reflection.Metadata               | 6.0.0   |
 | xunit                                    | 2.4.1   |
 
+
 #### Cake v3.0.0
 
 | Reference                                | Version       |
@@ -80,7 +99,6 @@ Also, the reference of the package in the addin/module should be set as private 
 | Microsoft.CodeAnalysis.CSharp.Scripting  | 4.4.0-4.final |
 | Microsoft.CSharp                         | 4.7.0         |
 | Microsoft.Extensions.DependencyInjection | 7.0.0         |
-| Microsoft.NETCore.Platforms              | 7.0.0         |
 | Microsoft.Win32.Registry                 | 5.0.0         |
 | Newtonsoft.Json                          | 13.0.1        |
 | NuGet.Common                             | 6.3.1         |
@@ -93,7 +111,7 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Reflection.Metadata               | 7.0.0         |
 | xunit                                    | 2.4.2         |
 
-#### Cake v4.0
+#### Cake v4.0.0
 
 | Reference                                | Version       |
 | ---------------------------------------- | ------------- |
@@ -101,7 +119,6 @@ Also, the reference of the package in the addin/module should be set as private 
 | Microsoft.CodeAnalysis.CSharp.Scripting  | 4.8.0-3.final |
 | Microsoft.CSharp                         | 4.7.0         |
 | Microsoft.Extensions.DependencyInjection | 8.0.0         |
-| Microsoft.NETCore.Platforms              | 7.0.4         |
 | Microsoft.Win32.Registry                 | 5.0.0         |
 | Newtonsoft.Json                          | 13.0.3        |
 | NuGet.Common                             | 6.7.0         |
@@ -114,7 +131,7 @@ Also, the reference of the package in the addin/module should be set as private 
 | System.Reflection.Metadata               | 8.0.0         |
 | xunit                                    | 2.6.1         |
 
-#### Cake v5.0
+#### Cake v5.0.0
 
 | Reference                                | Version        |
 | ---------------------------------------- | -------------- |
@@ -123,8 +140,6 @@ Also, the reference of the package in the addin/module should be set as private 
 | Microsoft.CSharp                         | 4.7.0          |
 | Microsoft.Extensions.DependencyInjection | 9.0.0          |
 | Microsoft.IdentityModel.JsonWebTokens    | 8.2.0          |
-| Microsoft.NETCore.Platforms              | 7.0.4          |
-| Microsoft.SourceLink.GitHub              | 8.0.0          |
 | Microsoft.Win32.Registry                 | 5.0.0          |
 | Newtonsoft.Json                          | 13.0.3         |
 | NuGet.Common                             | 6.11.1         |
@@ -133,11 +148,30 @@ Also, the reference of the package in the addin/module should be set as private 
 | NuGet.Protocol                           | 6.11.1         |
 | NuGet.Resolver                           | 6.11.1         |
 | NuGet.Versioning                         | 6.11.1         |
-| StyleCop.Analyzers                       | 1.1.118        |
 | System.Collections.Immutable             | 9.0.0          |
 | System.Reflection.Metadata               | 9.0.0          |
 | System.Security.Cryptography.Pkcs        | 9.0.0          |
 | xunit                                    | 2.9.2          |
+
+#### Cake v6.0.0
+
+| Reference                                | Version       |
+| ---------------------------------------- | ------------- |
+| Autofac                                  | 8.4.0         |
+| Microsoft.CodeAnalysis.CSharp.Scripting  | 5.0.0-2.final |
+| Microsoft.Extensions.DependencyInjection | 10.0.0        |
+| Microsoft.IdentityModel.JsonWebTokens    | 8.14.0        |
+| Newtonsoft.Json                          | 13.0.4        |
+| NuGet.Common                             | 6.14.0        |
+| NuGet.Frameworks                         | 6.14.0        |
+| NuGet.Packaging                          | 6.14.0        |
+| NuGet.Protocol                           | 6.14.0        |
+| NuGet.Resolver                           | 6.14.0        |
+| NuGet.Versioning                         | 6.14.0        |
+| System.Security.Cryptography.Pkcs        | 10.0.0        |
+| xunit                                    | 2.9.3         |
+| xunit.v3.assert                          | 3.2.0         |
+| xunit.v3.extensibility.core              | 3.2.0         |
 
 ## Related rules
 
