@@ -28,7 +28,7 @@ namespace CakeContrib.Guidelines.Tasks.IntegrationTests.Fixtures
         private readonly Dictionary<string, string> cpmPackageVersions = new();
         private string tags = "cake;cake-build;build;script;addin;cake-addin;module;cake-module;recipe;cake-recipe";
 
-        public string DefaultCakeVersion => "5.0.0";
+        public string DefaultCakeVersion => "6.0.0";
         public string DefaultTargetFrameworkForModules => "net8.0";
         public string DefaultTargetFrameworksForAddins => "net8.0;net9.0";
 
