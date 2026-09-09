@@ -21,7 +21,7 @@
         <PackageReference Include="Microsoft.Build.Framework" Version="16.8.0" CopyLocal="false" Publish="false" ExcludeAssets="runtime" PrivateAssets="all">
           <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.100">
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.401">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -36,7 +36,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" CopyLocal="false" Publish="false" PrivateAssets="All" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.12" CopyLocal="false" Publish="false" PrivateAssets="All" />
     </ItemGroup>
     <Target Name="RemoveMicrosoftBuildDllsFromOutput" AfterTargets="ResolveReferences">
         <PropertyGroup>
